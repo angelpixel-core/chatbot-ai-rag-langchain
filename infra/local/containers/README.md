@@ -4,5 +4,6 @@ Este directorio contiene los contenedores locales y sus entrypoints.
 
 ## Layout
 
-- `app/` - contenedor de la aplicación.
-- `db/` - assets de inicialización de base de datos.
+- `server/` - contenedor de la API Django.
+- `web/` - contenedor del cliente Next.js.
+- `db/` - assets de inicialización de PostgreSQL.
