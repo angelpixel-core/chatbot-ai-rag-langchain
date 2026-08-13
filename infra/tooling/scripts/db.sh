@@ -4,7 +4,7 @@ set -eu
 STACK_ENV="${STACK_ENV:-dev}"
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 ROOT_DIR=$(CDPATH= cd -- "${SCRIPT_DIR}/../.." && pwd)
-STACK_COMPOSE_FILE="${ROOT_DIR}/infra/local/compose/compose.yml"
+STACK_COMPOSE_FILE="${ROOT_DIR}/infra/local/compose.yaml"
 STACK_ENV_FILE="${ROOT_DIR}/infra/environments/${STACK_ENV}/orchestration/compose.env"
 
 require_file() {

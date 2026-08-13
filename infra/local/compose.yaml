@@ -81,7 +81,7 @@ services:
     volumes:
       - ../..:/app
       - deps_cache:/usr/local/bundle
-    entrypoint: ["/bin/sh", "/app/ops/containers/app/entrypoint.sh"]
+    entrypoint: ["/bin/sh", "/app/infra/local/containers/app/entrypoint.sh"]
     command: ["bin/jobs"]
     networks:
       - video_project_submission_app_net
