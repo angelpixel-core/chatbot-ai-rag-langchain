@@ -11,8 +11,8 @@ load_env_file() {
   set +a
 }
 
-load_env_file "${ROOT_DIR}/scripts/repo/create.env"
-load_env_file "${ROOT_DIR}/scripts/repo/create.local.env"
+load_env_file "${ROOT_DIR}/infra/tooling/scripts/repo/create.env"
+load_env_file "${ROOT_DIR}/infra/tooling/scripts/repo/create.local.env"
 
 REPO_PROVIDER="${REPO_PROVIDER:-github}"
 REPO_HOST="${REPO_HOST:-github.com}"
@@ -28,9 +28,9 @@ PUBLIC="${PUBLIC:-${REPO_PUBLIC:-false}}"
 
 usage() {
   cat <<'EOF'
-Usage: sh scripts/repo/create.sh
+Usage: sh infra/tooling/scripts/repo/create.sh
 
-Defaults are loaded from scripts/repo/create.env and scripts/repo/create.local.env.
+Defaults are loaded from infra/tooling/scripts/repo/create.env and infra/tooling/scripts/repo/create.local.env.
 This profile is repository provisioning metadata, not an application runtime env.
 You can override them with OWNER, NAME, DESCRIPTION, LICENSE, PRIVATE, PUBLIC, REPO_PROVIDER, REPO_HOST, REPO_WEB_BASE_URL, REPO_API_BASE_URL, and REPO_GIT_REMOTE_URL.
 

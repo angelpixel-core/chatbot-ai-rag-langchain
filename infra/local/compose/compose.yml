@@ -2,7 +2,7 @@ services:
   web:
     build:
       context: ../..
-      dockerfile: infra/containers/app/Dockerfile
+      dockerfile: infra/local/containers/app/Dockerfile
       target: "${APP_IMAGE_STAGE:-dev}"
       args:
         RUBY_VERSION: "${RUBY_VERSION:-4.0.3}"
@@ -35,7 +35,7 @@ services:
       - ../..:/app
       - deps_cache:/usr/local/bundle
       - assets_node_modules:/app/node_modules
-    entrypoint: ["/bin/sh", "/app/infra/containers/app/entrypoint.sh"]
+    entrypoint: ["/bin/sh", "/app/infra/local/containers/app/entrypoint.sh"]
     command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
     ports:
       - "${APP_PORT:-4000}:${APP_PORT:-4000}"
@@ -51,7 +51,7 @@ services:
   worker:
     build:
       context: ../..
-      dockerfile: infra/containers/app/Dockerfile
+      dockerfile: infra/local/containers/app/Dockerfile
       target: "${APP_IMAGE_STAGE:-dev}"
       args:
         RUBY_VERSION: "${RUBY_VERSION:-4.0.3}"
@@ -89,7 +89,7 @@ services:
   assets:
     build:
       context: ../..
-      dockerfile: infra/containers/app/Dockerfile
+      dockerfile: infra/local/containers/app/Dockerfile
       target: "${APP_IMAGE_STAGE:-dev}"
       args:
         RUBY_VERSION: "${RUBY_VERSION:-4.0.3}"

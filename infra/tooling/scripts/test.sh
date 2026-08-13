@@ -44,7 +44,7 @@ load_env_file() {
 build_image() {
   require_file "$TEST_STACK_ENV_FILE"
   docker build \
-    --file "${ROOT_DIR}/infra/containers/app/Dockerfile" \
+    --file "${ROOT_DIR}/infra/local/containers/app/Dockerfile" \
     --target test \
     --build-arg "RUBY_VERSION=${RUBY_VERSION:-4.0.3}" \
     --tag "$IMAGE_NAME" \
@@ -64,7 +64,7 @@ ensure_database() {
     --network video_project_submission_app_net \
     --network-alias db \
     --env-file "$TEST_DB_BOOTSTRAP_ENV_FILE" \
-    -v "${ROOT_DIR}/infra/containers/db/entrypoint/initdb.d:/docker-entrypoint-initdb.d:ro" \
+    -v "${ROOT_DIR}/infra/local/containers/db/entrypoint/initdb.d:/docker-entrypoint-initdb.d:ro" \
     mysql:8.4 mysqld --port="${DB_PORT:-4001}" >/dev/null
 
   cleanup_database() {
