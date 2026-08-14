@@ -1,11 +1,3 @@
-# MySQL Entrypoint Assets
+# PostgreSQL Entrypoint Assets
 
-This directory contains files mounted into MySQL's `docker-entrypoint-initdb.d` directory.
-
-## Layout
-
-- `initdb.d/` - Scripts executed on first database startup.
-
-## Notes
-
-- Prefer shell scripts when initialization needs environment variables.
+Este directorio contiene archivos montados en `docker-entrypoint-initdb.d` para inicialización inicial.

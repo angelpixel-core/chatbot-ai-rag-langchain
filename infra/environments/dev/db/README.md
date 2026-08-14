@@ -1,12 +1,9 @@
 # Development Database Variables
 
-This directory contains environment variables used by the MySQL bootstrap process in development.
+Este directorio contiene variables de entorno usadas por PostgreSQL y por la aplicación en desarrollo.
 
 ## Files
 
-- `bootstrap.env` - Values consumed by the database container at bootstrap time.
-- `secrets.local.env` - Versioned placeholder overrides for sensitive database bootstrap values.
-
-## Notes
-
-- Keep this file focused on database initialization only.
+- `bootstrap.env` - Valores consumidos por el contenedor de base de datos en bootstrap.
+- `secrets.local.env` - Overrides versionados de ejemplo para valores sensibles.
+- `app/db.env` - Variables de conexión usadas por la aplicación, incluyendo `DB_CONNECTION_STRING`.

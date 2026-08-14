@@ -1,13 +1,9 @@
 # Development App Variables
 
-This directory contains environment variables consumed by the application container in development.
+Este directorio contiene variables de entorno de la aplicación para desarrollo.
 
 ## Files
 
-- `core.env` - Runtime settings.
-- `db.env` - Database connection settings for the app.
-- `secrets.local.env` - Versioned placeholder overrides for sensitive app values.
-
-## Notes
-
-- Keep runtime settings separate from database connection settings.
+- `core.env` - Variables generales de runtime.
+- `db.env` - Connection strings y variables de conexión a base de datos.
+- `secrets.local.env` - Overrides versionados de ejemplo para valores sensibles.
