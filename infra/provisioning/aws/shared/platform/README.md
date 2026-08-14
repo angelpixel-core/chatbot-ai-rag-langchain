@@ -15,6 +15,7 @@ Terraform root scaffold for shared AWS bootstrap.
 - Shared IAM patterns.
 - Shared DNS or platform-wide routing pieces.
 - Common observability or GitOps bootstrap resources.
+- Policy JSON files for SCP, IAM, and trust relationships.
 
 ## Notes
 

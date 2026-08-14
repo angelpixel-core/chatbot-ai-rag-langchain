@@ -16,12 +16,12 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
 ## Phases
 
 - [ ] Organizations / IAM
-  - [ ] Define the AWS Organizations structure.
+  - [x] Define the AWS Organizations structure.
   - [ ] Define human access.
-  - [ ] Define CI/CD access.
-  - [ ] Define baseline security controls.
-  - [ ] Define audit and encryption foundations.
-  - [ ] Define bootstrap inputs.
+  - [x] Define CI/CD access.
+  - [x] Define baseline security controls.
+  - [x] Define audit and encryption foundations.
+  - [x] Define bootstrap inputs.
   - [ ] Validate the bootstrap model.
 
 - [ ] Foundation

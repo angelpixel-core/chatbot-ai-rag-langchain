@@ -1,0 +1,15 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowSharedPlatformDeploy",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::REPLACE_ME_SHARED_ACCOUNT_ID:role/shared-platform-deploy"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}

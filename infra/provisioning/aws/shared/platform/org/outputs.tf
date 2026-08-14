@@ -8,6 +8,15 @@ output "planned_resources" {
   description = "Planned org-level bootstrap resources."
 }
 
+output "policies" {
+  value = {
+    shared_platform_root_guardrails = aws_organizations_policy.shared_platform_root_guardrails.id
+    nonprod_guardrails              = aws_organizations_policy.nonprod_guardrails.id
+    prod_guardrails                 = aws_organizations_policy.prod_guardrails.id
+  }
+  description = "AWS Organizations SCPs created by the scaffold."
+}
+
 output "organization_id" {
   value       = aws_organizations_organization.this.id
   description = "AWS Organization ID."
