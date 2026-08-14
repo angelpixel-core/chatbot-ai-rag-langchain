@@ -70,6 +70,7 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [ ] Containerize Django and Next.js as separate workloads.
   - [ ] Confirm image build and push flow into ECR.
 - [ ] Data and Secrets
+  - [x] Document the RDS/PostgreSQL boundary.
   - [ ] Move PostgreSQL to RDS.
   - [ ] Inject secrets from Secrets Manager and config from SSM Parameter Store.
 - [ ] Delivery
