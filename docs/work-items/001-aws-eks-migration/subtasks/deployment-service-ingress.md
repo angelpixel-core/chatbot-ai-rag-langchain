@@ -21,6 +21,10 @@ Define the Kubernetes boundary for the application runtime, internal service exp
 - `build_command` belongs in CI, not in the Kubernetes runtime layer.
 - `env_vars` becomes Kubernetes `env`/`envFrom` plus AWS-managed config injection.
 - `auto_deploy` and deploy triggers become GitOps reconciliation, not provider-side deploy hooks.
+- `hostname` becomes the public domain or subdomain contract.
+- `service_name` maps hostname routing to the backend service.
+- `tls_enabled` becomes ingress TLS policy, not a provider toggle.
+- `environment` becomes the environment/account boundary for DNS and routing.
 
 ## Recommendation
 
@@ -44,6 +48,11 @@ Define the Kubernetes boundary for the application runtime, internal service exp
   - [ ] Choose hostnames and path routing.
   - [ ] Define TLS termination.
   - [ ] Connect ingress rules to the service.
+  - [ ] Map public hostname to the correct environment.
+  - [ ] Define how DNS records point to the ingress entrypoint.
+  - [ ] Decide whether hostnames are per account, per env, or both.
+  - [ ] Define certificate ownership and renewal behavior.
+  - [ ] Keep `tls_enabled` as an ingress-level concern, not a Render concern.
 - [ ] Remove Render-specific deployment concepts from the active migration path.
   - [ ] Retire `build_command` from infrastructure code.
   - [ ] Retire `auto_deploy` and provider-side deploy triggers.
