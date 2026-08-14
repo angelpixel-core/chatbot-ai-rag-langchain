@@ -11,4 +11,5 @@ Index of tracked work-item docs.
   - `subtasks/deployment-service-ingress.md` - Kubernetes runtime/service/ingress boundary.
   - `subtasks/rds-postgresql.md` - AWS-managed PostgreSQL contract and migration path.
   - `subtasks/background-jobs.md` - async worker and media pipeline boundary.
+  - `subtasks/environment-layout.md` - QA/staging/prod account and promotion layout.
   - `subtasks/remocion-de-render.md` - Render reuse/adaptation/retirement matrix.

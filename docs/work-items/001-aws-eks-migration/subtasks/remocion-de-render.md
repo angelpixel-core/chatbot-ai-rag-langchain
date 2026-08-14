@@ -31,7 +31,10 @@ Define what can be reused from the Render layout during the AWS/EKS migration, w
 - [x] Remove `components/dns/` from the active Render tree.
 - [x] Extract `components/worker/` into the AWS background jobs document.
 - [x] Remove `components/worker/` from the active Render tree.
-- [ ] Migrate QA, staging, and prod env docs to the AWS tree.
+- [x] Extract QA, staging, and prod env docs into the AWS environment layout document.
+- [x] Remove `infra/provisioning/terraform/render/envs/qa/`.
+- [x] Remove `infra/provisioning/terraform/render/envs/staging/`.
+- [x] Remove `infra/provisioning/terraform/render/envs/prod/`.
 - [ ] Retire Render-specific provider resources from the active migration path.
 
 ## Worker Decision
@@ -52,9 +55,9 @@ At the moment, there is no evidence of a dedicated async job system in the repo.
 | `infra/provisioning/terraform/render/components/database/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/rds-postgresql.md` | Extracted the useful database contract and removed the active Render component. |
 | `infra/provisioning/terraform/render/components/dns/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/deployment-service-ingress.md` | Extracted the useful hostname/TLS/routing contract and removed the active Render component. |
 | `infra/provisioning/terraform/render/components/worker/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/background-jobs.md` | Extracted the async worker and media pipeline contract and removed the active Render component. |
-| `infra/provisioning/terraform/render/envs/qa/` | Adapt | `infra/provisioning/aws/nonprod/` | Keep QA-specific runtime intent, drop Render imports and service IDs. |
-| `infra/provisioning/terraform/render/envs/staging/` | Adapt | `infra/provisioning/aws/nonprod/` | Keep staging promotion logic as an AWS environment overlay. |
-| `infra/provisioning/terraform/render/envs/prod/` | Adapt | `infra/provisioning/aws/prod/` | Keep prod rollout intent, but move to AWS account/cluster layout. |
+| `infra/provisioning/terraform/render/envs/qa/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/environment-layout.md` | Extracted QA runtime, database, and validation intent into AWS environment mapping. |
+| `infra/provisioning/terraform/render/envs/staging/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/environment-layout.md` | Extracted staging promotion flow into AWS environment mapping. |
+| `infra/provisioning/terraform/render/envs/prod/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/environment-layout.md` | Extracted production release flow into AWS environment mapping. |
 | `infra/provisioning/terraform/render/components/*/*.tf` | Retire | New AWS Terraform modules | Provider-specific resources do not transfer directly. |
 
 ## Practical Reuse Rules
