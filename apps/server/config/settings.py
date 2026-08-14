@@ -1,4 +1,6 @@
+import os
 from pathlib import Path
+from urllib.parse import urlparse
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "dev-secret-key"
@@ -46,11 +48,36 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+
+def _database_config_from_url(database_url: str) -> dict:
+    parsed = urlparse(database_url)
+    return {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": parsed.path.lstrip("/") or "coffee_chatbot_development",
+        "USER": parsed.username or "app",
+        "PASSWORD": parsed.password or "app_password",
+        "HOST": parsed.hostname or "db",
+        "PORT": parsed.port or 5432,
     }
+
+
+def _database_config_from_env(prefix: str = "DB") -> dict:
+    return {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv(f"{prefix}_NAME", "coffee_chatbot_development"),
+        "USER": os.getenv(f"{prefix}_USER", "app"),
+        "PASSWORD": os.getenv(f"{prefix}_PASSWORD", "app_password"),
+        "HOST": os.getenv(f"{prefix}_HOST", "db"),
+        "PORT": os.getenv(f"{prefix}_PORT", "5432"),
+    }
+
+
+database_url = os.getenv("DB_CONNECTION_STRING") or os.getenv("DATABASE_URL")
+
+DATABASES = {
+    "default": _database_config_from_url(database_url)
+    if database_url
+    else _database_config_from_env(),
 }
 
 LANGUAGE_CODE = "es-ar"
