@@ -17,11 +17,21 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
 
 - [ ] Foundation
   - [ ] Define the AWS account strategy.
-    - [ ] Create `shared/platform` for central tooling if needed.
-    - [ ] Create `nonprod` for QA and staging.
-    - [ ] Create `prod` for production.
+    - [x] Use `shared/platform` for central tooling.
+    - [x] Use `nonprod` for QA and staging.
+    - [x] Use `prod` for production.
+    - [ ] Create the AWS accounts in Organizations.
     - [ ] Define human access per account.
     - [ ] Define CI/CD roles per account.
+    - [ ] Define what belongs in each account.
+    - [ ] Define naming conventions for accounts and resources.
+  - [ ] Create the AWS provisioning skeleton.
+    - [x] Create `infra/provisioning/aws/`.
+    - [x] Create `infra/provisioning/aws/shared/platform/`.
+    - [x] Create `infra/provisioning/aws/nonprod/`.
+    - [x] Create `infra/provisioning/aws/prod/`.
+    - [ ] Decide which Render Terraform pieces to reuse as migration inputs.
+    - [ ] Decide which Render Terraform pieces to retire.
   - [ ] Establish the base network per account.
     - [ ] Create one VPC per account.
     - [ ] Define public and private subnets.
