@@ -22,6 +22,7 @@ updated_at: 2026-08-14T00:00:00Z
 - [x] Move PostgreSQL to RDS.
 - [x] Use AWS-managed secrets and config injection.
 - [x] Keep local development aligned with production through a local Kubernetes cluster.
+- [x] Standardize local Kubernetes on `k3d`.
 
 ## Architecture Decisions
 
@@ -48,6 +49,24 @@ updated_at: 2026-08-14T00:00:00Z
 **Choice**: Store runtime secrets in AWS Secrets Manager or SSM Parameter Store and inject them into Kubernetes.
 **Alternatives considered**: Plain Kubernetes Secrets only, Render-style env files, application-level secret files.
 **Rationale**: AWS-managed secret storage is a better fit for the target platform and supports separate envs cleanly.
+
+### Decision: Use AWS Secrets Manager for secrets and SSM Parameter Store for non-secret config
+
+**Choice**: Put credentials, API keys, and passwords in Secrets Manager, and use SSM Parameter Store for non-sensitive environment values.
+**Alternatives considered**: Secrets Manager only, SSM only, Kubernetes Secrets only.
+**Rationale**: Secrets Manager is the better fit for actual secrets and rotation; SSM is simpler and usually cheaper for plain configuration.
+
+### Decision: Use ArgoCD for GitOps deployment and a separate Ingress Controller for traffic
+
+**Choice**: Use ArgoCD to reconcile manifests from Git, and use an Ingress Controller to expose HTTP/HTTPS routes.
+**Alternatives considered**: Imperative `kubectl` deploys, Spinnaker, direct `Service` exposure, NodePort.
+**Rationale**: ArgoCD and Ingress Controller solve different problems. ArgoCD manages desired state and drift; the Ingress Controller manages inbound traffic.
+
+### Decision: Use k3d for local Kubernetes development
+
+**Choice**: Standardize local cluster workflows on k3d.
+**Alternatives considered**: kind, minikube, Docker Compose only.
+**Rationale**: k3d is lightweight, fast to reset, and close enough to the Kubernetes model used in EKS for day-to-day development.
 
 ## Platform Notes
 
@@ -77,7 +96,7 @@ updated_at: 2026-08-14T00:00:00Z
 **Contras**: If traffic or responsibilities grow, the Node server can become a bottleneck, and static asset delivery may later be better split out to CDN/object storage.
 
 ## Data Flow
-
+```
     Browser
       │
       ▼
@@ -88,7 +107,7 @@ updated_at: 2026-08-14T00:00:00Z
       │                 └──────► Django API pod(s)
       │                              │
       └──────────────────────────────┴──────► RDS PostgreSQL
-
+```
 Static assets and build artifacts are produced in CI, pushed to ECR, and deployed into EKS. Runtime config is injected from AWS-managed secrets and environment variables. Local development uses the same service split but runs on a local Kubernetes cluster instead of AWS.
 
 ## File Changes
@@ -98,7 +117,7 @@ Static assets and build artifacts are produced in CI, pushed to ECR, and deploye
 | `docs/work-items/001-aws-eks-migration/proposal.md` | Create | Migration proposal with checklist-style scope and outcomes. |
 | `docs/work-items/001-aws-eks-migration/design.md` | Create | Architecture design for the AWS migration, including platform tradeoffs. |
 | `infra/provisioning/terraform/aws/` | Create | New AWS provisioning root for VPC, EKS, RDS, ECR, IAM, and DNS. |
-| `infra/local/kubernetes/` | Create | Local Kubernetes manifests or dev overlays for `kind` or `k3d`. |
+| `infra/local/kubernetes/` | Create | Local Kubernetes manifests or dev overlays for `k3d`. |
 | `infra/environments/README.md` | Modify | Update environment guidance away from Render-specific wording. |
 | `README.md` | Modify | Replace Render references with AWS/EKS deployment architecture. |
 | `infra/tooling/` | Modify | Add cluster/bootstrap scripts for local Kubernetes and AWS workflows. |
@@ -136,14 +155,74 @@ db                -> external RDS PostgreSQL
 ## Migration / Rollout
 
 1. Create the AWS Terraform root and shared network/IAM foundations.
-2. Stand up a local Kubernetes workflow with `kind` or `k3d` so the team can work against the same orchestration model.
+2. Stand up a local Kubernetes workflow with `k3d` so the team can work against the same orchestration model.
 3. Deploy Django and Next to a non-production EKS environment.
 4. Move database connectivity to RDS and migrate data.
 5. Cut QA, then staging, then production over to AWS.
 
 ## Open Questions
 
-- [ ] Do we standardize local Kubernetes on `kind` or `k3d`?
 - [ ] Do we want Kubernetes manifests directly or Helm/Kustomize overlays?
-- [ ] Should secrets flow from Secrets Manager or SSM Parameter Store?
 - [ ] Do we keep the Next.js app as a single Node server in EKS, or split SSR from static asset delivery later?
+- [ ] Do we keep any imperative deploy step for bootstrap-only operations, or make all app deploys GitOps-driven?
+
+### Workflow
+```
+[Tu PC] -> Usas GitHub CLI para enviar código modificado a GitHub.
+   ↓
+[CI/CD] -> Docker empaqueta el nuevo código en una imagen.
+    ↓
+[Git]   -> Helm/Kustomize actualizan los planos con la nueva versión de Docker.
+    ↓
+[ArgoCD] -> Detecta el cambio en Git y reconcilia el estado deseado.
+   ↓
+[Kubernetes] -> Descarga la imagen de Docker y reemplaza la app vieja sin caídas.
+    ↓
+[Ingress Controller] -> Publica el tráfico HTTP/HTTPS hacia los servicios.
+    ↓
+[Prometheus + Grafana] -> Monitorean que la nueva versión no consuma demasiada RAM.
+```
+
+### Boceto de directorio
+Orden lógico recomendado: `provisioning -> configuration -> source-code -> gitops-manifests -> automation`.
+
+```
+mi-proyecto-monorepo/
+
+├── provisioning/              # ARTEFACTO: Estado de la Infraestructura Física
+│   │                          # Ciclo de vida: Lento (se ejecuta una vez al mes/año)
+│   └── cloud-resources/       # Planos de Terraform para levantar servidores, VPCs y discos
+│       ├── clusters.tf
+│       └── networks.tf
+
+├── configuration/             # ARTEFACTO: Estado del Sistema Operativo y Nodos
+│   │                          # Ciclo de vida: Medio (se ejecuta en parches o escalabilidad)
+│   └── cluster-bootstrap/     # Playbooks de Ansible para instalar Docker, k3d y parches
+│       ├── install-runtimes.yaml
+│       └── security-hardening.yaml
+
+├── source-code/               # ARTEFACTO: Lógica de Negocio Pura (Tus aplicaciones)
+│   │                          # Ciclo de vida: Continuo (múltiples cambios al día)
+│   └── billing-service/       # Tu app con arquitectura Hexagonal / DDD / CQRS
+│       ├── src/               # Código agnóstico a la infraestructura
+│       └── artifacts/         # El puente: Dockerfile para empaquetar la app
+│           └── Dockerfile
+
+├── gitops-manifests/          # ARTEFACTO: El Estado Deseado del Clúster (El "Qué")
+│   │                          # Ciclo de vida: Rápido (cambia con cada nueva versión de la app)
+│   ├── core-platform/         # Infraestructura interna de Kubernetes (Herramientas de soporte)
+│   │   ├── telemetry/         # Planos para Prometheus y Grafana
+│   │   └── controllers/       # Planos para ArgoCD, Ingress Controllers y otros add-ons
+│   │
+│   └── user-apps/             # Planos de tus aplicaciones (Helm / Kustomize)
+│       ├── base/              # Plantillas base del despliegue (Deployment, Service)
+│       └── environments/      # Parámetros específicos por entorno
+│           ├── local-k3d/     # Réplicas: 1, Recursos: Bajos, Modo: Debug
+│           └── cloud-prod/    # Réplicas: 3, Recursos: Altos, Modo: Production
+
+└── .github/automation/        # ARTEFACTO: Las Reglas de Tránsito (El "Cómo" se mueve todo)
+    │                          # Ciclo de vida: Estable (rara vez cambia)
+    └── pipelines/             # GitHub Actions / GitHub CLI scripts que coordinan el flujo
+        ├── build-app.yaml     # Toma 'source-code', testea, compila y sube a Docker Hub
+        └── sync-gitops.yaml   # Modifica 'gitops-manifests' para avisarle a ArgoCD
+```
