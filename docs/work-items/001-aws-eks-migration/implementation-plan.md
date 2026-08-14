@@ -73,6 +73,10 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [x] Document the RDS/PostgreSQL boundary.
   - [ ] Move PostgreSQL to RDS.
   - [ ] Inject secrets from Secrets Manager and config from SSM Parameter Store.
+- [ ] Background Jobs and Media
+  - [x] Document the async worker and media pipeline boundary.
+  - [ ] Define the worker runtime and queueing strategy.
+  - [ ] Define media storage and processing flow.
 - [ ] Delivery
   - [ ] Add GitOps deployment via ArgoCD.
   - [ ] Add an Ingress Controller for HTTP/HTTPS traffic.
