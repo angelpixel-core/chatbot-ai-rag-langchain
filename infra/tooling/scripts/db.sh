@@ -20,20 +20,16 @@ run_compose() {
 }
 
 case "${1:-}" in
-  seeds)
+  shell)
     shift
-    run_compose exec web bundle exec rails db:seed "$@"
+    run_compose exec db psql -U "${POSTGRES_USER:-app}" -d "${POSTGRES_DB:-coffee_chatbot_development}" "$@"
     ;;
-  maintenance/reset_order_data)
+  logs)
     shift
-    run_compose exec web env DRY_RUN="${DRY_RUN:-}" CONFIRM="${CONFIRM:-}" bundle exec rake maintenance:reset_order_data "$@"
-    ;;
-  console)
-    shift
-    run_compose exec web bundle exec rails console "$@"
+    run_compose logs -f db "$@"
     ;;
   *)
-    echo "Usage: db.sh {seeds|maintenance/reset_order_data|console}" >&2
+    echo "Usage: db.sh {shell|logs}" >&2
     exit 1
     ;;
 esac

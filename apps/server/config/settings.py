@@ -72,7 +72,9 @@ def _database_config_from_env(prefix: str = "DB") -> dict:
     }
 
 
-database_url = os.getenv("DB_CONNECTION_STRING") or os.getenv("DATABASE_URL")
+stack_env = os.getenv("STACK_ENV", "dev").upper()
+stack_database_url = os.getenv(f"DB_{stack_env}_CONNECTION_STRING")
+database_url = stack_database_url or os.getenv("DB_CONNECTION_STRING") or os.getenv("DATABASE_URL")
 
 DATABASES = {
     "default": _database_config_from_url(database_url)
