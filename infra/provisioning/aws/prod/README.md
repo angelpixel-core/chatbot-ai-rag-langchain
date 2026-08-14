@@ -2,6 +2,8 @@
 
 AWS provisioning for production.
 
+Terraform root scaffold for production AWS resources.
+
 ## Purpose
 
 - Host the production environment in its own account.

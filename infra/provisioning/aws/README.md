@@ -8,6 +8,12 @@ AWS-first provisioning layout for the EKS migration.
 - `nonprod/` for QA and staging.
 - `prod/` for production.
 
+## Current State
+
+- These directories are Terraform root scaffolds for the AWS migration.
+- `shared/platform` is the first bootstrap root.
+- `nonprod` and `prod` currently capture the account/environment layout and will host their AWS resources next.
+
 ## Notes
 
 - This tree replaces the Render-specific provisioning layout over time.

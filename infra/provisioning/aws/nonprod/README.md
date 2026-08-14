@@ -2,6 +2,8 @@
 
 AWS provisioning for QA and staging.
 
+Terraform root scaffold for non-production AWS resources.
+
 ## Purpose
 
 - Host all non-production environments.

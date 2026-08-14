@@ -2,6 +2,8 @@
 
 Shared AWS bootstrap and platform tooling.
 
+Terraform root scaffold for shared AWS bootstrap.
+
 ## Purpose
 
 - Hold resources shared across nonprod and prod.
