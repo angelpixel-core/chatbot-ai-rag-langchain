@@ -25,7 +25,9 @@ Terraform root scaffold for non-production AWS resources.
 
 - `region`
 - `account_id`
+- `account_email`
 - `shared_account_id`
+- `shared_account_email`
 - `environment_names`
 - `tags`
 

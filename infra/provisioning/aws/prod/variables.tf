@@ -14,6 +14,11 @@ variable "account_id" {
   }
 }
 
+variable "account_email" {
+  description = "Root email for the production AWS account."
+  type        = string
+}
+
 variable "shared_account_id" {
   description = "AWS account ID for shared/platform resources."
   type        = string
@@ -22,6 +27,11 @@ variable "shared_account_id" {
     condition     = can(regex("^[0-9]{12}$", var.shared_account_id))
     error_message = "shared_account_id must be a 12-digit AWS account ID."
   }
+}
+
+variable "shared_account_email" {
+  description = "Root email for the shared/platform AWS account."
+  type        = string
 }
 
 variable "tags" {

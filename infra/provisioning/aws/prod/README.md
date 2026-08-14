@@ -25,7 +25,9 @@ Terraform root scaffold for production AWS resources.
 
 - `region`
 - `account_id`
+- `account_email`
 - `shared_account_id`
+- `shared_account_email`
 - `tags`
 
 Start from `terraform.tfvars.example` and replace every `REPLACE_ME_*` placeholder with real values before planning.
