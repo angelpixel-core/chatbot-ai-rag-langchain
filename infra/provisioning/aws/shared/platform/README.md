@@ -25,8 +25,11 @@ Terraform root scaffold for shared AWS bootstrap.
 
 - `region`
 - `shared_account_id`
+- `shared_account_email`
 - `nonprod_account_id`
+- `nonprod_account_email`
 - `prod_account_id`
+- `prod_account_email`
 - `tags`
 
 Start from `terraform.tfvars.example` and replace every `REPLACE_ME_*` placeholder with real values before planning.

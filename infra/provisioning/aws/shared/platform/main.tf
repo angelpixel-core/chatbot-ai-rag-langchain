@@ -26,20 +26,26 @@ locals {
 module "org" {
   source = "./org"
 
-  shared_account_id  = var.shared_account_id
-  nonprod_account_id = var.nonprod_account_id
-  prod_account_id    = var.prod_account_id
-  tags               = var.tags
+  shared_account_id     = var.shared_account_id
+  shared_account_email  = var.shared_account_email
+  nonprod_account_id    = var.nonprod_account_id
+  nonprod_account_email = var.nonprod_account_email
+  prod_account_id       = var.prod_account_id
+  prod_account_email    = var.prod_account_email
+  tags                  = var.tags
 }
 
 module "iam" {
   source = "./iam"
 
-  region             = var.region
-  shared_account_id  = var.shared_account_id
-  nonprod_account_id = var.nonprod_account_id
-  prod_account_id    = var.prod_account_id
-  tags               = var.tags
+  region                = var.region
+  shared_account_id     = var.shared_account_id
+  shared_account_email  = var.shared_account_email
+  nonprod_account_id    = var.nonprod_account_id
+  nonprod_account_email = var.nonprod_account_email
+  prod_account_id       = var.prod_account_id
+  prod_account_email    = var.prod_account_email
+  tags                  = var.tags
 }
 
 module "audit" {

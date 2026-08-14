@@ -11,6 +11,9 @@ Terraform module scaffold for AWS Organizations layout.
 ## Inputs
 
 - shared account ID
+- shared account email
 - nonprod account ID
+- nonprod account email
 - prod account ID
+- prod account email
 - tags

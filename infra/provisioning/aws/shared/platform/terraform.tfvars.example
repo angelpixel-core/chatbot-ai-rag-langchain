@@ -1,7 +1,10 @@
 region = "us-east-1"
 shared_account_id = "REPLACE_ME_SHARED_ACCOUNT_ID"
+shared_account_email = "REPLACE_ME_SHARED_ACCOUNT_EMAIL"
 nonprod_account_id = "REPLACE_ME_NONPROD_ACCOUNT_ID"
+nonprod_account_email = "REPLACE_ME_NONPROD_ACCOUNT_EMAIL"
 prod_account_id = "REPLACE_ME_PROD_ACCOUNT_ID"
+prod_account_email = "REPLACE_ME_PROD_ACCOUNT_EMAIL"
 
 tags = {
   project     = "chatbot-ai-rag-langchain"
