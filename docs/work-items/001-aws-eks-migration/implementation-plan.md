@@ -16,8 +16,43 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
 ## Phases
 
 - [ ] Foundation
-  - [ ] Provision AWS networking, IAM, ECR, and baseline EKS access.
-  - [ ] Define the non-production and production account/environment layout.
+  - [ ] Define the AWS account strategy.
+    - [ ] Create `shared/platform` for central tooling if needed.
+    - [ ] Create `nonprod` for QA and staging.
+    - [ ] Create `prod` for production.
+    - [ ] Define human access per account.
+    - [ ] Define CI/CD roles per account.
+  - [ ] Establish the base network per account.
+    - [ ] Create one VPC per account.
+    - [ ] Define public and private subnets.
+    - [ ] Define NAT and egress paths.
+    - [ ] Reserve non-overlapping CIDR ranges.
+    - [ ] Define DNS and naming conventions.
+  - [ ] Prepare IAM and cluster access.
+    - [ ] Define roles for admins, developers, and CI/CD.
+    - [ ] Configure initial EKS access.
+    - [ ] Prepare IRSA/OIDC for workloads.
+    - [ ] Define minimum permissions by namespace or service.
+  - [ ] Provision the EKS base.
+    - [ ] Create the initial cluster in `nonprod`.
+    - [ ] Define the initial node groups.
+    - [ ] Enable base logging and monitoring.
+    - [ ] Validate access from the local environment.
+  - [ ] Provision ECR.
+    - [ ] Create repos for `django`.
+    - [ ] Create repos for `nextjs`.
+    - [ ] Define lifecycle and permission policies.
+    - [ ] Validate push and pull from CI/CD.
+  - [ ] Define the environment layout.
+    - [ ] Map QA to `nonprod`.
+    - [ ] Map staging to `nonprod`.
+    - [ ] Keep production in a separate account.
+    - [ ] Align variables, domains, and credentials per environment.
+  - [ ] Validate the foundation.
+    - [ ] Confirm human access to the cluster.
+    - [ ] Confirm CI/CD can publish images.
+    - [ ] Confirm network connectivity is functional.
+    - [ ] Confirm roles are isolated by account.
 - [ ] Local Workflow
   - [ ] Standardize local Kubernetes on `k3d`.
   - [ ] Add local manifests or overlays that mirror the app split used in EKS.
