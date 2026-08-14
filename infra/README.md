@@ -1,13 +1,10 @@
-# Operations Assets
+# Infra
 
-This directory stores operational assets such as compose files, container definitions, and init scripts.
+Tool-agnostic infrastructure root.
 
 ## Layout
 
-- `compose/` - Compose entrypoints for local stack orchestration.
-- `containers/` - Container build contexts and runtime scripts.
-- `scripts/` - Shell helpers used by the root `Makefile`.
-
-## Notes
-
-- Keep project infrastructure isolated here instead of mixing it into the application root.
+- `local/` - local runtime assets such as Compose and container definitions.
+- `environments/` - environment-specific configuration values.
+- `provisioning/` - provider infrastructure definitions.
+- `tooling/` - scripts and lint helpers.

@@ -1,15 +1,14 @@
 # Example Environment
 
-This directory contains reference environment files that can be copied into other environments.
+This directory is reserved for example environment files.
 
 ## Layout
 
-- `app/` - Example application runtime variables.
-- `db/` - Example database bootstrap variables.
-- `stack/` - Example stack/build variables.
+- `app/` - Example application runtime values.
+- `db/` - Example database bootstrap values.
+- `orchestration/` - Example stack variables.
 
 ## Notes
 
-- Treat these values as non-secret defaults.
-- Use this directory as the template for new environment folders.
-- `stack/compose.env` must define `STACK_ENV=example` for compose interpolation.
+- Keep values versioned as placeholders only.
+- `orchestration/compose.env` must define `STACK_ENV=example` for compose interpolation.

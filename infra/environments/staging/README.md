@@ -4,12 +4,13 @@ This directory is reserved for staging environment files.
 
 ## Layout
 
-- `app/` - Staging application runtime variables.
-- `db/` - Staging database bootstrap variables.
-- `stack/` - Staging stack variables.
+- `app/` - Staging application runtime values.
+- `db/` - Staging database bootstrap values.
+- `orchestration/` - Staging stack variables.
 
 ## Notes
 
-- Version `app/core.env` and `stack/compose.env` when they are non-secret.
+- Version `app/core.env` and `orchestration/compose.env` when they are non-secret.
 - Keep `app/db.env` and `db/bootstrap.env` versioned with placeholders when values are not yet final.
-- Use `secrets.local.env` files in `app/`, `db/`, and `stack/` for versioned placeholder secret values when needed.
+- Use `secrets.local.env` files in `app/`, `db/`, and `orchestration/` for versioned placeholder secret values when needed.
+- `orchestration/compose.env` must define `STACK_ENV=staging` for compose interpolation.

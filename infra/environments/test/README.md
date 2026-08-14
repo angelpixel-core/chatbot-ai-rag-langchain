@@ -4,13 +4,13 @@ This directory is reserved for test environment files.
 
 ## Layout
 
-- `app/` - Test application runtime variables.
-- `db/` - Test database bootstrap variables.
-- `stack/` - Test stack variables.
+- `app/` - Test application runtime values.
+- `db/` - Test database bootstrap values.
+- `orchestration/` - Test stack variables.
 
 ## Notes
 
-- Add test-specific values only when test orchestration is defined.
-- Test env files can be versioned when they are non-secret CI configuration.
-- `stack/compose.env` must define `STACK_ENV=test` for compose interpolation.
-- Use `secrets.local.env` files in `app/`, `db/`, and `stack/` for versioned placeholder secret values when needed.
+- Version `app/core.env` and `orchestration/compose.env` when they are non-secret.
+- Keep `app/db.env` and `db/bootstrap.env` versioned with placeholders when values are not yet final.
+- Use `secrets.local.env` files in `app/`, `db/`, and `orchestration/` for versioned placeholder secret values when needed.
+- `orchestration/compose.env` must define `STACK_ENV=test` for compose interpolation.
