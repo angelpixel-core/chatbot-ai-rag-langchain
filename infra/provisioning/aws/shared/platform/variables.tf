@@ -1,4 +1,4 @@
-variable "aws_region" {
+variable "region" {
   description = "AWS region for shared platform bootstrap resources."
   type        = string
   default     = "us-east-1"
@@ -7,16 +7,31 @@ variable "aws_region" {
 variable "shared_account_id" {
   description = "AWS account ID for shared/platform."
   type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]{12}$", var.shared_account_id))
+    error_message = "shared_account_id must be a 12-digit AWS account ID."
+  }
 }
 
 variable "nonprod_account_id" {
   description = "AWS account ID for non-production workloads."
   type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]{12}$", var.nonprod_account_id))
+    error_message = "nonprod_account_id must be a 12-digit AWS account ID."
+  }
 }
 
 variable "prod_account_id" {
   description = "AWS account ID for production workloads."
   type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]{12}$", var.prod_account_id))
+    error_message = "prod_account_id must be a 12-digit AWS account ID."
+  }
 }
 
 variable "tags" {

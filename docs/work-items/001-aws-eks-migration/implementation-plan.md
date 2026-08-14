@@ -25,13 +25,14 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [ ] Define CI/CD roles per account.
     - [ ] Define what belongs in each account.
     - [ ] Define naming conventions for accounts and resources.
-  - [ ] Create the AWS provisioning skeleton.
+  - [x] Create the AWS provisioning skeleton.
     - [x] Create `infra/provisioning/aws/`.
     - [x] Create `infra/provisioning/aws/shared/platform/`.
     - [x] Create `infra/provisioning/aws/nonprod/`.
     - [x] Create `infra/provisioning/aws/prod/`.
     - [ ] Decide which Render Terraform pieces to reuse as migration inputs.
     - [ ] Decide which Render Terraform pieces to retire.
+  - [x] Document the AWS bootstrap inputs and placeholder convention.
   - [ ] Establish the base network per account.
     - [ ] Create one VPC per account.
     - [ ] Define public and private subnets.

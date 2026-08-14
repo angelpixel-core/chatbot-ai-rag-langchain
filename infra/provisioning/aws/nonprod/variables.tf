@@ -1,4 +1,4 @@
-variable "aws_region" {
+variable "region" {
   description = "AWS region for non-production resources."
   type        = string
   default     = "us-east-1"
@@ -7,11 +7,21 @@ variable "aws_region" {
 variable "account_id" {
   description = "AWS account ID for non-production."
   type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]{12}$", var.account_id))
+    error_message = "account_id must be a 12-digit AWS account ID."
+  }
 }
 
 variable "shared_account_id" {
   description = "AWS account ID for shared/platform resources."
   type        = string
+
+  validation {
+    condition     = can(regex("^[0-9]{12}$", var.shared_account_id))
+    error_message = "shared_account_id must be a 12-digit AWS account ID."
+  }
 }
 
 variable "environment_names" {

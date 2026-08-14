@@ -20,3 +20,14 @@ Terraform root scaffold for production AWS resources.
 
 - Do not mix QA or staging resources into this account.
 - Keep prod changes deliberate and tightly controlled.
+
+## Inputs
+
+- `region`
+- `account_id`
+- `shared_account_id`
+- `tags`
+
+Start from `terraform.tfvars.example` and replace every `REPLACE_ME_*` placeholder with real values before planning.
+
+The account ID variables validate as 12-digit AWS IDs, so the example file is documentation until real IDs are available.

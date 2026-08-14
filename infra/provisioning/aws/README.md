@@ -14,6 +14,19 @@ AWS-first provisioning layout for the EKS migration.
 - `shared/platform` is the first bootstrap root.
 - `nonprod` and `prod` currently capture the account/environment layout and will host their AWS resources next.
 
+## Bootstrap Inputs
+
+- AWS region
+- shared/platform account ID
+- nonprod account ID
+- prod account ID
+- owner/contact metadata
+- tagging convention
+
+Use the `terraform.tfvars.example` file in each root as the placeholder template before replacing values with real account data.
+
+The account ID variables validate as 12-digit AWS IDs, so placeholder values are meant only for documentation until real values are available.
+
 ## Notes
 
 - This tree replaces the Render-specific provisioning layout over time.

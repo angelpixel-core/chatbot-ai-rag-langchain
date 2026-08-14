@@ -20,3 +20,15 @@ Terraform root scaffold for shared AWS bootstrap.
 
 - Do not place environment-specific application resources here.
 - Keep this folder small and explicit.
+
+## Inputs
+
+- `region`
+- `shared_account_id`
+- `nonprod_account_id`
+- `prod_account_id`
+- `tags`
+
+Start from `terraform.tfvars.example` and replace every `REPLACE_ME_*` placeholder with real values before planning.
+
+The account ID variables validate as 12-digit AWS IDs, so the example file is documentation until real IDs are available.
