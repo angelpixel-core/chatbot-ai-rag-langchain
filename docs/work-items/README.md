@@ -13,4 +13,5 @@ Index of tracked work-item docs.
   - `subtasks/background-jobs.md` - async worker and media pipeline boundary.
   - `subtasks/environment-layout.md` - QA/staging/prod account and promotion layout.
   - `subtasks/aws-bootstrap-inputs.md` - required inputs and placeholder convention for AWS bootstrap.
+  - `subtasks/aws-organizations-iam.md` - AWS Organizations, access, and guardrails.
   - `subtasks/remocion-de-render.md` - Render reuse/adaptation/retirement matrix.
