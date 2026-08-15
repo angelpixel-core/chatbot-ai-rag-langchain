@@ -8,3 +8,14 @@ module "ecr_django" {
     Purpose     = "container-registry"
   })
 }
+
+module "ecr_nextjs" {
+  source = "../modules/ecr/repository"
+
+  name = "nextjs"
+  tags = merge(var.tags, {
+    Account     = "prod"
+    Environment = "prod"
+    Purpose     = "container-registry"
+  })
+}

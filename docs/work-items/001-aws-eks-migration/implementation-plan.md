@@ -64,8 +64,8 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [ ] Validate access from the local environment ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
   - [ ] Provision ECR.
     - [x] Create repos for `django`.
-    - [ ] Create repos for `nextjs`.
-    - [ ] Define lifecycle and permission policies.
+    - [x] Create repos for `nextjs`.
+    - [x] Define lifecycle and permission policies.
     - [ ] Validate push and pull from CI/CD.
   - [ ] Define the environment layout.
     - [ ] Map QA to `nonprod`.

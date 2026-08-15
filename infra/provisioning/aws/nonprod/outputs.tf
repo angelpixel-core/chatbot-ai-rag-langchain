@@ -21,6 +21,7 @@ output "eks_base" {
 output "ecr" {
   value = {
     django = module.ecr_django
+    nextjs = module.ecr_nextjs
   }
   description = "Planned non-production ECR scaffold."
 }
