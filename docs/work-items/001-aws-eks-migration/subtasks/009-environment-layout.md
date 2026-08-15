@@ -58,13 +58,14 @@ Define how dev, test, QA, staging, and production map onto local compose, CI, AW
   - [x] QA promotes to staging.
   - [x] Staging smoke checks pass.
   - [x] Release PR or tag promotes to production.
-- [ ] Remove legacy provider-specific environment artifacts from the active migration path.
-  - [ ] Retire legacy env import/adoption workflows.
-  - [ ] Remove the legacy QA environment tree.
-  - [ ] Remove the legacy staging environment tree.
-  - [ ] Remove the legacy production environment tree.
+- [x] Remove legacy provider-specific environment artifacts from the active migration path.
+  - [x] Retire legacy env import/adoption workflows.
+  - [x] Remove the legacy QA environment tree.
+  - [x] Remove the legacy staging environment tree.
+  - [x] Remove the legacy production environment tree.
 
 ## Notes
 
 - This document replaces the three legacy environment READMEs as the active source of truth.
+- The active `infra/environments/{dev,test,qa,staging,prod}/` layout now reflects the AWS/local/CI model.
 - If environment-specific infra grows substantially, split each environment into its own AWS provisioning doc later.

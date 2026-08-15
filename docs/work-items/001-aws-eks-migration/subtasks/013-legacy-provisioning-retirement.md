@@ -35,7 +35,7 @@ Define what can be reused from the legacy provider layout during the AWS/EKS mig
 - [x] Remove the legacy QA environment tree.
 - [x] Remove the legacy staging environment tree.
 - [x] Remove the legacy production environment tree.
-- [ ] Retire legacy provider-specific resources from the active migration path.
+- [x] Retire legacy provider-specific resources from the active migration path.
 
 ## Worker Decision
 
@@ -58,7 +58,7 @@ At the moment, there is no evidence of a dedicated async job system in the repo.
 | legacy QA environment tree | Retired | `docs/work-items/001-aws-eks-migration/subtasks/009-environment-layout.md` | Extracted QA runtime, database, and validation intent into AWS environment mapping. |
 | legacy staging environment tree | Retired | `docs/work-items/001-aws-eks-migration/subtasks/009-environment-layout.md` | Extracted staging promotion flow into AWS environment mapping. |
 | legacy production environment tree | Retired | `docs/work-items/001-aws-eks-migration/subtasks/009-environment-layout.md` | Extracted production release flow into AWS environment mapping. |
-| legacy component Terraform resources | Retire | New AWS Terraform modules | Provider-specific resources do not transfer directly. |
+| legacy component Terraform resources | Retired | New AWS Terraform modules | Provider-specific resources do not transfer directly. |
 
 ## Practical Reuse Rules
 
