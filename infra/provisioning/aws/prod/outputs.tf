@@ -12,3 +12,10 @@ output "network" {
   value       = module.vpc
   description = "Planned production network scaffold."
 }
+
+output "ecr" {
+  value = {
+    django = module.ecr_django
+  }
+  description = "Planned production ECR scaffold."
+}

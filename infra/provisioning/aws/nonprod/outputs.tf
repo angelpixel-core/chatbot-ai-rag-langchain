@@ -17,3 +17,10 @@ output "eks_base" {
   value       = module.eks_base
   description = "Initial non-production EKS base scaffold."
 }
+
+output "ecr" {
+  value = {
+    django = module.ecr_django
+  }
+  description = "Planned non-production ECR scaffold."
+}
