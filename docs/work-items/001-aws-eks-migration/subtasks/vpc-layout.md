@@ -47,26 +47,51 @@ Define the concrete AWS VPC layout per account before creating the actual VPCs.
 - Each account root should instantiate that module once.
 - Each root should pass the account CIDR, subnet CIDRs, AZs, and tags.
 
-## Module Responsibilities
+## Exact Terraform Resource Map
 
-| File | Responsibility |
+### Module Files
+
+| File | Resources |
 | --- | --- |
-| `versions.tf` | Terraform and provider constraints |
-| `variables.tf` | Inputs for account, CIDR, AZs, subnet ranges, NAT, and tags |
-| `locals.tf` | Naming, merged tags, and subnet maps |
-| `vpc.tf` | `aws_vpc` and `aws_internet_gateway` |
-| `subnets.tf` | Public, private app, and private data subnets |
-| `routing.tf` | Route tables, routes, and associations |
-| `nat.tf` | NAT gateway and private egress routing |
-| `dns.tf` | DNS hooks or placeholders for future Route53 management |
-| `outputs.tf` | VPC, subnet, route table, and NAT outputs |
+| `versions.tf` | provider and Terraform version constraints |
+| `variables.tf` | module inputs only |
+| `locals.tf` | name prefixes, tag merging, subnet maps, and route names |
+| `vpc.tf` | `aws_vpc.this`, `aws_internet_gateway.this` |
+| `subnets.tf` | `aws_subnet.public`, `aws_subnet.private_app`, `aws_subnet.private_data` |
+| `routing.tf` | `aws_route_table.public`, `aws_route_table.private_app`, `aws_route_table.private_data`, `aws_route.*`, `aws_route_table_association.*` |
+| `nat.tf` | `aws_eip.nat`, `aws_nat_gateway.this` |
+| `dns.tf` | optional Route53 private zone hooks if the network owns DNS |
+| `outputs.tf` | VPC and subnet IDs, route table IDs, IGW and NAT IDs |
 
-## Root Responsibilities
+### Root Files
 
-- `shared/platform` instantiates the module for the shared bootstrap account.
-- `nonprod` instantiates the module for QA/staging.
-- `prod` instantiates the module for production.
-- Each root passes the account CIDR, subnet CIDRs, region, and tags.
+| Root | File | Responsibility |
+| --- | --- | --- |
+| `shared/platform` | `main.tf` | instantiate the VPC module for shared/platform |
+| `nonprod` | `main.tf` | instantiate the VPC module for nonprod |
+| `prod` | `main.tf` | instantiate the VPC module for prod |
+
+### Suggested Module Inputs
+
+- `name`
+- `region`
+- `cidr_block`
+- `azs`
+- `public_subnet_cidrs`
+- `private_app_subnet_cidrs`
+- `private_data_subnet_cidrs`
+- `enable_nat`
+- `tags`
+
+### Suggested Outputs
+
+- `vpc_id`
+- `public_subnet_ids`
+- `private_app_subnet_ids`
+- `private_data_subnet_ids`
+- `route_table_ids`
+- `internet_gateway_id`
+- `nat_gateway_id`
 
 ## Execution Checklist
 
@@ -75,6 +100,7 @@ Define the concrete AWS VPC layout per account before creating the actual VPCs.
 - [x] Define the route table and NAT structure.
 - [x] Define the module/file split for Terraform.
 - [x] Define the root layout per account.
+- [x] Define the exact Terraform resource map.
 - [ ] Implement the module in Terraform.
 - [ ] Instantiate the module in each account root.
 - [ ] Validate the VPC layout against the reserved CIDR ranges.
