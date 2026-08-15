@@ -44,6 +44,7 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [ ] Decide which Render Terraform pieces to retire.
   - [x] Document the AWS bootstrap inputs and placeholder convention.
   - [x] Establish the base network per account.
+    - [x] Define the VPC layout.
     - [ ] Create one VPC per account.
     - [ ] Define public and private subnets.
     - [ ] Define NAT and egress paths.
