@@ -47,6 +47,27 @@ Provision the first AWS EKS cluster in `nonprod` with a minimal but production-s
 - region
 - tags
 
+## Local Access Flow
+
+1. Authenticate to AWS with a real profile.
+2. Confirm the caller identity with `aws sts get-caller-identity`.
+3. Fetch kubeconfig with `aws eks update-kubeconfig` for the `nonprod` cluster.
+4. Confirm the active context with `kubectl config current-context`.
+5. Validate cluster reachability with `kubectl cluster-info`.
+6. Validate node readiness with `kubectl get nodes`.
+7. Validate system workload health with `kubectl get pods -A`.
+
+If any step fails, check IAM permissions, cluster endpoint access, and VPC routing before changing the cluster.
+
+## Verification Commands
+
+```bash
+AWS_PROFILE=<profile> AWS_REGION=<region> ./infra/tooling/scripts/eks.sh identity
+AWS_PROFILE=<profile> AWS_REGION=<region> EKS_CLUSTER_NAME=<cluster> ./infra/tooling/scripts/eks.sh kubeconfig
+AWS_PROFILE=<profile> AWS_REGION=<region> EKS_CLUSTER_NAME=<cluster> ./infra/tooling/scripts/eks.sh status
+AWS_PROFILE=<profile> AWS_REGION=<region> EKS_CLUSTER_NAME=<cluster> ./infra/tooling/scripts/eks.sh verify
+```
+
 ## Execution Checklist
 
 - [x] Create the initial cluster in `nonprod`.
