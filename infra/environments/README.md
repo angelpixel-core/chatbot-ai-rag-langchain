@@ -1,14 +1,14 @@
 # Environment Files
 
-This directory stores environment-specific configuration for local development, testing, production, examples, and future environments.
+This directory stores environment-specific configuration for local development, CI testing, production, examples, and future environments.
 
 ## Layout
 
-- `dev/` - Development values.
-- `test/` - Test values.
-- `qa/` - QA values.
-- `staging/` - Staging values.
-- `prod/` - Production values.
+- `dev/` - Local compose values.
+- `test/` - CI verification values.
+- `qa/` - QA values mapped to AWS `nonprod`.
+- `staging/` - Staging values mapped to AWS `nonprod`.
+- `prod/` - Production values mapped to AWS `prod`.
 - `example/` - Non-secret reference values and templates.
 
 Each environment is split by consumer:

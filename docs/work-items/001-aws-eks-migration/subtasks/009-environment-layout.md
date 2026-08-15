@@ -11,11 +11,13 @@ updated_at: 2026-08-14T00:00:00Z
 
 ## Goal
 
-Define how QA, staging, and production map onto AWS accounts, clusters, and promotion flow.
+Define how dev, test, QA, staging, and production map onto local compose, CI, AWS accounts, and promotion flow.
 
 ## Source Material Extracted From Legacy Provider
 
-- `STACK_ENV` becomes the environment selector across AWS deploys.
+- `STACK_ENV` becomes the environment selector across local compose, CI, and AWS deploys.
+- `STACK_ENV=dev` drives local compose.
+- `STACK_ENV=test` drives CI-backed verification.
 - `DB_QA_CONNECTION_STRING` becomes the QA database secret/connection contract.
 - `DB_PROD_CONNECTION_STRING` becomes the production database secret/connection contract.
 - QA becomes the first deployed compatibility checkpoint.
@@ -25,6 +27,8 @@ Define how QA, staging, and production map onto AWS accounts, clusters, and prom
 
 ## Recommendation
 
+- Keep `dev` local with compose.
+- Keep `test` in CI as a versioned verification target.
 - Map QA and staging to `nonprod`.
 - Keep production in `prod`.
 - Keep `shared/platform` for central tooling and shared platform bootstrap.
@@ -34,20 +38,26 @@ Define how QA, staging, and production map onto AWS accounts, clusters, and prom
 ## Execution Checklist
 
 - [x] Define the environment/account mapping.
+  - [x] Map dev to local compose.
+  - [x] Map test to CI-backed verification.
   - [x] Map QA to `nonprod`.
   - [x] Map staging to `nonprod`.
   - [x] Map production to `prod`.
   - [x] Define what is shared in `shared/platform`.
-- [ ] Define environment-specific runtime contracts.
-  - [ ] Define QA secrets and config.
-  - [ ] Define staging secrets and config.
-  - [ ] Define production secrets and config.
-  - [ ] Keep `STACK_ENV` aligned with deployment targets.
-- [ ] Define promotion flow.
-  - [ ] QA validates the artifact first.
-  - [ ] QA promotes to staging.
-  - [ ] Staging smoke checks pass.
-  - [ ] Release PR or tag promotes to production.
+- [x] Define environment-specific runtime contracts.
+  - [x] Define dev secrets and config.
+  - [x] Define test secrets and config.
+  - [x] Define QA secrets and config.
+  - [x] Define staging secrets and config.
+  - [x] Define production secrets and config.
+  - [x] Keep `STACK_ENV` aligned with deployment targets.
+- [x] Define promotion flow.
+  - [x] Dev validates locally.
+  - [x] Test validates in CI.
+  - [x] QA validates the artifact first.
+  - [x] QA promotes to staging.
+  - [x] Staging smoke checks pass.
+  - [x] Release PR or tag promotes to production.
 - [ ] Remove legacy provider-specific environment artifacts from the active migration path.
   - [ ] Retire legacy env import/adoption workflows.
   - [ ] Remove the legacy QA environment tree.

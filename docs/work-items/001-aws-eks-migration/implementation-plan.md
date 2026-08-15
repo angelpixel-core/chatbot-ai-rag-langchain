@@ -67,7 +67,9 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [x] Create repos for `nextjs`.
     - [x] Define lifecycle and permission policies.
     - [ ] Validate push and pull from CI/CD.
-  - [ ] Define the environment layout.
+  - [x] Define the environment layout.
+    - [x] Keep dev local/compose.
+    - [x] Keep test in CI.
     - [ ] Map QA to `nonprod`.
     - [ ] Map staging to `nonprod`.
     - [ ] Keep production in a separate account.
@@ -93,8 +95,8 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [ ] Define media storage and processing flow.
 - [ ] Environment Layout
   - [x] Document QA, staging, and production account mapping ([009-environment-layout](./subtasks/009-environment-layout.md)).
-  - [ ] Define runtime config per environment.
-  - [ ] Define promotion flow from QA to staging to prod.
+  - [x] Define runtime config per environment.
+  - [x] Define promotion flow from QA to staging to prod.
 - [ ] Delivery
   - [ ] Add GitOps deployment via ArgoCD.
   - [ ] Add an Ingress Controller for HTTP/HTTPS traffic ([010-deployment-service-ingress](./subtasks/010-deployment-service-ingress.md)).
