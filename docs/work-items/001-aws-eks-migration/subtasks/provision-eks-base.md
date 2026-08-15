@@ -49,9 +49,9 @@ Provision the first AWS EKS cluster in `nonprod` with a minimal but production-s
 
 ## Execution Checklist
 
-- [ ] Create the initial cluster in `nonprod`.
-- [ ] Define the initial node groups.
-- [ ] Enable base logging and monitoring.
+- [x] Create the initial cluster in `nonprod`.
+- [x] Define the initial node groups.
+- [x] Enable base logging and monitoring.
 - [ ] Validate access from the local environment.
 - [ ] Wire cluster access to the IAM model.
 - [ ] Confirm workloads can schedule on the initial node group.

@@ -12,3 +12,8 @@ output "network" {
   value       = module.vpc
   description = "Planned non-production network scaffold."
 }
+
+output "eks_base" {
+  value       = module.eks_base
+  description = "Initial non-production EKS base scaffold."
+}

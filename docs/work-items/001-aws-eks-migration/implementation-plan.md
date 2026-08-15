@@ -58,9 +58,9 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [x] Prepare IRSA/OIDC for workloads.
     - [x] Define minimum permissions by namespace or service.
   - [ ] Provision the EKS base.
-    - [ ] Create the initial cluster in `nonprod`.
-    - [ ] Define the initial node groups.
-    - [ ] Enable base logging and monitoring.
+    - [x] Create the initial cluster in `nonprod`.
+    - [x] Define the initial node groups.
+    - [x] Enable base logging and monitoring.
     - [ ] Validate access from the local environment.
   - [ ] Provision ECR.
     - [ ] Create repos for `django`.
