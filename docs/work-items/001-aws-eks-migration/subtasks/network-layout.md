@@ -35,6 +35,25 @@ Define the base AWS network per account before EKS, RDS, and ingress provisionin
 - Prefer a simple, predictable split that leaves room for future subnets and expansion.
 - Keep the chosen ranges documented before any VPC is created.
 
+### Proposed CIDR Blocks
+
+| Account | CIDR Block |
+| --- | --- |
+| `shared/platform` | `10.40.0.0/16` |
+| `nonprod` | `10.41.0.0/16` |
+| `prod` | `10.42.0.0/16` |
+
+### Suggested Subnet Split per VPC
+
+| Subnet Type | Example Range Pattern |
+| --- | --- |
+| public | `10.x.0.0/20`, `10.x.16.0/20` |
+| private app | `10.x.32.0/20`, `10.x.48.0/20` |
+| private data | `10.x.64.0/20`, `10.x.80.0/20` |
+
+- This keeps enough space for EKS, RDS, and future expansion.
+- If a later AWS boundary requires a different split, update the reserved ranges before creating the VPCs.
+
 ## DNS and Routing
 
 - Public DNS should map to the ingress entrypoint for the correct account.

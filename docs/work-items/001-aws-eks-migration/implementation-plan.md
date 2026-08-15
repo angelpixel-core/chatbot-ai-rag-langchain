@@ -47,7 +47,7 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [ ] Create one VPC per account.
     - [ ] Define public and private subnets.
     - [ ] Define NAT and egress paths.
-    - [ ] Reserve non-overlapping CIDR ranges.
+    - [x] Reserve non-overlapping CIDR ranges.
     - [ ] Define DNS and naming conventions.
   - [x] Prepare IAM and cluster access.
     - [x] Define roles for admins, developers, and CI/CD.
