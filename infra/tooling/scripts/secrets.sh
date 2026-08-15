@@ -11,7 +11,6 @@ SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 ROOT_DIR=$(CDPATH= cd -- "${SCRIPT_DIR}/../.." && pwd)
 LOCAL_SECRET_DIR="${ROOT_DIR}/env/.local"
 PLACEHOLDER_VALUE="__SET_MANUALLY__"
-RENDER_API_BASE_URL="${RENDER_API_BASE_URL:-https://api.render.com/v1}"
 
 usage() {
   cat >&2 <<'EOF'
@@ -19,11 +18,9 @@ Usage: secrets.sh {init|set|get|list|validate}
 
 Environment:
   ENV or SECRET_ENV      Secret environment to operate on (dev, test, qa, staging, prod)
-  TARGET                 Destination: github, github-vars, render, or local
+  TARGET                 Destination: github or local
   SECRET_NAME            Optional single secret name to operate on
   SECRET_VALUE           Optional single secret value for set operations
-  RENDER_API_KEY         Render API key for Render target operations
-  RENDER_SERVICE_ID      Render service ID for Render target operations
   GITHUB_REPOSITORY      Optional repo slug override for GitHub targets
 EOF
   exit 1
@@ -262,43 +259,19 @@ github_list_names() {
 
 github_required_names() {
   printf '%s\n' \
-    "RENDER_API_KEY" \
-    "RENDER_QA_SERVICE_ID" \
-    "RENDER_STAGING_SERVICE_ID" \
-    "RENDER_PROD_SERVICE_ID"
-}
-
-github_var_required_names() {
-  printf '%s\n' \
-    "RENDER_OWNER_ID" \
-    "RENDER_QA_ADOPTED_WEB_SERVICE_ID" \
-    "RENDER_QA_ADOPTED_DATABASE_ID" \
-    "RENDER_QA_ADOPTED_ENVIRONMENT_ID" \
-    "RENDER_QA_ENVIRONMENT_ID" \
-    "RENDER_STAGING_ENVIRONMENT_ID" \
-    "RENDER_PROD_ENVIRONMENT_ID"
+    "RAILS_MASTER_KEY" \
+    "MYSQL_PASSWORD" \
+    "POSTGRES_PASSWORD" \
+    "DATABASE_PASSWORD"
 }
 
 github_required_value() {
   case "$1" in
-    RENDER_API_KEY) printf '%s\n' "${RENDER_API_KEY:-}" ;;
-    RENDER_QA_SERVICE_ID) printf '%s\n' "${RENDER_QA_SERVICE_ID:-}" ;;
-    RENDER_STAGING_SERVICE_ID) printf '%s\n' "${RENDER_STAGING_SERVICE_ID:-}" ;;
-    RENDER_PROD_SERVICE_ID) printf '%s\n' "${RENDER_PROD_SERVICE_ID:-}" ;;
+    RAILS_MASTER_KEY) printf '%s\n' "${RAILS_MASTER_KEY:-}" ;;
+    MYSQL_PASSWORD) printf '%s\n' "${MYSQL_PASSWORD:-}" ;;
+    POSTGRES_PASSWORD) printf '%s\n' "${POSTGRES_PASSWORD:-}" ;;
+    DATABASE_PASSWORD) printf '%s\n' "${DATABASE_PASSWORD:-}" ;;
     *) die "Unsupported GitHub secret: $1" ;;
-  esac
-}
-
-github_var_required_value() {
-  case "$1" in
-    RENDER_OWNER_ID) printf '%s\n' "${RENDER_OWNER_ID:-}" ;;
-    RENDER_QA_ADOPTED_WEB_SERVICE_ID) printf '%s\n' "${RENDER_QA_ADOPTED_WEB_SERVICE_ID:-}" ;;
-    RENDER_QA_ADOPTED_DATABASE_ID) printf '%s\n' "${RENDER_QA_ADOPTED_DATABASE_ID:-}" ;;
-    RENDER_QA_ADOPTED_ENVIRONMENT_ID) printf '%s\n' "${RENDER_QA_ADOPTED_ENVIRONMENT_ID:-}" ;;
-    RENDER_QA_ENVIRONMENT_ID) printf '%s\n' "${RENDER_QA_ENVIRONMENT_ID:-}" ;;
-    RENDER_STAGING_ENVIRONMENT_ID) printf '%s\n' "${RENDER_STAGING_ENVIRONMENT_ID:-}" ;;
-    RENDER_PROD_ENVIRONMENT_ID) printf '%s\n' "${RENDER_PROD_ENVIRONMENT_ID:-}" ;;
-    *) die "Unsupported GitHub variable: $1" ;;
   esac
 }
 
@@ -319,13 +292,6 @@ github_set_one() {
   gh secret set "$name" --repo "$repo" --app actions --body "$value" >/dev/null
 }
 
-github_var_set_one() {
-  repo="$1"
-  name="$2"
-  value="$3"
-  gh variable set "$name" --repo "$repo" --body "$value" >/dev/null
-}
-
 github_get_one() {
   repo="$1"
   name="$2"
@@ -337,92 +303,10 @@ github_get_one() {
   fi
 }
 
-github_var_exists() {
-  repo="$1"
-  name="$2"
-  found=0
-  for existing in $(gh variable list --repo "$repo" --json name --jq '.[].name'); do
-    [ "$existing" = "$name" ] && found=1
-  done
-  [ "$found" -eq 1 ]
-}
-
-github_var_get_one() {
-  repo="$1"
-  name="$2"
-  if github_var_exists "$repo" "$name"; then
-    echo "${name}: present"
-  else
-    echo "${name}: missing"
-    return 1
-  fi
-}
-
-github_var_validate_one() {
-  repo="$1"
-  name="$2"
-  github_var_exists "$repo" "$name" >/dev/null 2>&1 || die "Missing GitHub variable: ${name}"
-}
-
 github_validate_one() {
   repo="$1"
   name="$2"
   github_secret_exists "$repo" "$name" >/dev/null 2>&1 || die "Missing GitHub secret: ${name}"
-}
-
-render_api_base() {
-  [ -n "${RENDER_API_KEY:-}" ] || die "RENDER_API_KEY is required for Render target operations"
-  [ -n "${RENDER_SERVICE_ID:-}" ] || die "RENDER_SERVICE_ID is required for Render target operations"
-  printf '%s/services/%s/env-vars' "$RENDER_API_BASE_URL" "$RENDER_SERVICE_ID"
-}
-
-render_request() {
-  method="$1"
-  url="$2"
-  body="${3:-}"
-  if [ -n "$body" ]; then
-    curl -fsS \
-      -X "$method" \
-      -H 'accept: application/json' \
-      -H "authorization: Bearer ${RENDER_API_KEY}" \
-      -H 'content-type: application/json' \
-      --data "$body" \
-      "$url"
-  else
-    curl -fsS \
-      -X "$method" \
-      -H 'accept: application/json' \
-      -H "authorization: Bearer ${RENDER_API_KEY}" \
-      "$url"
-  fi
-}
-
-json_escape() {
-  ruby -rjson -e 'puts JSON.generate(ARGV[0])' "$1"
-}
-
-render_set_one() {
-  key="$1"
-  value="$2"
-  require_secret_value "$key" "$value"
-  url="$(render_api_base)/${key}"
-  payload="{\"envVarValue\":$(json_escape "$value") }"
-  render_request PUT "$url" "$payload" >/dev/null
-}
-
-render_get_one() {
-  key="$1"
-  url="$(render_api_base)/${key}"
-  render_request GET "$url" | ruby -rjson -e 'data = JSON.parse(STDIN.read); puts data["value"]'
-}
-
-render_validate_one() {
-  key="$1"
-  local_value="${2:-}"
-  remote_value="$(render_get_one "$key")"
-  if [ -n "$local_value" ] && ! source_has_placeholder_value "$local_value"; then
-    [ "$remote_value" = "$local_value" ] || die "Render value mismatch for ${key}"
-  fi
 }
 
 set_single_secret() {
@@ -433,16 +317,6 @@ set_single_secret() {
       require_command gh
       repo="$(get_github_repo)"
       github_set_one "$repo" "$key" "$value"
-      ;;
-    render)
-      require_command curl
-      require_command ruby
-      render_set_one "$key" "$value"
-      ;;
-    github-vars)
-      require_command gh
-      repo="$(get_github_repo)"
-      github_var_set_one "$repo" "$key" "$value"
       ;;
     local)
       local_upsert "$key" "$value"
@@ -465,30 +339,7 @@ set_bulk_secrets() {
         github_set_one "$repo" "$key" "$value"
         found=1
       done
-      [ "$found" -eq 1 ] || die "No GitHub secret values provided; use SECRET_NAME/SECRET_VALUE or export RENDER_* variables"
-      ;;
-    github-vars)
-      require_command gh
-      repo="$(get_github_repo)"
-      found=0
-      for key in $(github_var_required_names); do
-        value="$(github_var_required_value "$key")"
-        [ -n "$value" ] || continue
-        github_var_set_one "$repo" "$key" "$value"
-        found=1
-      done
-      [ "$found" -eq 1 ] || die "No GitHub variable values provided; use SECRET_NAME/SECRET_VALUE or export RENDER_*_ENVIRONMENT_ID variables"
-      ;;
-    render)
-      require_command curl
-      require_command ruby
-      entries_file="$(mktemp)"
-      source_entries > "$entries_file"
-      while IFS="$(printf '\t')" read -r file key value; do
-        require_secret_value "$key" "$value"
-        render_set_one "$key" "$value"
-      done < "$entries_file"
-      rm -f "$entries_file"
+      [ "$found" -eq 1 ] || die "No GitHub secret values provided; use SECRET_NAME/SECRET_VALUE or export RAILS_MASTER_KEY/MYSQL_PASSWORD/POSTGRES_PASSWORD/DATABASE_PASSWORD"
       ;;
     local)
       file="$(local_secret_file)"
@@ -517,16 +368,6 @@ get_single_secret() {
       repo="$(get_github_repo)"
       github_get_one "$repo" "$key"
       ;;
-    github-vars)
-      require_command gh
-      repo="$(get_github_repo)"
-      github_var_get_one "$repo" "$key"
-      ;;
-    render)
-      require_command curl
-      require_command ruby
-      render_get_one "$key"
-      ;;
     local)
       local_value_for_key "$key" || die "Missing local secret: ${key}"
       ;;
@@ -542,21 +383,6 @@ get_bulk_secrets() {
       require_command gh
       repo="$(get_github_repo)"
       github_list_names "$repo"
-      ;;
-    github-vars)
-      require_command gh
-      repo="$(get_github_repo)"
-      gh variable list --repo "$repo" --json name --jq '.[].name'
-      ;;
-    render)
-      require_command curl
-      require_command ruby
-      entries_file="$(mktemp)"
-      source_entries > "$entries_file"
-      while IFS="$(printf '\t')" read -r file key value; do
-        printf '%s=%s\n' "$key" "$(render_get_one "$key")"
-      done < "$entries_file"
-      rm -f "$entries_file"
       ;;
     local)
       file="$(local_secret_file)"
@@ -582,18 +408,6 @@ validate_single_secret() {
       repo="$(get_github_repo)"
       github_validate_one "$repo" "$key"
       ;;
-    github-vars)
-      require_command gh
-      repo="$(get_github_repo)"
-      github_var_validate_one "$repo" "$key"
-      ;;
-    render)
-      require_command curl
-      require_command ruby
-      local_value="${SECRET_VALUE:-}"
-      [ -n "$local_value" ] || local_value="$(source_value_for_key "$key" || true)"
-      render_validate_one "$key" "$local_value"
-      ;;
     local)
       local_value="$(local_value_for_key "$key" || true)"
       require_secret_value "$key" "$local_value"
@@ -616,29 +430,7 @@ validate_bulk_secrets() {
         github_validate_one "$repo" "$key"
         found=1
       done
-      [ "$found" -eq 1 ] || die "No GitHub secret names provided; use SECRET_NAME or export RENDER_* variables"
-      ;;
-    github-vars)
-      require_command gh
-      repo="$(get_github_repo)"
-      found=0
-      for key in $(github_var_required_names); do
-        value="$(github_var_required_value "$key")"
-        [ -n "$value" ] || continue
-        github_var_validate_one "$repo" "$key"
-        found=1
-      done
-      [ "$found" -eq 1 ] || die "No GitHub variable names provided; use SECRET_NAME or export RENDER_*_ENVIRONMENT_ID variables"
-      ;;
-    render)
-      require_command curl
-      require_command ruby
-      entries_file="$(mktemp)"
-      source_entries > "$entries_file"
-      while IFS="$(printf '\t')" read -r file key value; do
-        render_validate_one "$key" "$value"
-      done < "$entries_file"
-      rm -f "$entries_file"
+      [ "$found" -eq 1 ] || die "No GitHub secret names provided; use SECRET_NAME or export RAILS_MASTER_KEY/MYSQL_PASSWORD/POSTGRES_PASSWORD/DATABASE_PASSWORD"
       ;;
     local)
       file="$(local_secret_file)"

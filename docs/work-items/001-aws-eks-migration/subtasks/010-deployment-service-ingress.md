@@ -13,7 +13,7 @@ updated_at: 2026-08-14T00:00:00Z
 
 Define the Kubernetes boundary for the application runtime, internal service exposure, and external ingress routing.
 
-## Source Material Extracted From Render
+## Source Material Extracted From Legacy Provider
 
 - `name` becomes the workload/service naming convention.
 - `health_check_path` maps to readiness/liveness probe paths.
@@ -52,13 +52,13 @@ Define the Kubernetes boundary for the application runtime, internal service exp
   - [ ] Define how DNS records point to the ingress entrypoint.
   - [ ] Decide whether hostnames are per account, per env, or both.
   - [ ] Define certificate ownership and renewal behavior.
-  - [ ] Keep `tls_enabled` as an ingress-level concern, not a Render concern.
-- [ ] Remove Render-specific deployment concepts from the active migration path.
+  - [ ] Keep `tls_enabled` as an ingress-level concern, not a legacy-provider concern.
+- [ ] Remove legacy provider-specific deployment concepts from the active migration path.
   - [ ] Retire `build_command` from infrastructure code.
   - [ ] Retire `auto_deploy` and provider-side deploy triggers.
-  - [ ] Retire `render_web_service` as an active artifact.
+  - [ ] Retire the legacy web-service artifact as an active resource.
 
 ## Notes
 
-- This document is the AWS/EKS replacement for the old Render web-service component.
+- This document is the AWS/EKS replacement for the old legacy web-service component.
 - Background jobs, if needed later, should be separate from this runtime boundary.

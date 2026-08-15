@@ -17,13 +17,13 @@ updated_at: 2026-08-14T00:00:00Z
 
 ## Goal
 
-- [x] Move the platform from the current Render-oriented deployment model to an AWS-first architecture.
+- [x] Move the platform from the previous provider-oriented deployment model to an AWS-first architecture.
 - [x] Standardize the runtime around Kubernetes so local and production share the same orchestration model.
 - [x] Run Django and Next.js as separate containerized services.
 
 ## Scope
 
-- [x] Replace Render-specific infrastructure planning with AWS provisioning.
+- [x] Replace provider-specific infrastructure planning with AWS provisioning.
 - [x] Define a Kubernetes-based local workflow that mirrors production.
 - [x] Keep Django as the backend domain/API runtime.
 - [x] Keep Next.js as a separate Node SSR service.
@@ -43,7 +43,7 @@ updated_at: 2026-08-14T00:00:00Z
 - [010-deployment-service-ingress](./subtasks/010-deployment-service-ingress.md)
 - [011-rds-postgresql](./subtasks/011-rds-postgresql.md)
 - [012-background-jobs](./subtasks/012-background-jobs.md)
-- [013-remocion-de-render](./subtasks/013-remocion-de-render.md)
+- [013-legacy-provisioning-retirement](./subtasks/013-legacy-provisioning-retirement.md)
 
 ## Non-Goals
 

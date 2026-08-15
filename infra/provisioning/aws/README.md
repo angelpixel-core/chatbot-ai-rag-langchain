@@ -29,6 +29,6 @@ The account ID variables validate as 12-digit AWS IDs, so placeholder values are
 
 ## Notes
 
-- This tree replaces the Render-specific provisioning layout over time.
-- Existing Render Terraform components can be used as reference material when shaping the AWS modules and env layouts.
+- This tree replaces the legacy provisioning layout over time.
+- Existing legacy provider components can be used as reference material when shaping the AWS modules and env layouts.
 - Keep shared concerns in `shared/platform` and environment-specific concerns in `nonprod` or `prod`.

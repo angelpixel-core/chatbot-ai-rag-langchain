@@ -10,7 +10,7 @@ Monorepo inicial para un chatbot de cafetería con backend Django y cliente web 
 - `infra/local/compose.yaml` - orquestación local con Compose
 - `infra/local/containers/` - contenedores y entrypoints locales
 - `infra/environments/` - variables por ambiente
-- `infra/provisioning/terraform/render/` - infraestructura declarativa del proveedor
+- `infra/provisioning/aws/` - infraestructura declarativa de AWS/EKS
 - `infra/tooling/` - scripts y lint
 
 ## Objetivo

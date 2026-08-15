@@ -11,9 +11,9 @@ updated_at: 2026-08-14T00:00:00Z
 
 ## Goal
 
-Define the AWS-managed PostgreSQL boundary for the migration and retire the old Render database component.
+Define the AWS-managed PostgreSQL boundary for the migration and retire the old legacy database component.
 
-## Source Material Extracted From Render
+## Source Material Extracted From Legacy Provider
 
 - `name` becomes the database resource naming convention.
 - `database_name` becomes the application database/schema name.
@@ -46,12 +46,12 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
   - [ ] Define the secret name for the connection string.
   - [ ] Map app env vars to AWS-managed secrets.
   - [ ] Keep the DB URL out of plaintext manifests.
-- [ ] Remove Render-specific database artifacts from the active migration path.
-  - [ ] Retire `render_postgres` as an active resource.
-  - [ ] Retire Render import blocks and database state adoption.
-  - [ ] Remove `infra/provisioning/terraform/render/components/database/`.
+- [ ] Remove legacy provider-specific database artifacts from the active migration path.
+  - [ ] Retire the legacy Postgres resource as an active resource.
+  - [ ] Retire import blocks and database state adoption.
+  - [ ] Remove the legacy database component tree.
 
 ## Notes
 
-- This document is the AWS/EKS replacement for the old Render database component.
+- This document is the AWS/EKS replacement for the old legacy database component.
 - The same pattern should be mirrored by environment-specific AWS provisioning modules.

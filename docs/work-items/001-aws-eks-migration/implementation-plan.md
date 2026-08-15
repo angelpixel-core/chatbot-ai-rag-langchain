@@ -40,8 +40,8 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [x] Create `infra/provisioning/aws/shared/platform/`.
     - [x] Create `infra/provisioning/aws/nonprod/`.
     - [x] Create `infra/provisioning/aws/prod/`.
-    - [ ] Decide which Render Terraform pieces to reuse as migration inputs.
-    - [ ] Decide which Render Terraform pieces to retire.
+    - [ ] Decide which legacy Terraform pieces to reuse as migration inputs.
+    - [ ] Decide which legacy Terraform pieces to retire.
   - [x] Document the AWS bootstrap inputs and placeholder convention ([001-aws-bootstrap-inputs](./subtasks/001-aws-bootstrap-inputs.md)).
   - [x] Establish the base network per account ([003-network-layout](./subtasks/003-network-layout.md), [004-vpc-layout](./subtasks/004-vpc-layout.md)).
     - [x] Define the VPC layout ([004-vpc-layout](./subtasks/004-vpc-layout.md)).

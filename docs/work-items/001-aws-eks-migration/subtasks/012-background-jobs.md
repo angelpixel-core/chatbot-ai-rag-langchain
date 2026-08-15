@@ -13,7 +13,7 @@ updated_at: 2026-08-14T00:00:00Z
 
 Define how asynchronous jobs and media processing work in the AWS/EKS architecture.
 
-## Source Material Extracted From Render
+## Source Material Extracted From Legacy Provider
 
 - `name` becomes the worker naming convention.
 - `start_command` becomes the worker container command/entrypoint.
@@ -47,9 +47,9 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
   - [ ] Define dead-letter or failure handling if needed.
   - [ ] Define observability for job health and media processing.
   - [ ] Define cleanup rules for temporary artifacts.
-- [ ] Remove Render-specific worker artifacts from the active migration path.
-  - [ ] Retire `render_background_worker` as an active resource.
-  - [ ] Remove `infra/provisioning/terraform/render/components/worker/`.
+- [ ] Remove legacy provider-specific worker artifacts from the active migration path.
+  - [ ] Retire the legacy background worker as an active resource.
+  - [ ] Remove the legacy worker component tree.
 
 ## Notes
 

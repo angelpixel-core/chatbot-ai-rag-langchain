@@ -13,7 +13,7 @@ updated_at: 2026-08-14T00:00:00Z
 
 Define how QA, staging, and production map onto AWS accounts, clusters, and promotion flow.
 
-## Source Material Extracted From Render
+## Source Material Extracted From Legacy Provider
 
 - `STACK_ENV` becomes the environment selector across AWS deploys.
 - `DB_QA_CONNECTION_STRING` becomes the QA database secret/connection contract.
@@ -48,13 +48,13 @@ Define how QA, staging, and production map onto AWS accounts, clusters, and prom
   - [ ] QA promotes to staging.
   - [ ] Staging smoke checks pass.
   - [ ] Release PR or tag promotes to production.
-- [ ] Remove Render-specific environment artifacts from the active migration path.
-  - [ ] Retire `render` env import/adoption workflows.
-  - [ ] Remove `infra/provisioning/terraform/render/envs/qa/`.
-  - [ ] Remove `infra/provisioning/terraform/render/envs/staging/`.
-  - [ ] Remove `infra/provisioning/terraform/render/envs/prod/`.
+- [ ] Remove legacy provider-specific environment artifacts from the active migration path.
+  - [ ] Retire legacy env import/adoption workflows.
+  - [ ] Remove the legacy QA environment tree.
+  - [ ] Remove the legacy staging environment tree.
+  - [ ] Remove the legacy production environment tree.
 
 ## Notes
 
-- This document replaces the three Render environment READMEs as the active source of truth.
+- This document replaces the three legacy environment READMEs as the active source of truth.
 - If environment-specific infra grows substantially, split each environment into its own AWS provisioning doc later.

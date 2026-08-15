@@ -23,5 +23,5 @@ Each environment is split by consumer:
 - Keep consumer-specific variables in the matching subdirectory.
 - Avoid mixing app runtime values with database bootstrap values unless a target explicitly needs both.
 - Use `secrets.local.env` files for versioned placeholders when a value is not ready yet.
-- In `prod/`, `qa/`, and `staging/`, version the environment files with placeholders and fill the live values manually in Render or the local secret store.
-- When a Render environment file is checked into git, keep secrets and live connection strings as placeholders only.
+- In `prod/`, `qa/`, and `staging/`, version the environment files with placeholders and fill the live values manually in the local secret store.
+- When an environment file is checked into git, keep secrets and live connection strings as placeholders only.

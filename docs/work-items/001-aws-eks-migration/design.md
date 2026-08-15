@@ -17,7 +17,7 @@ updated_at: 2026-08-14T00:00:00Z
 
 ## Technical Approach
 
-- [x] Move the platform from Render to an AWS-first stack built around EKS.
+- [x] Move the platform from the previous provider to an AWS-first stack built around EKS.
 - [x] Run Django and Next.js as separate containerized workloads in Kubernetes.
 - [x] Move PostgreSQL to RDS.
 - [x] Use AWS-managed secrets and config injection.
@@ -62,7 +62,7 @@ updated_at: 2026-08-14T00:00:00Z
 ### Decision: Use AWS-native secrets and config
 
 **Choice**: Store runtime secrets in AWS Secrets Manager or SSM Parameter Store and inject them into Kubernetes.
-**Alternatives considered**: Plain Kubernetes Secrets only, Render-style env files, application-level secret files.
+**Alternatives considered**: Plain Kubernetes Secrets only, provider-style env files, application-level secret files.
 **Rationale**: AWS-managed secret storage is a better fit for the target platform and supports separate envs cleanly.
 
 ### Decision: Use AWS Secrets Manager for secrets and SSM Parameter Store for non-secret config
@@ -133,8 +133,8 @@ Static assets and build artifacts are produced in CI, pushed to ECR, and deploye
 | `docs/work-items/001-aws-eks-migration/design.md` | Create | Architecture design for the AWS migration, including platform tradeoffs. |
 | `infra/provisioning/terraform/aws/` | Create | New AWS provisioning root for VPC, EKS, RDS, ECR, IAM, and DNS. |
 | `infra/local/kubernetes/` | Create | Local Kubernetes manifests or dev overlays for `k3d`. |
-| `infra/environments/README.md` | Modify | Update environment guidance away from Render-specific wording. |
-| `README.md` | Modify | Replace Render references with AWS/EKS deployment architecture. |
+| `infra/environments/README.md` | Modify | Update environment guidance away from legacy provider wording. |
+| `README.md` | Modify | Replace legacy provider references with AWS/EKS deployment architecture. |
 | `infra/tooling/` | Modify | Add cluster/bootstrap scripts for local Kubernetes and AWS workflows. |
 
 ## Interfaces / Contracts
