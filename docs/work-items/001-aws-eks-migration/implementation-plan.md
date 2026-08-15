@@ -49,11 +49,11 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [ ] Define NAT and egress paths.
     - [ ] Reserve non-overlapping CIDR ranges.
     - [ ] Define DNS and naming conventions.
-  - [ ] Prepare IAM and cluster access.
-    - [ ] Define roles for admins, developers, and CI/CD.
-    - [ ] Configure initial EKS access.
-    - [ ] Prepare IRSA/OIDC for workloads.
-    - [ ] Define minimum permissions by namespace or service.
+  - [x] Prepare IAM and cluster access.
+    - [x] Define roles for admins, developers, and CI/CD.
+    - [x] Define initial EKS access.
+    - [x] Prepare IRSA/OIDC for workloads.
+    - [x] Define minimum permissions by namespace or service.
   - [ ] Provision the EKS base.
     - [ ] Create the initial cluster in `nonprod`.
     - [ ] Define the initial node groups.

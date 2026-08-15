@@ -10,6 +10,7 @@ Index of tracked work-item docs.
   - `implementation-plan.md` - ordered phases and exit criteria for delivery.
   - `subtasks/account-strategy.md` - AWS account boundaries, ownership, and naming model.
   - `subtasks/network-layout.md` - VPC, subnet, CIDR, NAT, and DNS layout per account.
+  - `subtasks/prepare-iam-cluster-access.md` - human, CI/CD, workload, and cluster access model.
   - `subtasks/deployment-service-ingress.md` - Kubernetes runtime/service/ingress boundary.
   - `subtasks/rds-postgresql.md` - AWS-managed PostgreSQL contract and migration path.
   - `subtasks/background-jobs.md` - async worker and media pipeline boundary.
