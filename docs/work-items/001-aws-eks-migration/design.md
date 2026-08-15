@@ -175,14 +175,57 @@ db                -> external RDS PostgreSQL
 4. Move database connectivity to RDS and migrate data.
 5. Cut QA, then staging, then production over to AWS.
 
-## Open Questions
-
-- [ ] Do we want Kubernetes manifests directly or Helm/Kustomize overlays?
-
 ## Resolved Questions
 
 - [x] Keep the Next.js app as a single Node server in EKS.
 - [x] Make app deploys GitOps-driven with ArgoCD; keep only bootstrap-only operations imperative when needed.
+- [x] Use Kustomize overlays for app and platform configuration, with Helm reserved for upstream add-ons when needed.
+
+## GitOps Layout
+
+### Platform Add-ons
+
+```text
+gitops-manifests/
+└── core-platform/
+    └── telemetry/
+        ├── applications/
+        │   ├── prometheus.yaml
+        │   ├── grafana.yaml
+        │   ├── alertmanager.yaml
+        │   ├── ingress-nginx.yaml
+        │   ├── cert-manager.yaml
+        │   └── external-dns.yaml
+        ├── base/
+        │   ├── prometheus/
+        │   ├── grafana/
+        │   ├── alertmanager/
+        │   └── common/
+        └── overlays/
+            ├── nonprod/
+            └── prod/
+```
+
+### Application Workloads
+
+```text
+gitops-manifests/
+└── user-apps/
+    ├── base/
+    │   ├── django/
+    │   └── nextjs/
+    └── overlays/
+        ├── local-k3d/
+        ├── nonprod/
+        └── prod/
+```
+
+### Responsibilities
+
+- `applications/*.yaml` should hold ArgoCD `Application` resources.
+- `base/` should hold shared manifests and config.
+- `overlays/` should hold environment-specific differences.
+- Helm should be used for upstream add-ons when that is the clearest install path.
 
 ### Workflow
 ```
