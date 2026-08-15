@@ -29,6 +29,22 @@ updated_at: 2026-08-14T00:00:00Z
 - [x] Keep Next.js as a separate Node SSR service.
 - [x] Add AWS-backed database, secrets, and networking foundations.
 
+## Related Subtasks
+
+- [001-aws-bootstrap-inputs](./subtasks/001-aws-bootstrap-inputs.md)
+- [002-account-strategy](./subtasks/002-account-strategy.md)
+- [003-network-layout](./subtasks/003-network-layout.md)
+- [004-vpc-layout](./subtasks/004-vpc-layout.md)
+- [005-identity-layer](./subtasks/005-identity-layer.md)
+- [006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)
+- [007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)
+- [008-provision-eks-base](./subtasks/008-provision-eks-base.md)
+- [009-environment-layout](./subtasks/009-environment-layout.md)
+- [010-deployment-service-ingress](./subtasks/010-deployment-service-ingress.md)
+- [011-rds-postgresql](./subtasks/011-rds-postgresql.md)
+- [012-background-jobs](./subtasks/012-background-jobs.md)
+- [013-remocion-de-render](./subtasks/013-remocion-de-render.md)
+
 ## Non-Goals
 
 - [ ] No application feature work.

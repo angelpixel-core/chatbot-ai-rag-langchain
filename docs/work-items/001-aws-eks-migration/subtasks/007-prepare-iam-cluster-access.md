@@ -1,5 +1,5 @@
 ---
-id: prepare-iam-cluster-access
+id: 007-prepare-iam-cluster-access
 aliases: []
 tags: []
 created_at: 2026-08-14T00:00:00Z

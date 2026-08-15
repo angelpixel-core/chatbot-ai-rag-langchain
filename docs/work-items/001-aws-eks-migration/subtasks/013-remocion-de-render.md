@@ -1,5 +1,5 @@
 ---
-id: remocion-de-render
+id: 013-remocion-de-render
 aliases: []
 tags: []
 created_at: 2026-08-14T00:00:00Z
@@ -51,13 +51,13 @@ At the moment, there is no evidence of a dedicated async job system in the repo.
 | Render path | Verdict | AWS/EKS target | Notes |
 | --- | --- | --- | --- |
 | `infra/provisioning/terraform/render/README.md` | Retire as active doc | `infra/provisioning/aws/README.md` | Keep only as historical context if needed. |
-| `infra/provisioning/terraform/render/components/web/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/deployment-service-ingress.md` | Extracted the useful contract and removed the active Render component. |
-| `infra/provisioning/terraform/render/components/database/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/rds-postgresql.md` | Extracted the useful database contract and removed the active Render component. |
-| `infra/provisioning/terraform/render/components/dns/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/deployment-service-ingress.md` | Extracted the useful hostname/TLS/routing contract and removed the active Render component. |
-| `infra/provisioning/terraform/render/components/worker/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/background-jobs.md` | Extracted the async worker and media pipeline contract and removed the active Render component. |
-| `infra/provisioning/terraform/render/envs/qa/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/environment-layout.md` | Extracted QA runtime, database, and validation intent into AWS environment mapping. |
-| `infra/provisioning/terraform/render/envs/staging/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/environment-layout.md` | Extracted staging promotion flow into AWS environment mapping. |
-| `infra/provisioning/terraform/render/envs/prod/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/environment-layout.md` | Extracted production release flow into AWS environment mapping. |
+| `infra/provisioning/terraform/render/components/web/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/010-deployment-service-ingress.md` | Extracted the useful contract and removed the active Render component. |
+| `infra/provisioning/terraform/render/components/database/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/011-rds-postgresql.md` | Extracted the useful database contract and removed the active Render component. |
+| `infra/provisioning/terraform/render/components/dns/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/010-deployment-service-ingress.md` | Extracted the useful hostname/TLS/routing contract and removed the active Render component. |
+| `infra/provisioning/terraform/render/components/worker/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/012-background-jobs.md` | Extracted the async worker and media pipeline contract and removed the active Render component. |
+| `infra/provisioning/terraform/render/envs/qa/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/009-environment-layout.md` | Extracted QA runtime, database, and validation intent into AWS environment mapping. |
+| `infra/provisioning/terraform/render/envs/staging/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/009-environment-layout.md` | Extracted staging promotion flow into AWS environment mapping. |
+| `infra/provisioning/terraform/render/envs/prod/` | Retired | `docs/work-items/001-aws-eks-migration/subtasks/009-environment-layout.md` | Extracted production release flow into AWS environment mapping. |
 | `infra/provisioning/terraform/render/components/*/*.tf` | Retire | New AWS Terraform modules | Provider-specific resources do not transfer directly. |
 
 ## Practical Reuse Rules

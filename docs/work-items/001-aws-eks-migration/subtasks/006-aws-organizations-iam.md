@@ -1,5 +1,5 @@
 ---
-id: aws-organizations-iam
+id: 006-aws-organizations-iam
 aliases: []
 tags: []
 created_at: 2026-08-14T00:00:00Z
@@ -32,7 +32,7 @@ Define the AWS Organizations structure, account boundaries, and IAM access model
 - Keep human and CI/CD access separated.
 - Use least-privilege roles with explicit trust relationships.
 - Add baseline guardrails before provisioning workloads.
-- Human access is modeled in `identity-layer.md` with access profiles that map to AWS IAM Identity Center permission sets.
+- Human access is modeled in `005-identity-layer.md` with access profiles that map to AWS IAM Identity Center permission sets.
 
 ## Execution Checklist
 
@@ -78,5 +78,5 @@ Define the AWS Organizations structure, account boundaries, and IAM access model
 ## Notes
 
 - This subtask is intentionally before VPC, EKS, and ECR.
-- The human access piece is modeled separately in `identity-layer.md` so the abstraction stays IdP-agnostic while AWS IAM Identity Center handles the implementation.
+- The human access piece is modeled separately in `005-identity-layer.md` so the abstraction stays IdP-agnostic while AWS IAM Identity Center handles the implementation.
 - The remaining bootstrap validation items still require live AWS execution; the documented matrix covers the design-side alignment.

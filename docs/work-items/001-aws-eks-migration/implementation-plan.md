@@ -15,26 +15,26 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
 
 ## Phases
 
-- [ ] Organizations / IAM
-  - [x] Define the AWS Organizations structure.
-  - [x] Define human access.
-  - [x] Define the identity layer abstraction.
-  - [x] Define CI/CD access.
-  - [x] Define baseline security controls.
-  - [x] Define audit and encryption foundations.
-  - [x] Define bootstrap inputs.
-  - [ ] Validate the bootstrap model.
+- [ ] Organizations / IAM ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md))
+  - [x] Define the AWS Organizations structure ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
+  - [x] Define human access ([005-identity-layer](./subtasks/005-identity-layer.md), [006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
+  - [x] Define the identity layer abstraction ([005-identity-layer](./subtasks/005-identity-layer.md)).
+  - [x] Define CI/CD access ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md), [007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
+  - [x] Define baseline security controls ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
+  - [x] Define audit and encryption foundations ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
+  - [x] Define bootstrap inputs ([001-aws-bootstrap-inputs](./subtasks/001-aws-bootstrap-inputs.md)).
+  - [ ] Validate the bootstrap model ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
 
 - [ ] Foundation
-  - [x] Define the AWS account strategy.
+  - [x] Define the AWS account strategy ([002-account-strategy](./subtasks/002-account-strategy.md)).
     - [x] Use `shared/platform` for central tooling.
     - [x] Use `nonprod` for QA and staging.
     - [x] Use `prod` for production.
-    - [ ] Create the AWS accounts in Organizations.
-    - [x] Define human access per account.
-    - [x] Define CI/CD roles per account.
-    - [x] Define what belongs in each account.
-    - [x] Define naming conventions for accounts and resources.
+    - [ ] Create the AWS accounts in Organizations ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
+    - [x] Define human access per account ([005-identity-layer](./subtasks/005-identity-layer.md), [007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
+    - [x] Define CI/CD roles per account ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md), [007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
+    - [x] Define what belongs in each account ([002-account-strategy](./subtasks/002-account-strategy.md)).
+    - [x] Define naming conventions for accounts and resources ([002-account-strategy](./subtasks/002-account-strategy.md)).
   - [x] Create the AWS provisioning skeleton.
     - [x] Create `infra/provisioning/aws/`.
     - [x] Create `infra/provisioning/aws/shared/platform/`.
@@ -42,26 +42,26 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [x] Create `infra/provisioning/aws/prod/`.
     - [ ] Decide which Render Terraform pieces to reuse as migration inputs.
     - [ ] Decide which Render Terraform pieces to retire.
-  - [x] Document the AWS bootstrap inputs and placeholder convention.
-  - [x] Establish the base network per account.
-    - [x] Define the VPC layout.
-    - [x] Implement the VPC module in Terraform.
-    - [x] Instantiate the module in each account root.
-    - [ ] Create one VPC per account.
-    - [ ] Define public and private subnets.
-    - [ ] Define NAT and egress paths.
-    - [x] Reserve non-overlapping CIDR ranges.
-    - [ ] Define DNS and naming conventions.
-  - [x] Prepare IAM and cluster access.
-    - [x] Define roles for admins, developers, and CI/CD.
-    - [x] Define initial EKS access.
-    - [x] Prepare IRSA/OIDC for workloads.
-    - [x] Define minimum permissions by namespace or service.
-  - [ ] Provision the EKS base.
-    - [x] Create the initial cluster in `nonprod`.
-    - [x] Define the initial node groups.
-    - [x] Enable base logging and monitoring.
-    - [ ] Validate access from the local environment.
+  - [x] Document the AWS bootstrap inputs and placeholder convention ([001-aws-bootstrap-inputs](./subtasks/001-aws-bootstrap-inputs.md)).
+  - [x] Establish the base network per account ([003-network-layout](./subtasks/003-network-layout.md), [004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [x] Define the VPC layout ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [x] Implement the VPC module in Terraform ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [x] Instantiate the module in each account root ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [ ] Create one VPC per account ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [ ] Define public and private subnets ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [ ] Define NAT and egress paths ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [x] Reserve non-overlapping CIDR ranges ([003-network-layout](./subtasks/003-network-layout.md), [004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [ ] Define DNS and naming conventions ([003-network-layout](./subtasks/003-network-layout.md), [004-vpc-layout](./subtasks/004-vpc-layout.md)).
+  - [x] Prepare IAM and cluster access ([007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
+    - [x] Define roles for admins, developers, and CI/CD ([005-identity-layer](./subtasks/005-identity-layer.md), [007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
+    - [x] Define initial EKS access ([007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
+    - [x] Prepare IRSA/OIDC for workloads ([007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
+    - [x] Define minimum permissions by namespace or service ([007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
+  - [x] Provision the EKS base ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
+    - [x] Create the initial cluster in `nonprod` ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
+    - [x] Define the initial node groups ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
+    - [x] Enable base logging and monitoring ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
+    - [ ] Validate access from the local environment ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
   - [ ] Provision ECR.
     - [ ] Create repos for `django`.
     - [ ] Create repos for `nextjs`.
@@ -84,20 +84,20 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [ ] Containerize Django and Next.js as separate workloads.
   - [ ] Confirm image build and push flow into ECR.
 - [ ] Data and Secrets
-  - [x] Document the RDS/PostgreSQL boundary.
+  - [x] Document the RDS/PostgreSQL boundary ([011-rds-postgresql](./subtasks/011-rds-postgresql.md)).
   - [ ] Move PostgreSQL to RDS.
   - [ ] Inject secrets from Secrets Manager and config from SSM Parameter Store.
 - [ ] Background Jobs and Media
-  - [x] Document the async worker and media pipeline boundary.
+  - [x] Document the async worker and media pipeline boundary ([012-background-jobs](./subtasks/012-background-jobs.md)).
   - [ ] Define the worker runtime and queueing strategy.
   - [ ] Define media storage and processing flow.
 - [ ] Environment Layout
-  - [x] Document QA, staging, and production account mapping.
+  - [x] Document QA, staging, and production account mapping ([009-environment-layout](./subtasks/009-environment-layout.md)).
   - [ ] Define runtime config per environment.
   - [ ] Define promotion flow from QA to staging to prod.
 - [ ] Delivery
   - [ ] Add GitOps deployment via ArgoCD.
-  - [ ] Add an Ingress Controller for HTTP/HTTPS traffic.
+  - [ ] Add an Ingress Controller for HTTP/HTTPS traffic ([010-deployment-service-ingress](./subtasks/010-deployment-service-ingress.md)).
 - [ ] Rollout
   - [ ] Validate in QA, then staging, then production.
 

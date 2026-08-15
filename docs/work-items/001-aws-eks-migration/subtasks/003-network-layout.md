@@ -1,5 +1,5 @@
 ---
-id: network-layout
+id: 003-network-layout
 aliases: []
 tags: []
 created_at: 2026-08-14T00:00:00Z
