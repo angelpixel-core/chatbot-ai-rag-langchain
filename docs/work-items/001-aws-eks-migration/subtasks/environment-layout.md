@@ -33,11 +33,11 @@ Define how QA, staging, and production map onto AWS accounts, clusters, and prom
 
 ## Execution Checklist
 
-- [ ] Define the environment/account mapping.
-  - [ ] Map QA to `nonprod`.
-  - [ ] Map staging to `nonprod`.
-  - [ ] Map production to `prod`.
-  - [ ] Define what is shared in `shared/platform`.
+- [x] Define the environment/account mapping.
+  - [x] Map QA to `nonprod`.
+  - [x] Map staging to `nonprod`.
+  - [x] Map production to `prod`.
+  - [x] Define what is shared in `shared/platform`.
 - [ ] Define environment-specific runtime contracts.
   - [ ] Define QA secrets and config.
   - [ ] Define staging secrets and config.

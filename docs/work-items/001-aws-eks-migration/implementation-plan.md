@@ -17,7 +17,8 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
 
 - [ ] Organizations / IAM
   - [x] Define the AWS Organizations structure.
-  - [ ] Define human access.
+  - [x] Define human access.
+  - [x] Define the identity layer abstraction.
   - [x] Define CI/CD access.
   - [x] Define baseline security controls.
   - [x] Define audit and encryption foundations.
@@ -25,15 +26,15 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [ ] Validate the bootstrap model.
 
 - [ ] Foundation
-  - [ ] Define the AWS account strategy.
+  - [x] Define the AWS account strategy.
     - [x] Use `shared/platform` for central tooling.
     - [x] Use `nonprod` for QA and staging.
     - [x] Use `prod` for production.
     - [ ] Create the AWS accounts in Organizations.
-    - [ ] Define human access per account.
-    - [ ] Define CI/CD roles per account.
-    - [ ] Define what belongs in each account.
-    - [ ] Define naming conventions for accounts and resources.
+    - [x] Define human access per account.
+    - [x] Define CI/CD roles per account.
+    - [x] Define what belongs in each account.
+    - [x] Define naming conventions for accounts and resources.
   - [x] Create the AWS provisioning skeleton.
     - [x] Create `infra/provisioning/aws/`.
     - [x] Create `infra/provisioning/aws/shared/platform/`.
@@ -42,7 +43,7 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [ ] Decide which Render Terraform pieces to reuse as migration inputs.
     - [ ] Decide which Render Terraform pieces to retire.
   - [x] Document the AWS bootstrap inputs and placeholder convention.
-  - [ ] Establish the base network per account.
+  - [x] Establish the base network per account.
     - [ ] Create one VPC per account.
     - [ ] Define public and private subnets.
     - [ ] Define NAT and egress paths.

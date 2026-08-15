@@ -32,6 +32,7 @@ Define the AWS Organizations structure, account boundaries, and IAM access model
 - Keep human and CI/CD access separated.
 - Use least-privilege roles with explicit trust relationships.
 - Add baseline guardrails before provisioning workloads.
+- Human access is modeled in `identity-layer.md` with access profiles that map to AWS IAM Identity Center permission sets.
 
 ## Execution Checklist
 
@@ -41,12 +42,12 @@ Define the AWS Organizations structure, account boundaries, and IAM access model
   - [x] Create or confirm the `shared/platform` account.
   - [x] Create or confirm the `nonprod` account.
   - [x] Create or confirm the `prod` account.
-- [ ] Define human access.
-  - [ ] Define the admin identity source.
-  - [ ] Define who can access `shared/platform`.
-  - [ ] Define who can access `nonprod`.
-  - [ ] Define who can access `prod`.
-  - [ ] Define break-glass access.
+- [x] Define human access.
+  - [x] Define the admin identity source.
+  - [x] Define who can access `shared/platform`.
+  - [x] Define who can access `nonprod`.
+  - [x] Define who can access `prod`.
+  - [x] Define break-glass access.
 - [x] Define CI/CD access.
   - [x] Define the deploy role for `shared/platform`.
   - [x] Define the deploy role for `nonprod`.
@@ -77,4 +78,5 @@ Define the AWS Organizations structure, account boundaries, and IAM access model
 ## Notes
 
 - This subtask is intentionally before VPC, EKS, and ECR.
-- If AWS Identity Center or another identity source is already in place, wire that into the human access section rather than inventing a new path.
+- The human access piece is modeled separately in `identity-layer.md` so the abstraction stays IdP-agnostic while AWS IAM Identity Center handles the implementation.
+- The remaining bootstrap validation items still require live AWS execution; the documented matrix covers the design-side alignment.
