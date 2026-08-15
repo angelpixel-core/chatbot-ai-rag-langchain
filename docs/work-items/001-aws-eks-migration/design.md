@@ -178,8 +178,11 @@ db                -> external RDS PostgreSQL
 ## Open Questions
 
 - [ ] Do we want Kubernetes manifests directly or Helm/Kustomize overlays?
-- [ ] Do we keep the Next.js app as a single Node server in EKS, or split SSR from static asset delivery later?
-- [ ] Do we keep any imperative deploy step for bootstrap-only operations, or make all app deploys GitOps-driven?
+
+## Resolved Questions
+
+- [x] Keep the Next.js app as a single Node server in EKS.
+- [x] Make app deploys GitOps-driven with ArgoCD; keep only bootstrap-only operations imperative when needed.
 
 ### Workflow
 ```
