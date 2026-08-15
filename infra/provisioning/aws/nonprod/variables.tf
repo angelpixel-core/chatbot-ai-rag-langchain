@@ -45,3 +45,45 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "vpc_cidr_block" {
+  description = "CIDR block reserved for the non-production VPC."
+  type        = string
+  default     = "10.41.0.0/16"
+}
+
+variable "public_subnet_cidrs" {
+  description = "Public subnet CIDRs for non-production."
+  type        = list(string)
+  default     = ["10.41.0.0/20", "10.41.16.0/20"]
+}
+
+variable "private_app_subnet_cidrs" {
+  description = "Private app subnet CIDRs for non-production."
+  type        = list(string)
+  default     = ["10.41.32.0/20", "10.41.48.0/20"]
+}
+
+variable "private_data_subnet_cidrs" {
+  description = "Private data subnet CIDRs for non-production."
+  type        = list(string)
+  default     = ["10.41.64.0/20", "10.41.80.0/20"]
+}
+
+variable "enable_nat" {
+  description = "Whether to create a NAT gateway for non-production."
+  type        = bool
+  default     = true
+}
+
+variable "enable_dns" {
+  description = "Whether to create a private Route53 zone for non-production."
+  type        = bool
+  default     = false
+}
+
+variable "private_zone_name" {
+  description = "Private DNS zone name for non-production if DNS is enabled."
+  type        = string
+  default     = "nonprod.internal"
+}

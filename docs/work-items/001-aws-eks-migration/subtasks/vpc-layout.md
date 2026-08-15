@@ -101,8 +101,8 @@ Define the concrete AWS VPC layout per account before creating the actual VPCs.
 - [x] Define the module/file split for Terraform.
 - [x] Define the root layout per account.
 - [x] Define the exact Terraform resource map.
-- [ ] Implement the module in Terraform.
-- [ ] Instantiate the module in each account root.
+- [x] Implement the module in Terraform.
+- [x] Instantiate the module in each account root.
 - [ ] Validate the VPC layout against the reserved CIDR ranges.
 
 ## Notes

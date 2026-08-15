@@ -54,3 +54,45 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "vpc_cidr_block" {
+  description = "CIDR block reserved for the shared/platform VPC."
+  type        = string
+  default     = "10.40.0.0/16"
+}
+
+variable "public_subnet_cidrs" {
+  description = "Public subnet CIDRs for shared/platform."
+  type        = list(string)
+  default     = ["10.40.0.0/20", "10.40.16.0/20"]
+}
+
+variable "private_app_subnet_cidrs" {
+  description = "Private app subnet CIDRs for shared/platform."
+  type        = list(string)
+  default     = ["10.40.32.0/20", "10.40.48.0/20"]
+}
+
+variable "private_data_subnet_cidrs" {
+  description = "Private data subnet CIDRs for shared/platform."
+  type        = list(string)
+  default     = ["10.40.64.0/20", "10.40.80.0/20"]
+}
+
+variable "enable_nat" {
+  description = "Whether to create a NAT gateway for shared/platform."
+  type        = bool
+  default     = true
+}
+
+variable "enable_dns" {
+  description = "Whether to create a private Route53 zone for shared/platform."
+  type        = bool
+  default     = false
+}
+
+variable "private_zone_name" {
+  description = "Private DNS zone name for shared/platform if DNS is enabled."
+  type        = string
+  default     = "shared.platform.internal"
+}

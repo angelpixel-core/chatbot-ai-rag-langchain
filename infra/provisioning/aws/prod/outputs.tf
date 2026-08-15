@@ -7,3 +7,8 @@ output "bootstrap_notes" {
   value       = local.bootstrap_notes
   description = "Notes about what belongs in prod."
 }
+
+output "network" {
+  value       = module.vpc
+  description = "Planned production network scaffold."
+}

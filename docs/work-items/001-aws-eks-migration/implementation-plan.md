@@ -45,6 +45,8 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [x] Document the AWS bootstrap inputs and placeholder convention.
   - [x] Establish the base network per account.
     - [x] Define the VPC layout.
+    - [x] Implement the VPC module in Terraform.
+    - [x] Instantiate the module in each account root.
     - [ ] Create one VPC per account.
     - [ ] Define public and private subnets.
     - [ ] Define NAT and egress paths.

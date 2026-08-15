@@ -27,3 +27,8 @@ output "kms" {
   value       = module.kms
   description = "Planned KMS scaffold for bootstrap."
 }
+
+output "network" {
+  value       = module.vpc
+  description = "Planned shared/platform network scaffold."
+}
