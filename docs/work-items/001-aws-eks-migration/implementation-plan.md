@@ -23,6 +23,7 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [x] Define baseline security controls ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
   - [x] Define audit and encryption foundations ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
   - [x] Define bootstrap inputs ([001-aws-bootstrap-inputs](./subtasks/001-aws-bootstrap-inputs.md)).
+  - [ ] Create the AWS accounts in Organizations ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
   - [ ] Validate the bootstrap model ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
 
 - [ ] Foundation
@@ -30,7 +31,6 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [x] Use `shared/platform` for central tooling.
     - [x] Use `nonprod` for QA and staging.
     - [x] Use `prod` for production.
-    - [ ] Create the AWS accounts in Organizations ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
     - [x] Define human access per account ([005-identity-layer](./subtasks/005-identity-layer.md), [007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
     - [x] Define CI/CD roles per account ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md), [007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
     - [x] Define what belongs in each account ([002-account-strategy](./subtasks/002-account-strategy.md)).
@@ -40,18 +40,18 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [x] Create `infra/provisioning/aws/shared/platform/`.
     - [x] Create `infra/provisioning/aws/nonprod/`.
     - [x] Create `infra/provisioning/aws/prod/`.
-    - [ ] Decide which legacy Terraform pieces to reuse as migration inputs.
-    - [ ] Decide which legacy Terraform pieces to retire.
+    - [x] Decide which legacy Terraform pieces to reuse as migration inputs.
+    - [x] Decide which legacy Terraform pieces to retire.
   - [x] Document the AWS bootstrap inputs and placeholder convention ([001-aws-bootstrap-inputs](./subtasks/001-aws-bootstrap-inputs.md)).
   - [x] Establish the base network per account ([003-network-layout](./subtasks/003-network-layout.md), [004-vpc-layout](./subtasks/004-vpc-layout.md)).
     - [x] Define the VPC layout ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
     - [x] Implement the VPC module in Terraform ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
     - [x] Instantiate the module in each account root ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
-    - [ ] Create one VPC per account ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
-    - [ ] Define public and private subnets ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
-    - [ ] Define NAT and egress paths ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [x] Create one VPC per account ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [x] Define public and private subnets ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [x] Define NAT and egress paths ([004-vpc-layout](./subtasks/004-vpc-layout.md)).
     - [x] Reserve non-overlapping CIDR ranges ([003-network-layout](./subtasks/003-network-layout.md), [004-vpc-layout](./subtasks/004-vpc-layout.md)).
-    - [ ] Define DNS and naming conventions ([003-network-layout](./subtasks/003-network-layout.md), [004-vpc-layout](./subtasks/004-vpc-layout.md)).
+    - [x] Define DNS and naming conventions ([003-network-layout](./subtasks/003-network-layout.md), [004-vpc-layout](./subtasks/004-vpc-layout.md)).
   - [x] Prepare IAM and cluster access ([007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
     - [x] Define roles for admins, developers, and CI/CD ([005-identity-layer](./subtasks/005-identity-layer.md), [007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
     - [x] Define initial EKS access ([007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
