@@ -1,0 +1,17 @@
+configs:
+  cm:
+    create: true
+    application.resourceTrackingMethod: annotation
+server:
+  service:
+    type: ClusterIP
+  extraArgs:
+    - --insecure
+redis-ha:
+  enabled: false
+dex:
+  enabled: false
+notifications:
+  enabled: false
+applicationSet:
+  enabled: false

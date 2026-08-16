@@ -236,6 +236,7 @@ infra/delivery/applications/user-apps.yaml
 - `core-platform/` owns upstream add-ons as separate ArgoCD Applications so each controller keeps its own upgrade path.
 - `user-apps/` owns the application runtime manifests and environment overlays.
 - `infra/environments/*` remains the source of truth for runtime values; delivery overlays project those values into Kubernetes config and secrets through mirrored input files under `infra/delivery/user-apps/overlays/*/inputs/`.
+- `make delivery/bootstrap` installs ArgoCD once and then applies `applications/root.yaml`.
 
 ### Selected Controller Charts
 

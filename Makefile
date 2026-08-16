@@ -2,10 +2,11 @@ COMPOSE ?= docker compose
 COMPOSE_FILE ?= infra/runtime/compose.yaml
 STACK_ENV ?= dev
 CLUSTER_SCRIPT ?= infra/runtime/scripts/cluster.sh
+ARGOCD_BOOTSTRAP_SCRIPT ?= infra/runtime/scripts/bootstrap-argocd.sh
 
 COMPOSE_CMD = $(COMPOSE) --env-file infra/environments/$(STACK_ENV)/orchestration/compose.env -f $(COMPOSE_FILE)
 
-.PHONY: stack/up stack/down stack/logs stack/status db/shell db/logs server/shell server/logs web/shell web/logs cluster/up cluster/down cluster/logs cluster/status cluster/apply cluster/delete
+.PHONY: stack/up stack/down stack/logs stack/status db/shell db/logs server/shell server/logs web/shell web/logs cluster/up cluster/down cluster/logs cluster/status cluster/apply cluster/delete delivery/bootstrap
 
 stack/up:
 	$(COMPOSE_CMD) up -d
@@ -54,3 +55,6 @@ cluster/apply:
 
 cluster/delete:
 	sh $(CLUSTER_SCRIPT) delete
+
+delivery/bootstrap:
+	sh $(ARGOCD_BOOTSTRAP_SCRIPT)
