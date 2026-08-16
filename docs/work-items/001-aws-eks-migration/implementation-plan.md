@@ -83,7 +83,8 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [x] Standardize local Kubernetes on `k3d`.
   - [x] Add local manifests or overlays that mirror the app split used in EKS.
 - [ ] Application Packaging
-  - [ ] Containerize Django and Next.js as separate workloads.
+  - [x] Containerize Django and Next.js as separate workloads.
+    - [x] Add `base`, `test`, and `runtime` stages for each app image.
   - [ ] Confirm image build and push flow into ECR.
 - [ ] Data and Secrets
   - [x] Document the RDS/PostgreSQL boundary ([011-rds-postgresql](./subtasks/011-rds-postgresql.md)).

@@ -43,7 +43,8 @@ load_env_file() {
 build_image() {
   require_file "$TEST_STACK_ENV_FILE"
   docker build \
-      --file "${ROOT_DIR}/infra/runtime/containers/server/Dockerfile" \
+    --file "${ROOT_DIR}/infra/runtime/containers/server/Dockerfile" \
+    --target "${TEST_IMAGE_STAGE:-test}" \
     --build-arg "PYTHON_VERSION=${PYTHON_VERSION:-3.15.0rc1}" \
     --build-arg "UID=${UID:-1000}" \
     --build-arg "GID=${GID:-1000}" \
