@@ -43,6 +43,34 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
 - Split queues later only if different workloads create contention or need separate scaling.
 - Move to async chat replies only if the product later needs long-running response generation or deferred delivery.
 
+### Media Upload Recommendation
+
+- Use presigned/direct-to-storage uploads for media.
+- Keep the backend responsible for metadata, authorization, and job creation.
+- Avoid proxying large binaries through Django unless a future edge case proves it necessary.
+
+## Media Pipeline Contract
+
+- Use AWS S3 as the target object store.
+- Keep original uploads and derived artifacts in object storage, not in the cluster.
+- Track every asset in the database with a stable id, owner, type, object key, checksum, size, status, and timestamps.
+- Support images, audio, and documents from day one with the same lifecycle and type-specific derived outputs.
+- Use `pending_upload`, `uploaded`, `processing`, `ready`, and `failed` as the asset states.
+- Make processing jobs idempotent per asset and derivative.
+- Treat upload completion as a separate backend confirmation before enqueuing processing.
+- Validate mime type, size, and checksum before producing derivatives.
+- Generate thumbnails or previews only when the asset type benefits from them.
+- Store processed outputs back in object storage and update the asset record atomically.
+
+## Operational Safety Contract
+
+- Record terminal failure reasons on the asset/job so operators can see why processing stopped.
+- Use a dead-letter or failure path for exhausted retries.
+- Emit metrics for queue depth, job age, retry count, success/failure rate, and processing latency.
+- Reconcile stale `pending_upload` or orphaned temporary assets with a periodic cleanup job.
+- Keep temporary artifacts short-lived and purge them after a TTL.
+- Make operational alerts actionable by tying them to the asset id and processing step.
+
 ## Execution Checklist
 
 - [ ] Define the async job boundary.
@@ -53,15 +81,15 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
   - [x] Choose the worker image and command.
   - [x] Define worker resources and autoscaling posture.
   - [x] Define worker environment variables and secrets.
-- [ ] Define the media pipeline.
-  - [ ] Choose object storage for uploads and processed assets.
-  - [ ] Define how uploads are accepted, stored, and referenced.
-  - [ ] Define thumbnail, preview, and validation steps if needed.
-  - [ ] Define how audio/image/document processing jobs are queued and retried.
-- [ ] Define operational safety.
-  - [ ] Define dead-letter or failure handling if needed.
-  - [ ] Define observability for job health and media processing.
-  - [ ] Define cleanup rules for temporary artifacts.
+- [x] Define the media pipeline.
+  - [x] Choose object storage for uploads and processed assets.
+  - [x] Define how uploads are accepted, stored, and referenced.
+  - [x] Define thumbnail, preview, and validation steps if needed.
+  - [x] Define how audio/image/document processing jobs are queued and retried.
+- [x] Define operational safety.
+  - [x] Define dead-letter or failure handling if needed.
+  - [x] Define observability for job health and media processing.
+  - [x] Define cleanup rules for temporary artifacts.
 - [ ] Remove legacy provider-specific worker artifacts from the active migration path.
   - [ ] Retire the legacy background worker as an active resource.
   - [ ] Remove the legacy worker component tree.
