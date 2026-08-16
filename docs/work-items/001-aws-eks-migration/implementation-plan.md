@@ -79,9 +79,9 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [ ] Confirm CI/CD can publish images.
     - [ ] Confirm network connectivity is functional.
     - [ ] Confirm roles are isolated by account.
-- [ ] Local Workflow
-  - [ ] Standardize local Kubernetes on `k3d`.
-  - [ ] Add local manifests or overlays that mirror the app split used in EKS.
+- [x] Local Workflow
+  - [x] Standardize local Kubernetes on `k3d`.
+  - [x] Add local manifests or overlays that mirror the app split used in EKS.
 - [ ] Application Packaging
   - [ ] Containerize Django and Next.js as separate workloads.
   - [ ] Confirm image build and push flow into ECR.
@@ -106,7 +106,7 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
 ## Deliverables
 
 - [ ] AWS infrastructure root for EKS, RDS, ECR, IAM, and networking.
-- [ ] Local `k3d` workflow.
+- [x] Local `k3d` workflow.
 - [ ] GitOps manifests for platform and app workloads.
 - [ ] Deployment and ingress path for the apps.
 

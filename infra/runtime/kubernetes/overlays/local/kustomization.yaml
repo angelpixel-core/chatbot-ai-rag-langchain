@@ -1,0 +1,23 @@
+namespace: coffee-chatbot-runtime
+
+resources:
+  - ../../base
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: runtime-config
+    envs:
+      - runtime.env
+  - name: db-init-scripts
+    files:
+      - initdb.d/001-create-user.sh
+      - initdb.d/002-create-databases.sh
+      - initdb.d/003-grant-permissions.sh
+      - initdb.d/004-enable-extensions.sh
+
+secretGenerator:
+  - name: runtime-secrets
+    envs:
+      - secrets.env

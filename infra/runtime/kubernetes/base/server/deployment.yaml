@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: server
+    spec:
+      containers:
+        - name: server
+          image: coffee-chatbot-server:local
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - /app/infra/runtime/containers/server/entrypoint.sh
+          args:
+            - python
+            - apps/server/manage.py
+            - runserver
+            - 0.0.0.0:8000
+          envFrom:
+            - configMapRef:
+                name: runtime-config
+            - secretRef:
+                name: runtime-secrets
+          ports:
+            - name: http
+              containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /admin/
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /admin/
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 10

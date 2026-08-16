@@ -18,8 +18,7 @@ Define how dev, test, QA, staging, and production map onto local compose, CI, AW
 - `STACK_ENV` becomes the environment selector across local compose, CI, and AWS deploys.
 - `STACK_ENV=dev` drives local compose.
 - `STACK_ENV=test` drives CI-backed verification.
-- `DB_QA_CONNECTION_STRING` becomes the QA database secret/connection contract.
-- `DB_PROD_CONNECTION_STRING` becomes the production database secret/connection contract.
+- `DB_CONNECTION_STRING` becomes the shared database secret/connection contract.
 - QA becomes the first deployed compatibility checkpoint.
 - Staging becomes the release-readiness gate between QA and production.
 - Production becomes the final release environment.

@@ -142,11 +142,8 @@ Static assets and build artifacts are produced in CI, pushed to ECR, and deploye
 Planned environment contracts:
 
 ```bash
-STACK_ENV=dev|qa|staging|prod
+STACK_ENV=dev|test|qa|staging|prod
 DB_CONNECTION_STRING=...
-DB_QA_CONNECTION_STRING=...
-DB_STAGING_CONNECTION_STRING=...
-DB_PROD_CONNECTION_STRING=...
 AWS_REGION=...
 AWS_ACCOUNT_ID=...
 ```
@@ -215,7 +212,7 @@ gitops-manifests/
     │   ├── django/
     │   └── nextjs/
     └── overlays/
-        ├── local-k3d/
+        ├── local/
         ├── nonprod/
         └── prod/
 ```
@@ -258,9 +255,9 @@ mi-proyecto-monorepo/
 
 ├── configuration/             # ARTEFACTO: Estado del Sistema Operativo y Nodos
 │   │                          # Ciclo de vida: Medio (se ejecuta en parches o escalabilidad)
-│   └── cluster-bootstrap/     # Playbooks de Ansible para instalar Docker, k3d y parches
-│       ├── install-runtimes.yaml
-│       └── security-hardening.yaml
+│   └── runtime/               # Helpers operativos y manifests locales
+│       ├── cluster.sh
+│       └── kubernetes/
 
 ├── source-code/               # ARTEFACTO: Lógica de Negocio Pura (Tus aplicaciones)
 │   │                          # Ciclo de vida: Continuo (múltiples cambios al día)
@@ -278,7 +275,7 @@ mi-proyecto-monorepo/
 │   └── user-apps/             # Planos de tus aplicaciones (Helm / Kustomize)
 │       ├── base/              # Plantillas base del despliegue (Deployment, Service)
 │       └── environments/      # Parámetros específicos por entorno
-│           ├── local-k3d/     # Réplicas: 1, Recursos: Bajos, Modo: Debug
+│           ├── local/         # Réplicas: 1, Recursos: Bajos, Modo: Debug
 │           └── cloud-prod/    # Réplicas: 3, Recursos: Altos, Modo: Production
 
 └── .github/automation/        # ARTEFACTO: Las Reglas de Tránsito (El "Cómo" se mueve todo)

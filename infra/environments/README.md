@@ -25,3 +25,4 @@ Each environment is split by consumer:
 - Use `secrets.local.env` files for versioned placeholders when a value is not ready yet.
 - In `prod/`, `qa/`, and `staging/`, version the environment files with placeholders and fill the live values manually in the local secret store.
 - When an environment file is checked into git, keep secrets and live connection strings as placeholders only.
+- Use the shared `DB_CONNECTION_STRING` contract in `app/db.env` across dev, test, qa, staging, and prod.

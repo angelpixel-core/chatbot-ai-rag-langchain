@@ -1,0 +1,14 @@
+resources:
+  - namespace.yaml
+  - server/deployment.yaml
+  - server/service.yaml
+  - web/deployment.yaml
+  - web/service.yaml
+  - db/deployment.yaml
+  - db/service.yaml
+  - db/headless-service.yaml
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: coffee-chatbot
+    includeSelectors: true

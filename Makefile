@@ -1,10 +1,11 @@
 COMPOSE ?= docker compose
-COMPOSE_FILE ?= infra/local/compose.yaml
+COMPOSE_FILE ?= infra/runtime/compose.yaml
 STACK_ENV ?= dev
+CLUSTER_SCRIPT ?= infra/runtime/scripts/cluster.sh
 
 COMPOSE_CMD = $(COMPOSE) --env-file infra/environments/$(STACK_ENV)/orchestration/compose.env -f $(COMPOSE_FILE)
 
-.PHONY: stack/up stack/down stack/logs stack/status db/shell db/logs server/shell server/logs web/shell web/logs
+.PHONY: stack/up stack/down stack/logs stack/status db/shell db/logs server/shell server/logs web/shell web/logs cluster/up cluster/down cluster/logs cluster/status cluster/apply cluster/delete
 
 stack/up:
 	$(COMPOSE_CMD) up -d
@@ -35,3 +36,21 @@ web/shell:
 
 web/logs:
 	$(COMPOSE_CMD) logs -f web
+
+cluster/up:
+	sh $(CLUSTER_SCRIPT) up
+
+cluster/down:
+	sh $(CLUSTER_SCRIPT) down
+
+cluster/logs:
+	sh $(CLUSTER_SCRIPT) logs
+
+cluster/status:
+	sh $(CLUSTER_SCRIPT) status
+
+cluster/apply:
+	sh $(CLUSTER_SCRIPT) apply
+
+cluster/delete:
+	sh $(CLUSTER_SCRIPT) delete

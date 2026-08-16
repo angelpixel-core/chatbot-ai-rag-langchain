@@ -14,3 +14,4 @@ This directory is reserved for staging environment files.
 - Keep `app/db.env` and `db/bootstrap.env` versioned with placeholders when values are not yet final.
 - Use `secrets.local.env` files in `app/`, `db/`, and `orchestration/` for versioned placeholder secret values when needed.
 - `orchestration/compose.env` must define `STACK_ENV=staging` for compose interpolation.
+- `app/db.env` uses the shared `DB_CONNECTION_STRING` contract.

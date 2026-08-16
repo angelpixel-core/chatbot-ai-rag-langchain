@@ -21,7 +21,7 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
 - `postgres_version` becomes the target engine version in RDS.
 - `plan` becomes the RDS instance class / size choice.
 - `ip_allow_list` becomes the network/security-group access model.
-- `connection_info` becomes the secret and connection-string contract for the app.
+- `connection_info` becomes the shared `DB_CONNECTION_STRING` contract for the app.
 
 ## Recommendation
 

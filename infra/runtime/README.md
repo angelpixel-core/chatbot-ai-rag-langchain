@@ -6,6 +6,8 @@ Este directorio contiene la infraestructura de ejecución del proyecto.
 
 - `compose.yaml` - definición principal del stack de ejecución local.
 - `containers/` - contenedores y entrypoints de ejecución.
+- `kubernetes/` - manifests locales para Compose y k3d.
+- `scripts/` - helpers operativos para el runtime local.
 
 ## Puertos externos
 
