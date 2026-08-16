@@ -28,6 +28,14 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
 - Store media in AWS-managed object storage rather than inside the cluster.
 - Push image/audio/document processing through the worker pipeline asynchronously.
 
+## Vendor-Neutral Contract
+
+- The queue is an abstraction, not a product decision yet.
+- The queue implementation must support durable enqueue/dequeue, retries, delayed delivery, and a failure path.
+- Jobs must carry an idempotency key and enough metadata to reprocess safely.
+- The worker must be able to ack, nack, retry, and time out jobs without coupling the app to a specific broker API.
+- Media jobs may be split into separate task classes later, but they share the same contract shape.
+
 ## Execution Checklist
 
 - [ ] Define the async job boundary.
@@ -35,9 +43,9 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
   - [ ] List which jobs stay inline.
   - [ ] Define job retry and timeout policy.
 - [ ] Define the worker runtime.
-  - [ ] Choose the worker image and command.
-  - [ ] Define worker resources and autoscaling posture.
-  - [ ] Define worker environment variables and secrets.
+  - [x] Choose the worker image and command.
+  - [x] Define worker resources and autoscaling posture.
+  - [x] Define worker environment variables and secrets.
 - [ ] Define the media pipeline.
   - [ ] Choose object storage for uploads and processed assets.
   - [ ] Define how uploads are accepted, stored, and referenced.
@@ -54,4 +62,5 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
 ## Notes
 
 - This document covers both workers and the media pipeline because they are coupled in the chat use case.
+- The queue choice stays open until we need a concrete broker; the contract only requires durable retries and failure handling.
 - If the workload becomes mostly scheduled rather than event-driven, split out a separate `CronJob`-focused subtask later.
