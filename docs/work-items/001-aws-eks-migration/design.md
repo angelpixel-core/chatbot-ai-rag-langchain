@@ -3,8 +3,8 @@ id: design
 aliases: []
 tags: []
 created_at: 2026-08-13T00:00:00Z
-status: draft
-updated_at: 2026-08-14T00:00:00Z
+status: done
+updated_at: 2026-08-16T00:00:00Z
 ---
 
 # Design: AWS EKS Migration
