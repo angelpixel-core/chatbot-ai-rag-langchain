@@ -70,10 +70,10 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [x] Define the environment layout.
     - [x] Keep dev local/compose.
     - [x] Keep test in CI.
-    - [ ] Map QA to `nonprod`.
-    - [ ] Map staging to `nonprod`.
-    - [ ] Keep production in a separate account.
-    - [ ] Align variables, domains, and credentials per environment.
+    - [x] Map QA to `nonprod`.
+    - [x] Map staging to `nonprod`.
+    - [x] Keep production in a separate account.
+    - [x] Align variables, domains, and credentials per environment.
   - [ ] Validate the foundation.
     - [ ] Confirm human access to the cluster.
     - [ ] Confirm CI/CD can publish images.
