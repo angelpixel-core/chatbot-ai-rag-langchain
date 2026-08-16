@@ -100,8 +100,8 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [x] Define runtime config per environment.
   - [x] Define promotion flow from QA to staging to prod.
 - [ ] Delivery
-  - [ ] Add GitOps deployment via ArgoCD.
-  - [ ] Add an Ingress Controller for HTTP/HTTPS traffic ([010-deployment-service-ingress](./subtasks/010-deployment-service-ingress.md)).
+  - [x] Add GitOps deployment via ArgoCD.
+  - [x] Add an Ingress Controller for HTTP/HTTPS traffic ([010-deployment-service-ingress](./subtasks/010-deployment-service-ingress.md)).
 - [ ] Rollout
   - [ ] Validate in QA, then staging, then production.
 
@@ -109,8 +109,8 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
 
 - [ ] AWS infrastructure root for EKS, RDS, ECR, IAM, and networking.
 - [x] Local `k3d` workflow.
-- [ ] GitOps manifests for platform and app workloads.
-- [ ] Deployment and ingress path for the apps.
+- [x] GitOps manifests for platform and app workloads.
+- [x] Deployment and ingress path for the apps.
 
 ## Exit Criteria
 

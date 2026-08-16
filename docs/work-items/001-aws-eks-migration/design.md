@@ -235,7 +235,20 @@ infra/delivery/applications/user-apps.yaml
 - `applications/user-apps.yaml` fans out to the Django and Next.js workload trees.
 - `core-platform/` owns upstream add-ons as separate ArgoCD Applications so each controller keeps its own upgrade path.
 - `user-apps/` owns the application runtime manifests and environment overlays.
-- `infra/environments/*` remains the source of truth for runtime values; delivery overlays project those values into Kubernetes config and secrets through generated inputs.
+- `infra/environments/*` remains the source of truth for runtime values; delivery overlays project those values into Kubernetes config and secrets through mirrored input files under `infra/delivery/user-apps/overlays/*/inputs/`.
+
+### Selected Controller Charts
+
+- ArgoCD: `https://argoproj.github.io/argo-helm` / `argo-cd`
+- Ingress NGINX: `https://kubernetes.github.io/ingress-nginx` / `ingress-nginx`
+- cert-manager: `https://charts.jetstack.io` / `cert-manager`
+- external-dns: `https://kubernetes-sigs.github.io/external-dns/` / `external-dns`
+
+The chart manifests pin the install posture directly:
+- ArgoCD stays cluster-internal and bootstrap-oriented.
+- ingress-nginx uses a LoadBalancer service for AWS ingress entry.
+- cert-manager installs CRDs and runs with a minimal controller footprint.
+- external-dns targets AWS Route53-style ingress publication with an example domain filter placeholder.
 
 ### Core Platform Model
 

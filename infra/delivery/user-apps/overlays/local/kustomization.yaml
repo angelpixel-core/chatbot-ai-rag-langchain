@@ -20,17 +20,17 @@ secretGenerator:
 
 images:
   - name: django
-    newName: django
-    newTag: prod
+    newName: coffee-chatbot-server
+    newTag: local
   - name: nextjs
-    newName: nextjs
-    newTag: prod
+    newName: coffee-chatbot-web
+    newTag: local
 
 replicas:
   - name: django
-    count: 3
+    count: 1
   - name: nextjs
-    count: 3
+    count: 1
 
 patches:
   - path: ingress-patch.yaml

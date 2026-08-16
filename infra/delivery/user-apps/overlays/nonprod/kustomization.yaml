@@ -1,3 +1,41 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources: []
+namespace: coffee-chatbot-runtime
+
+resources:
+  - ../../base
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: runtime-config
+    envs:
+      - ./inputs/core.env
+
+secretGenerator:
+  - name: runtime-secrets
+    envs:
+      - ./inputs/db.env
+
+images:
+  - name: django
+    newName: django
+    newTag: nonprod
+  - name: nextjs
+    newName: nextjs
+    newTag: nonprod
+
+replicas:
+  - name: django
+    count: 2
+  - name: nextjs
+    count: 2
+
+patches:
+  - path: ingress-patch.yaml
+    target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: nextjs

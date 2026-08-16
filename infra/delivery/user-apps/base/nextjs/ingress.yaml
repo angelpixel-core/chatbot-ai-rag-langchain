@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextjs
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: chatbot.example.invalid
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nextjs
+                port:
+                  name: http

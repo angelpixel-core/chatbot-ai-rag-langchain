@@ -13,3 +13,4 @@ Declarative GitOps manifests for cluster reconciliation.
 - Apply `applications/root.yaml` once to seed ArgoCD.
 - Keep `applications/kustomization.yaml` free of `root.yaml` so the entrypoint does not self-reference.
 - Use empty `kustomization.yaml` files as placeholders until each workload tree is implemented.
+- Keep overlay input files inside `infra/delivery/` because Kustomize load restrictions prevent reading `infra/environments/*` directly from the overlay tree.

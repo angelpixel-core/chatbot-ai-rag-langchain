@@ -1,0 +1,14 @@
+- op: replace
+  path: /spec/rules/0/host
+  value: chatbot.example.com
+- op: add
+  path: /metadata/annotations
+  value:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    external-dns.alpha.kubernetes.io/hostname: chatbot.example.com
+- op: add
+  path: /spec/tls
+  value:
+    - hosts:
+        - chatbot.example.com
+      secretName: nextjs-prod-tls

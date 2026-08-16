@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: 7.8.3
+    helm:
+      values: |
+        configs:
+          cm:
+            create: true
+            application.resourceTrackingMethod: annotation
+        server:
+          service:
+            type: ClusterIP
+          extraArgs:
+            - --insecure
+        redis-ha:
+          enabled: false
+        dex:
+          enabled: false
+        notifications:
+          enabled: false
+        applicationSet:
+          enabled: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
