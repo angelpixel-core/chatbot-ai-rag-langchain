@@ -35,6 +35,10 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
 - Keep the application database naming convention aligned with the current app contract: `coffee_chatbot_<environment>`.
 - Keep the application database user convention aligned with the current app contract: `app`.
 - Keep the shared connection secret name as `DB_CONNECTION_STRING`.
+- Use daily automated backups for all environments.
+- Keep retention at `7` days for QA and staging, and `30` days for production.
+- Keep off-peak maintenance windows with `auto minor version upgrade` enabled.
+- Enable `deletion protection` for production.
 
 ## Execution Checklist
 
@@ -42,7 +46,7 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
   - [x] Choose the target PostgreSQL major version.
   - [x] Choose the instance class / size for each environment.
   - [x] Define the database name and user convention.
-  - [ ] Define the backup, retention, and maintenance posture.
+  - [x] Define the backup, retention, and maintenance posture.
 - [ ] Define network access to RDS.
   - [ ] Define security groups / allow lists from EKS to RDS.
   - [ ] Keep access private inside the AWS network.
