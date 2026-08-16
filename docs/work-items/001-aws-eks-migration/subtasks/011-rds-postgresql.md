@@ -20,7 +20,7 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
 - `database_user` becomes the application database user.
 - `postgres_version` becomes the target engine version in RDS.
 - `plan` becomes the RDS instance class / size choice.
-- `ip_allow_list` becomes the network/security-group access model.
+- `ip_allow_list` becomes the pod-security-group to RDS security-group access model.
 - `connection_info` becomes the shared `DB_CONNECTION_STRING` contract for the app.
 
 ## Recommendation
@@ -39,8 +39,8 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
 - Keep retention at `7` days for QA and staging, and `30` days for production.
 - Keep off-peak maintenance windows with `auto minor version upgrade` enabled.
 - Enable `deletion protection` for production.
-- Allow EKS to reach RDS only through security-group rules on port `5432`.
-- Keep separate RDS security groups for QA/staging and production.
+- Allow EKS to reach RDS only through pod security groups on port `5432`.
+- Keep separate pod security groups and RDS security groups for QA/staging and production.
 - Keep the database private inside the AWS network; do not expose it publicly.
 
 ## Execution Checklist
@@ -51,7 +51,7 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
   - [x] Define the database name and user convention.
   - [x] Define the backup, retention, and maintenance posture.
 - [ ] Define network access to RDS.
-  - [x] Define security groups / allow lists from EKS to RDS.
+- [x] Define security groups / allow lists from EKS to RDS.
   - [x] Keep access private inside the AWS network.
   - [ ] Validate connectivity from the cluster.
 - [ ] Define the app connection contract.
