@@ -176,7 +176,7 @@ db                -> external RDS PostgreSQL
 
 - [x] Keep the Next.js app as a single Node server in EKS.
 - [x] Make app deploys GitOps-driven with ArgoCD; keep only bootstrap-only operations imperative when needed.
-- [x] Use Kustomize overlays for app and platform configuration, with Helm reserved for upstream add-ons when needed.
+- [x] Use Kustomize for in-repo workloads and overlays, with Helm reserved for upstream add-ons when needed.
 
 ## GitOps Layout
 
@@ -228,6 +228,53 @@ infra/delivery/applications/core-platform.yaml
 infra/delivery/applications/user-apps.yaml
 ```
 
+### Delivery Bootstrap
+
+- `applications/root.yaml` is the one-time app-of-apps entrypoint that seeds ArgoCD reconciliation.
+- `applications/core-platform.yaml` fans out to platform add-ons and support services.
+- `applications/user-apps.yaml` fans out to the Django and Next.js workload trees.
+- `core-platform/` owns upstream add-ons as separate ArgoCD Applications so each controller keeps its own upgrade path.
+- `user-apps/` owns the application runtime manifests and environment overlays.
+- `infra/environments/*` remains the source of truth for runtime values; delivery overlays project those values into Kubernetes config and secrets through generated inputs.
+
+### Core Platform Model
+
+```text
+infra/delivery/core-platform/
+├── controllers/
+│   ├── argocd/application.yaml
+│   ├── ingress-nginx/application.yaml
+│   ├── cert-manager/application.yaml
+│   └── external-dns/application.yaml
+├── telemetry/
+│   ├── base/
+│   └── overlays/{nonprod,prod}/
+└── overlays/{nonprod,prod}/
+```
+
+- Each controller lives in its own ArgoCD `Application` so chart versions, values, and sync policies can evolve independently.
+- Upstream add-ons are sourced from their Helm charts instead of being vendored into the repo.
+- Telemetry stays in Kustomize so shared manifests and environment-specific tuning remain explicit in Git.
+- `argocd/application.yaml` is bootstrap-safe only after ArgoCD is installed once out of band.
+
+### User Apps Model
+
+```text
+infra/delivery/user-apps/
+├── base/
+│   ├── django/
+│   └── nextjs/
+└── overlays/
+    ├── local/
+    ├── nonprod/
+    └── prod/
+```
+
+- `base/django` and `base/nextjs` hold the shared `Deployment`, `Service`, and `Ingress` shape for each runtime.
+- Overlays control image tags, replica counts, hostnames, resources, and environment wiring.
+- `local` mirrors the `k3d` workflow, while `nonprod` and `prod` map to the AWS account split already defined in the environment layout.
+- The env wiring follows option B: delivery overlays consume the versioned environment contract from `infra/environments/*` and project it into `ConfigMap` and `Secret` inputs.
+
 ### Responsibilities
 
 - `applications/root.yaml` should be the single ArgoCD entrypoint.
@@ -235,22 +282,23 @@ infra/delivery/applications/user-apps.yaml
 - `base/` should hold shared manifests and config.
 - `overlays/` should hold environment-specific differences.
 - Helm should be used for upstream add-ons when that is the clearest install path.
+- Kustomize should stay the default for in-repo manifests and overlay composition.
 
 ### Workflow
 ```
-[Tu PC] -> Usas GitHub CLI para enviar código modificado a GitHub.
+[Tu PC] -> Git push via GitHub CLI.
    ↓
-[CI/CD] -> Docker empaqueta el nuevo código en una imagen.
-    ↓
-[Git]   -> Helm/Kustomize actualizan los planos con la nueva versión de Docker.
-    ↓
-[ArgoCD] -> Detecta el cambio en Git y reconcilia el estado deseado.
+[CI/CD] -> Build and publish app images.
    ↓
-[Kubernetes] -> Descarga la imagen de Docker y reemplaza la app vieja sin caídas.
-    ↓
-[Ingress Controller] -> Publica el tráfico HTTP/HTTPS hacia los servicios.
-    ↓
-[Prometheus + Grafana] -> Monitorean que la nueva versión no consuma demasiada RAM.
+[Git]   -> Update delivery overlays and chart values.
+   ↓
+[ArgoCD] -> Reconcile `root.yaml`, then `core-platform.yaml` and `user-apps.yaml`.
+   ↓
+[Kubernetes] -> Install controllers, then app workloads, then route traffic.
+   ↓
+[Ingress Controller] -> Publish HTTP/HTTPS traffic to the app services.
+   ↓
+[Prometheus + Grafana] -> Observe rollout health and resource use.
 ```
 
 ### Boceto de directorio
