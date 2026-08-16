@@ -36,6 +36,13 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
 - The worker must be able to ack, nack, retry, and time out jobs without coupling the app to a specific broker API.
 - Media jobs may be split into separate task classes later, but they share the same contract shape.
 
+### Boundary Recommendation
+
+- Keep user-facing chat responses inline for now.
+- Use a single queue for content and media jobs for now.
+- Split queues later only if different workloads create contention or need separate scaling.
+- Move to async chat replies only if the product later needs long-running response generation or deferred delivery.
+
 ## Execution Checklist
 
 - [ ] Define the async job boundary.
