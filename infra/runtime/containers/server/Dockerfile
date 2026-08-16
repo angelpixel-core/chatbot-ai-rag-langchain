@@ -34,7 +34,7 @@ RUN python -m pip install --upgrade pip setuptools wheel && \
 
 COPY . .
 
-RUN chmod +x /app/infra/local/containers/server/entrypoint.sh || true
+RUN chmod +x /app/infra/runtime/containers/server/entrypoint.sh || true
 
 RUN addgroup -g "$GID" -S app && adduser -S app -G app -u "$UID" && \
   chown -R app:app /app

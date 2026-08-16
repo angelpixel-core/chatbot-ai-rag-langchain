@@ -7,8 +7,8 @@ Monorepo inicial para un chatbot de cafetería con backend Django y cliente web 
 - `apps/server/` - backend Django y futura API
 - `apps/web/` - cliente web Next.js
 - `datasets/coffee-shop.txt` - fuente inicial de conocimiento
-- `infra/local/compose.yaml` - orquestación local con Compose
-- `infra/local/containers/` - contenedores y entrypoints locales
+- `infra/runtime/compose.yaml` - orquestación local con Compose
+- `infra/runtime/containers/` - contenedores y entrypoints de ejecución
 - `infra/environments/` - variables por ambiente
 - `infra/provisioning/aws/` - infraestructura declarativa de AWS/EKS
 - `infra/tooling/` - scripts y lint

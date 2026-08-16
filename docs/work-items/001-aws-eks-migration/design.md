@@ -132,7 +132,7 @@ Static assets and build artifacts are produced in CI, pushed to ECR, and deploye
 | `docs/work-items/001-aws-eks-migration/proposal.md` | Create | Migration proposal with checklist-style scope and outcomes. |
 | `docs/work-items/001-aws-eks-migration/design.md` | Create | Architecture design for the AWS migration, including platform tradeoffs. |
 | `infra/provisioning/terraform/aws/` | Create | New AWS provisioning root for VPC, EKS, RDS, ECR, IAM, and DNS. |
-| `infra/local/kubernetes/` | Create | Local Kubernetes manifests or dev overlays for `k3d`. |
+| `infra/runtime/kubernetes/` | Create | Local Kubernetes manifests or dev overlays for `k3d`. |
 | `infra/environments/README.md` | Modify | Update environment guidance away from legacy provider wording. |
 | `README.md` | Modify | Replace legacy provider references with AWS/EKS deployment architecture. |
 | `infra/tooling/` | Modify | Add cluster/bootstrap scripts for local Kubernetes and AWS workflows. |

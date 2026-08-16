@@ -1,6 +1,6 @@
-# Local Containers
+# Runtime Containers
 
-Este directorio contiene los contenedores locales y sus entrypoints.
+Este directorio contiene los contenedores de ejecución y sus entrypoints.
 
 ## Layout
 

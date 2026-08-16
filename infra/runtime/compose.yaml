@@ -2,7 +2,7 @@ services:
   server:
     build:
       context: ../..
-      dockerfile: infra/local/containers/server/Dockerfile
+      dockerfile: infra/runtime/containers/server/Dockerfile
       target: "${SERVER_IMAGE_STAGE:-base}"
       args:
         PYTHON_VERSION: "${PYTHON_VERSION:-3.15.0rc1}"
@@ -27,7 +27,7 @@ services:
       RUN_DB_PREPARE: "1"
     volumes:
       - ../..:/app
-    entrypoint: ["/bin/sh", "/app/infra/local/containers/server/entrypoint.sh"]
+    entrypoint: ["/bin/sh", "/app/infra/runtime/containers/server/entrypoint.sh"]
     command: ["python", "apps/server/manage.py", "runserver", "0.0.0.0:${SERVER_INTERNAL_PORT:-8000}"]
     ports:
       - "${SERVER_PORT:-10001}:${SERVER_INTERNAL_PORT:-8000}"
@@ -43,7 +43,7 @@ services:
   web:
     build:
       context: ../..
-      dockerfile: infra/local/containers/web/Dockerfile
+      dockerfile: infra/runtime/containers/web/Dockerfile
       args:
         NODE_VERSION: "${NODE_VERSION:-22.0.0}"
         WEB_PORT: "${WEB_INTERNAL_PORT:-3000}"
