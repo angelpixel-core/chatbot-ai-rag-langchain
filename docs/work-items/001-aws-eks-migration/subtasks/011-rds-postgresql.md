@@ -31,6 +31,7 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
 - Treat QA and staging as separate datasets if their release workflows or test data need isolation.
 - Inject the connection string through AWS-managed secrets, not hardcoded env files.
 - Standardize on PostgreSQL 16 for the managed engine version.
+- Use `db.t4g.small` for QA and staging, and `db.t4g.medium` for production.  # alternative: `db.m4g.large`
 - Keep the application database naming convention aligned with the current app contract: `coffee_chatbot_<environment>`.
 - Keep the application database user convention aligned with the current app contract: `app`.
 - Keep the shared connection secret name as `DB_CONNECTION_STRING`.
@@ -39,7 +40,7 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
 
 - [ ] Define the RDS PostgreSQL contract.
   - [x] Choose the target PostgreSQL major version.
-  - [ ] Choose the instance class / size for each environment.
+  - [x] Choose the instance class / size for each environment.
   - [x] Define the database name and user convention.
   - [ ] Define the backup, retention, and maintenance posture.
 - [ ] Define network access to RDS.
