@@ -102,12 +102,13 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
   - [x] Define dead-letter or failure handling if needed.
   - [x] Define observability for job health and media processing.
   - [x] Define cleanup rules for temporary artifacts.
-- [ ] Remove legacy provider-specific worker artifacts from the active migration path.
-  - [ ] Retire the legacy background worker as an active resource.
-  - [ ] Remove the legacy worker component tree.
+- [x] Remove legacy provider-specific worker artifacts from the active migration path.
+  - [x] Retire the legacy background worker as an active resource.
+  - [x] Remove the legacy worker component tree.
 
 ## Notes
 
 - This document covers both workers and the media pipeline because they are coupled in the chat use case.
 - The queue choice stays open until we need a concrete broker; the contract only requires durable retries and failure handling.
+- There is no active `components/worker/` tree left in the repo; the retirement is now a traceability/documentation concern.
 - If the workload becomes mostly scheduled rather than event-driven, split out a separate `CronJob`-focused subtask later.
