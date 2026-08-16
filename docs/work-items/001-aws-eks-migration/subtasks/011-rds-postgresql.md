@@ -30,22 +30,26 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
 - Keep one database per environment boundary that matters operationally.
 - Treat QA and staging as separate datasets if their release workflows or test data need isolation.
 - Inject the connection string through AWS-managed secrets, not hardcoded env files.
+- Standardize on PostgreSQL 16 for the managed engine version.
+- Keep the application database naming convention aligned with the current app contract: `coffee_chatbot_<environment>`.
+- Keep the application database user convention aligned with the current app contract: `app`.
+- Keep the shared connection secret name as `DB_CONNECTION_STRING`.
 
 ## Execution Checklist
 
 - [ ] Define the RDS PostgreSQL contract.
-  - [ ] Choose the target PostgreSQL major version.
+  - [x] Choose the target PostgreSQL major version.
   - [ ] Choose the instance class / size for each environment.
-  - [ ] Define the database name and user convention.
+  - [x] Define the database name and user convention.
   - [ ] Define the backup, retention, and maintenance posture.
 - [ ] Define network access to RDS.
   - [ ] Define security groups / allow lists from EKS to RDS.
   - [ ] Keep access private inside the AWS network.
   - [ ] Validate connectivity from the cluster.
 - [ ] Define the app connection contract.
-  - [ ] Define the secret name for the connection string.
-  - [ ] Map app env vars to AWS-managed secrets.
-  - [ ] Keep the DB URL out of plaintext manifests.
+  - [x] Define the secret name for the connection string.
+  - [x] Map app env vars to AWS-managed secrets.
+  - [x] Keep the DB URL out of plaintext manifests.
 - [ ] Remove legacy provider-specific database artifacts from the active migration path.
   - [ ] Retire the legacy Postgres resource as an active resource.
   - [ ] Retire import blocks and database state adoption.

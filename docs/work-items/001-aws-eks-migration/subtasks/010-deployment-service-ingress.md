@@ -3,7 +3,7 @@ id: 010-deployment-service-ingress
 aliases: []
 tags: []
 created_at: 2026-08-14T00:00:00Z
-status: draft
+status: done
 updated_at: 2026-08-14T00:00:00Z
 ---
 

@@ -99,7 +99,7 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [x] Document QA, staging, and production account mapping ([009-environment-layout](./subtasks/009-environment-layout.md)).
   - [x] Define runtime config per environment.
   - [x] Define promotion flow from QA to staging to prod.
-- [ ] Delivery
+- [x] Delivery
   - [x] Add GitOps deployment via ArgoCD.
   - [x] Add an Ingress Controller for HTTP/HTTPS traffic ([010-deployment-service-ingress](./subtasks/010-deployment-service-ingress.md)).
 - [ ] Rollout
