@@ -49,6 +49,18 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
 - Keep the backend responsible for metadata, authorization, and job creation.
 - Avoid proxying large binaries through Django unless a future edge case proves it necessary.
 
+## Async Job Boundary
+
+- Keep `chat.message.received`, `chat.message.persisted`, `chat.answer.generated`, and `chat.conversation.updated` inline.
+- Keep media upload authorization and upload completion confirmation inline.
+- Push `media.asset.validation.requested`, `media.asset.validation.completed`, `media.asset.derivative.requested`, and `media.asset.derivative.completed` to the worker queue.
+- Push document ingest, indexing, and media processing follow-up work to the worker queue.
+- Push cleanup and reconciliation work to `CronJob`.
+- Keep request-bound parsing, auth, and persistence inline so the user sees fast feedback.
+- Keep any I/O-heavy, retry-prone, or derivative-producing work async.
+- Use a fixed retry budget per job type and a bounded timeout per processing step.
+- Fail terminally after the retry budget is exhausted and surface the failure reason in the asset/job record.
+
 ## Media Pipeline Contract
 
 - Use AWS S3 as the target object store.
@@ -73,10 +85,10 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
 
 ## Execution Checklist
 
-- [ ] Define the async job boundary.
-  - [ ] List which chat events create jobs.
-  - [ ] List which jobs stay inline.
-  - [ ] Define job retry and timeout policy.
+- [x] Define the async job boundary.
+  - [x] List which chat events create jobs.
+  - [x] List which jobs stay inline.
+  - [x] Define job retry and timeout policy.
 - [ ] Define the worker runtime.
   - [x] Choose the worker image and command.
   - [x] Define worker resources and autoscaling posture.

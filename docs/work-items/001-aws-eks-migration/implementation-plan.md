@@ -94,6 +94,7 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [x] Document the async worker and media pipeline boundary ([012-background-jobs](./subtasks/012-background-jobs.md)).
   - [x] Define the worker runtime and queueing strategy.
   - [x] Define media storage and processing flow.
+  - [x] Define the async job boundary.
 - [ ] Environment Layout
   - [x] Document QA, staging, and production account mapping ([009-environment-layout](./subtasks/009-environment-layout.md)).
   - [x] Define runtime config per environment.
