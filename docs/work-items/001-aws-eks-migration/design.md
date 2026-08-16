@@ -180,33 +180,36 @@ db                -> external RDS PostgreSQL
 
 ## GitOps Layout
 
-### Platform Add-ons
+### Delivery Layout
 
 ```text
-gitops-manifests/
-└── core-platform/
-    └── telemetry/
-        ├── applications/
-        │   ├── prometheus.yaml
-        │   ├── grafana.yaml
-        │   ├── alertmanager.yaml
-        │   ├── ingress-nginx.yaml
-        │   ├── cert-manager.yaml
-        │   └── external-dns.yaml
-        ├── base/
-        │   ├── prometheus/
-        │   ├── grafana/
-        │   ├── alertmanager/
-        │   └── common/
-        └── overlays/
-            ├── nonprod/
-            └── prod/
-```
-
-### Application Workloads
-
-```text
-gitops-manifests/
+infra/delivery/
+├── applications/
+│   ├── root.yaml
+│   ├── core-platform.yaml
+│   └── user-apps.yaml
+├── core-platform/
+│   ├── controllers/
+│   │   ├── argocd/
+│   │   │   └── application.yaml
+│   │   ├── ingress-nginx/
+│   │   │   └── application.yaml
+│   │   ├── cert-manager/
+│   │   │   └── application.yaml
+│   │   └── external-dns/
+│   │       └── application.yaml
+│   ├── telemetry/
+│   │   ├── base/
+│   │   │   ├── prometheus/
+│   │   │   ├── grafana/
+│   │   │   ├── alertmanager/
+│   │   │   └── common/
+│   │   └── overlays/
+│   │       ├── nonprod/
+│   │       └── prod/
+│   └── overlays/
+│       ├── nonprod/
+│       └── prod/
 └── user-apps/
     ├── base/
     │   ├── django/
@@ -217,8 +220,17 @@ gitops-manifests/
         └── prod/
 ```
 
+### Application Workloads
+
+```text
+infra/delivery/applications/root.yaml
+infra/delivery/applications/core-platform.yaml
+infra/delivery/applications/user-apps.yaml
+```
+
 ### Responsibilities
 
+- `applications/root.yaml` should be the single ArgoCD entrypoint.
 - `applications/*.yaml` should hold ArgoCD `Application` resources.
 - `base/` should hold shared manifests and config.
 - `overlays/` should hold environment-specific differences.
@@ -242,7 +254,7 @@ gitops-manifests/
 ```
 
 ### Boceto de directorio
-Orden lógico recomendado: `provisioning -> configuration -> source-code -> gitops-manifests -> automation`.
+Orden lógico recomendado: `provisioning -> configuration -> source-code -> delivery -> automation`.
 
 ```
 mi-proyecto-monorepo/
@@ -266,21 +278,21 @@ mi-proyecto-monorepo/
 │       └── artifacts/         # El puente: Dockerfile para empaquetar la app
 │           └── Dockerfile
 
-├── gitops-manifests/          # ARTEFACTO: El Estado Deseado del Clúster (El "Qué")
+├── delivery/                  # ARTEFACTO: El Estado Deseado del Clúster (El "Qué")
 │   │                          # Ciclo de vida: Rápido (cambia con cada nueva versión de la app)
-│   ├── core-platform/         # Infraestructura interna de Kubernetes (Herramientas de soporte)
-│   │   ├── telemetry/         # Planos para Prometheus y Grafana
-│   │   └── controllers/       # Planos para ArgoCD, Ingress Controllers y otros add-ons
-│   │
-│   └── user-apps/             # Planos de tus aplicaciones (Helm / Kustomize)
-│       ├── base/              # Plantillas base del despliegue (Deployment, Service)
-│       └── environments/      # Parámetros específicos por entorno
-│           ├── local/         # Réplicas: 1, Recursos: Bajos, Modo: Debug
-│           └── cloud-prod/    # Réplicas: 3, Recursos: Altos, Modo: Production
+│   ├── applications/         # ArgoCD Applications: root, core-platform, user-apps
+│   ├── core-platform/        # Infraestructura interna de Kubernetes (Herramientas de soporte)
+│   │   ├── telemetry/        # Planos para Prometheus y Grafana
+│   │   └── controllers/      # Planos para ArgoCD, Ingress Controllers y otros add-ons
+│   └── user-apps/            # Planos de tus aplicaciones (Helm / Kustomize)
+│       ├── base/             # Plantillas base del despliegue (Deployment, Service)
+│       └── overlays/         # Parámetros específicos por entorno
+│           ├── local/        # Réplicas: 1, Recursos: Bajos, Modo: Debug
+│           └── prod/         # Réplicas: 3, Recursos: Altos, Modo: Production
 
 └── .github/automation/        # ARTEFACTO: Las Reglas de Tránsito (El "Cómo" se mueve todo)
     │                          # Ciclo de vida: Estable (rara vez cambia)
     └── pipelines/             # GitHub Actions / GitHub CLI scripts que coordinan el flujo
         ├── build-app.yaml     # Toma 'source-code', testea, compila y sube a Docker Hub
-        └── sync-gitops.yaml   # Modifica 'gitops-manifests' para avisarle a ArgoCD
+        └── sync-delivery.yaml # Modifica 'infra/delivery' para avisarle a ArgoCD
 ```
