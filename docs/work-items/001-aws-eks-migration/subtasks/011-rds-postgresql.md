@@ -39,6 +39,9 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
 - Keep retention at `7` days for QA and staging, and `30` days for production.
 - Keep off-peak maintenance windows with `auto minor version upgrade` enabled.
 - Enable `deletion protection` for production.
+- Allow EKS to reach RDS only through security-group rules on port `5432`.
+- Keep separate RDS security groups for QA/staging and production.
+- Keep the database private inside the AWS network; do not expose it publicly.
 
 ## Execution Checklist
 
@@ -48,8 +51,8 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
   - [x] Define the database name and user convention.
   - [x] Define the backup, retention, and maintenance posture.
 - [ ] Define network access to RDS.
-  - [ ] Define security groups / allow lists from EKS to RDS.
-  - [ ] Keep access private inside the AWS network.
+  - [x] Define security groups / allow lists from EKS to RDS.
+  - [x] Keep access private inside the AWS network.
   - [ ] Validate connectivity from the cluster.
 - [ ] Define the app connection contract.
   - [x] Define the secret name for the connection string.
