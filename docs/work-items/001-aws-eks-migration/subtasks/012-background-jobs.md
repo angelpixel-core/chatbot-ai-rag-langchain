@@ -83,13 +83,23 @@ Define how asynchronous jobs and media processing work in the AWS/EKS architectu
 - Keep temporary artifacts short-lived and purge them after a TTL.
 - Make operational alerts actionable by tying them to the asset id and processing step.
 
+## Worker Runtime Contract
+
+- Run workers as a dedicated Kubernetes `Deployment`.
+- Keep each worker pod stateless and single-purpose.
+- Reuse the application image family for the worker runtime until a separate worker package is needed.
+- Run a queue-worker process as the container entrypoint/command, separate from the web request process.
+- Inject queue endpoint, concurrency, retry budget, timeout budget, object storage access, and database access via env/secrets.
+- Scale workers conservatively and tune replicas against queue depth and processing latency rather than request traffic.
+- Keep worker liveness/readiness focused on process health, not HTTP serving.
+
 ## Execution Checklist
 
 - [x] Define the async job boundary.
   - [x] List which chat events create jobs.
   - [x] List which jobs stay inline.
   - [x] Define job retry and timeout policy.
-- [ ] Define the worker runtime.
+- [x] Define the worker runtime.
   - [x] Choose the worker image and command.
   - [x] Define worker resources and autoscaling posture.
   - [x] Define worker environment variables and secrets.
