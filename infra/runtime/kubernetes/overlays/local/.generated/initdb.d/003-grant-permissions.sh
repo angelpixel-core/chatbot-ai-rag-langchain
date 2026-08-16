@@ -14,4 +14,4 @@ for db_name in "$DB_NAME" "$QUEUE_DB_NAME" "$CABLE_DB_NAME" "$TEST_DB_NAME" "$TE
   psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname postgres <<-EOSQL
     GRANT ALL PRIVILEGES ON DATABASE ${db_name} TO ${POSTGRES_USER};
 EOSQL
-done
+ done

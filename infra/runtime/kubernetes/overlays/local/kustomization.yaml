@@ -12,10 +12,10 @@ configMapGenerator:
       - .generated/runtime.env
   - name: db-init-scripts
     files:
-      - initdb.d/001-create-user.sh
-      - initdb.d/002-create-databases.sh
-      - initdb.d/003-grant-permissions.sh
-      - initdb.d/004-enable-extensions.sh
+      - .generated/initdb.d/001-create-user.sh
+      - .generated/initdb.d/002-create-databases.sh
+      - .generated/initdb.d/003-grant-permissions.sh
+      - .generated/initdb.d/004-enable-extensions.sh
 
 secretGenerator:
   - name: runtime-secrets

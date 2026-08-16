@@ -11,6 +11,7 @@ DEV_COMPOSE_ENV_FILE="${DEV_ENV_DIR}/orchestration/compose.env"
 DEV_APP_CORE_ENV_FILE="${DEV_ENV_DIR}/app/core.env"
 DEV_APP_DB_ENV_FILE="${DEV_ENV_DIR}/app/db.env"
 DEV_DB_BOOTSTRAP_ENV_FILE="${DEV_ENV_DIR}/db/bootstrap.env"
+DB_INITDB_SRC_DIR="${ROOT_DIR}/infra/runtime/containers/db/entrypoint/initdb.d"
 SERVER_IMAGE="${SERVER_IMAGE:-coffee-chatbot-server:local}"
 WEB_IMAGE="${WEB_IMAGE:-coffee-chatbot-web:local}"
 SERVER_PORT="${SERVER_PORT:-10001}"
@@ -87,6 +88,11 @@ spec:
         - name: db
           image: postgres:${POSTGRES_VERSION:-16.4}-alpine
 EOF
+
+  mkdir -p "$GENERATED_DIR/initdb.d"
+  for script in 001-create-user.sh 002-create-databases.sh 003-grant-permissions.sh 004-enable-extensions.sh; do
+    cp "$DB_INITDB_SRC_DIR/$script" "$GENERATED_DIR/initdb.d/$script"
+  done
 }
 
 load_runtime_sources() {

@@ -12,4 +12,4 @@ Local Kubernetes manifests for the app split used in EKS.
 - `compose` remains the fastest local workflow.
 - `k3d` runs the full stack in Kubernetes, including the database.
 - The shared runtime contract is `DB_CONNECTION_STRING`.
-- The local overlay reads directly from `infra/environments/dev/` so the same contract drives both Compose and Kubernetes.
+- The local overlay is generated from `infra/environments/dev/` plus the canonical DB bootstrap scripts under `infra/runtime/containers/db/entrypoint/initdb.d/`.
