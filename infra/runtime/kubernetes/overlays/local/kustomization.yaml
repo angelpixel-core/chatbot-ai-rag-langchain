@@ -9,7 +9,7 @@ generatorOptions:
 configMapGenerator:
   - name: runtime-config
     envs:
-      - runtime.env
+      - .generated/runtime.env
   - name: db-init-scripts
     files:
       - initdb.d/001-create-user.sh
@@ -20,4 +20,7 @@ configMapGenerator:
 secretGenerator:
   - name: runtime-secrets
     envs:
-      - secrets.env
+      - .generated/secrets.env
+
+patches:
+  - path: .generated/db-image-patch.yaml
