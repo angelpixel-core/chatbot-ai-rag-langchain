@@ -1,3 +1,13 @@
+---
+id: 10-packages
+title: Packages
+aliases: []
+tags: []
+work_item: 002-platform-architecture
+status: draft
+placeholder: true
+---
+
 # 10. `packages/`
 
 ## Definition
@@ -36,6 +46,15 @@ packages/
 - [ ] Do not turn `shared/` into an architectural junk drawer.
 - [ ] Promote artifacts into more explicit categories when a clear responsibility emerges.
 
+
+## Verification Checklist
+
+- [x] No packages subtree exists yet.
+- [x] Do not create `packages/` prematurely.
+- [ ] Place shared interface/schema definitions here when appropriate.
+- [ ] Place reusable service/provider clients here when genuinely shared.
+- [ ] Use for reusable UI primitives/design artifacts shared by multiple user interfaces.
+- [ ] Use sparingly.
 
 ## Criteria
 
