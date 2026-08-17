@@ -1,3 +1,13 @@
+---
+id: 08-embedded
+title: Embedded
+aliases: []
+tags: []
+work_item: 002-platform-architecture
+status: draft
+placeholder: true
+---
+
 # 8. `embedded/`
 
 `embedded/` is intentionally NOT required today.
@@ -12,7 +22,10 @@ It would represent software targeting dedicated hardware such as:
 - dedicated appliances
 - embedded vehicle systems
 
-- [ ] Do not create `apps/embedded/` until an actual embedded target exists.
+## Verification Checklist
+
+- [x] No embedded target subtree exists yet.
+- [x] Do not create `apps/embedded/` until an actual embedded target exists.
 - [ ] Add the category later without changing the existing taxonomy.
 
 
