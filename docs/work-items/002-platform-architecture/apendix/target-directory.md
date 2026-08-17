@@ -9,6 +9,8 @@ STAGE 1 - TARGET PLATFORM DIRECTORY TREE
 Purpose: Complete reference tree for the Stage 1 monorepo architecture
 agreed during the repository redesign discussion.
 
+Reference: This appendix expands [1. Target Repository Model](../sections/01-target-repository-model.md).
+
 Important:
 - This is a target/reference taxonomy, not a requirement to create every optional directory before a real artifact exists.
 - Stage 1 remains a single Git repository.

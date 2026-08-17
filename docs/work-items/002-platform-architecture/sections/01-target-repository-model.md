@@ -2,6 +2,8 @@
 
 Use this conceptual structure as the migration target:
 
+- See [Appendix: Target Directory Reference](../apendix/target-directory.md) for the full expanded tree.
+
 ```text
 platform/
 ├── apps/
