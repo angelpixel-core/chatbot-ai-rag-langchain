@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: server
+  name: services
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: server
+      app.kubernetes.io/name: services
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: server
+        app.kubernetes.io/name: services
     spec:
       containers:
-        - name: server
-          image: coffee-chatbot-server:local
+        - name: services
+          image: coffee-chatbot-services:local
           imagePullPolicy: IfNotPresent
           command:
             - /bin/sh
-            - /app/infra/runtime/containers/server/entrypoint.sh
+            - /app/infra/runtime/containers/services/entrypoint.sh
           args:
             - python
-            - apps/server/manage.py
+            - apps/services/manage.py
             - runserver
             - 0.0.0.0:8000
           envFrom:

@@ -15,7 +15,7 @@ apps/services/
 └── notification-worker/
 ```
 
-- [ ] Use `services/` instead of `server/` as the general category.
+- [x] Use `services/` instead of `server/` as the general category.
 - [ ] A service may expose HTTP.
 - [ ] A service may expose gRPC.
 - [ ] A service may expose GraphQL.

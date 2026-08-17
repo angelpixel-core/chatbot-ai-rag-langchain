@@ -4,7 +4,7 @@ Monorepo inicial para un chatbot de cafetería con backend Django y cliente web 
 
 ## Estructura
 
-- `apps/server/` - backend Django y futura API
+- `apps/services/` - backend Django y futura API
 - `apps/web/` - cliente web Next.js
 - `datasets/coffee-shop.txt` - fuente inicial de conocimiento
 - `infra/runtime/compose.yaml` - orquestación local con Compose

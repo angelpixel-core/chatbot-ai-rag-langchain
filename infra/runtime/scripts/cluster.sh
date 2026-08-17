@@ -12,9 +12,9 @@ DEV_APP_CORE_ENV_FILE="${DEV_ENV_DIR}/app/core.env"
 DEV_APP_DB_ENV_FILE="${DEV_ENV_DIR}/app/db.env"
 DEV_DB_BOOTSTRAP_ENV_FILE="${DEV_ENV_DIR}/db/bootstrap.env"
 DB_INITDB_SRC_DIR="${ROOT_DIR}/infra/runtime/containers/db/entrypoint/initdb.d"
-SERVER_IMAGE="${SERVER_IMAGE:-coffee-chatbot-server:local}"
+SERVICES_IMAGE="${SERVICES_IMAGE:-coffee-chatbot-services:local}"
 WEB_IMAGE="${WEB_IMAGE:-coffee-chatbot-web:local}"
-SERVER_PORT="${SERVER_PORT:-10001}"
+SERVICES_PORT="${SERVICES_PORT:-10001}"
 WEB_PORT="${WEB_PORT:-10002}"
 
 require_command() {
@@ -55,11 +55,11 @@ write_generated_files() {
 
   cat > "$GENERATED_DIR/runtime.env" <<EOF
 STACK_ENV=${STACK_ENV:-dev}
-NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL:-http://localhost:${SERVER_PORT}}
-SERVER_INTERNAL_PORT=${SERVER_INTERNAL_PORT:-8000}
+NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL:-http://localhost:${SERVICES_PORT}}
+SERVICES_INTERNAL_PORT=${SERVICES_INTERNAL_PORT:-8000}
 WEB_INTERNAL_PORT=${WEB_INTERNAL_PORT:-3000}
 DB_INTERNAL_PORT=${DB_INTERNAL_PORT:-5432}
-SERVER_PORT=${SERVER_PORT}
+SERVICES_PORT=${SERVICES_PORT}
 WEB_PORT=${WEB_PORT}
 DB_PORT=${DB_PORT:-10003}
 EOF
@@ -127,7 +127,7 @@ ensure_cluster() {
     --servers 1 \
     --agents 1 \
     --wait \
-    --port "${SERVER_PORT}:30080@loadbalancer" \
+    --port "${SERVICES_PORT}:30080@loadbalancer" \
     --port "${WEB_PORT}:30081@loadbalancer"
 }
 
@@ -137,10 +137,10 @@ build_images() {
     --build-arg "PYTHON_VERSION=${PYTHON_VERSION:-3.15.0rc1}" \
     --build-arg "UID=${UID:-1000}" \
     --build-arg "GID=${GID:-1000}" \
-    --build-arg "SERVER_PORT=${SERVER_INTERNAL_PORT:-8000}" \
-    --target "${SERVER_IMAGE_STAGE:-base}" \
-    -t "$SERVER_IMAGE" \
-    -f "$ROOT_DIR/infra/runtime/containers/server/Dockerfile" \
+    --build-arg "SERVICES_PORT=${SERVICES_INTERNAL_PORT:-8000}" \
+    --target "${SERVICES_IMAGE_STAGE:-base}" \
+    -t "$SERVICES_IMAGE" \
+    -f "$ROOT_DIR/infra/runtime/containers/services/Dockerfile" \
     "$ROOT_DIR"
   docker build \
     --build-arg "NODE_VERSION=${NODE_VERSION:-22.0.0}" \
@@ -155,7 +155,7 @@ build_images() {
 
 import_images() {
   require_command k3d
-  k3d image import "$SERVER_IMAGE" "$WEB_IMAGE" -c "$CLUSTER_NAME"
+  k3d image import "$SERVICES_IMAGE" "$WEB_IMAGE" -c "$CLUSTER_NAME"
 }
 
 apply_manifests() {
@@ -166,7 +166,7 @@ apply_manifests() {
 
 wait_for_rollouts() {
   require_command kubectl
-  kubectl rollout status deployment/server -n "$NAMESPACE" --timeout=180s
+  kubectl rollout status deployment/services -n "$NAMESPACE" --timeout=180s
   kubectl rollout status deployment/web -n "$NAMESPACE" --timeout=180s
   kubectl rollout status statefulset/db -n "$NAMESPACE" --timeout=180s
 }

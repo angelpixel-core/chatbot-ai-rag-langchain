@@ -1,15 +1,15 @@
 services:
-  server:
+  services:
     build:
       context: ../..
-      dockerfile: infra/runtime/containers/server/Dockerfile
-      target: "${SERVER_IMAGE_STAGE:-base}"
+      dockerfile: infra/runtime/containers/services/Dockerfile
+      target: "${SERVICES_IMAGE_STAGE:-base}"
       args:
         PYTHON_VERSION: "${PYTHON_VERSION:-3.15.0rc1}"
         UID: "${UID:-1000}"
         GID: "${GID:-1000}"
-        SERVER_PORT: "${SERVER_INTERNAL_PORT:-8000}"
-    container_name: coffee-chatbot-server
+        SERVICES_PORT: "${SERVICES_INTERNAL_PORT:-8000}"
+    container_name: coffee-chatbot-services
     depends_on:
       db:
         condition: service_healthy
@@ -23,16 +23,16 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: "${DB_INTERNAL_PORT:-5432}"
-      SERVER_PORT: "${SERVER_INTERNAL_PORT:-8000}"
+      SERVICES_PORT: "${SERVICES_INTERNAL_PORT:-8000}"
       RUN_DB_PREPARE: "1"
     volumes:
       - ../..:/app
-    entrypoint: ["/bin/sh", "/app/infra/runtime/containers/server/entrypoint.sh"]
-    command: ["python", "apps/server/manage.py", "runserver", "0.0.0.0:${SERVER_INTERNAL_PORT:-8000}"]
+    entrypoint: ["/bin/sh", "/app/infra/runtime/containers/services/entrypoint.sh"]
+    command: ["python", "apps/services/manage.py", "runserver", "0.0.0.0:${SERVICES_INTERNAL_PORT:-8000}"]
     ports:
-      - "${SERVER_PORT:-10001}:${SERVER_INTERNAL_PORT:-8000}"
+      - "${SERVICES_PORT:-10001}:${SERVICES_INTERNAL_PORT:-8000}"
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:${SERVER_INTERNAL_PORT:-8000}/admin/ >/dev/null || curl -fsS http://127.0.0.1:${SERVER_INTERNAL_PORT:-8000}/ >/dev/null"]
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:${SERVICES_INTERNAL_PORT:-8000}/admin/ >/dev/null || curl -fsS http://127.0.0.1:${SERVICES_INTERNAL_PORT:-8000}/ >/dev/null"]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -51,7 +51,7 @@ services:
         GID: "${GID:-1000}"
     container_name: coffee-chatbot-web
     depends_on:
-      server:
+      services:
         condition: service_started
     env_file:
       - ../../infra/environments/${STACK_ENV}/app/core.env
@@ -59,7 +59,7 @@ services:
       - ../../infra/environments/${STACK_ENV}/orchestration/secrets.local.env
       - ../../infra/environments/.local/${STACK_ENV}.env
     environment:
-      NEXT_PUBLIC_API_BASE_URL: "${NEXT_PUBLIC_API_BASE_URL:-http://server:${SERVER_INTERNAL_PORT:-8000}}"
+      NEXT_PUBLIC_API_BASE_URL: "${NEXT_PUBLIC_API_BASE_URL:-http://services:${SERVICES_INTERNAL_PORT:-8000}}"
       WEB_PORT: "${WEB_INTERNAL_PORT:-3000}"
     volumes:
       - ../..:/app

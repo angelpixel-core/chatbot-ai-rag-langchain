@@ -20,7 +20,7 @@ secretGenerator:
 
 images:
   - name: django
-    newName: coffee-chatbot-server
+    newName: coffee-chatbot-services
     newTag: local
   - name: nextjs
     newName: coffee-chatbot-web

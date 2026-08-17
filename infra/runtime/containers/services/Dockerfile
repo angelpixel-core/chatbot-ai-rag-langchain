@@ -3,7 +3,7 @@
 ARG PYTHON_VERSION=3.15.0rc1
 ARG UID=1000
 ARG GID=1000
-ARG SERVER_PORT=8000
+ARG SERVICES_PORT=8000
 
 FROM python:${PYTHON_VERSION}-alpine3.24 AS wheels
 
@@ -24,7 +24,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
-    SERVER_PORT=${SERVER_PORT}
+    SERVICES_PORT=${SERVICES_PORT}
 
 RUN apk add --no-cache \
   ca-certificates \
@@ -45,7 +45,7 @@ FROM deps AS base
 
 ARG UID=1000
 ARG GID=1000
-ARG SERVER_PORT=8000
+ARG SERVICES_PORT=8000
 
 RUN apk add --no-cache \
   bash \
@@ -56,7 +56,7 @@ RUN apk add --no-cache \
   less
 
 COPY . .
-COPY --chmod=755 infra/runtime/containers/server/entrypoint.sh /app/infra/runtime/containers/server/entrypoint.sh
+COPY --chmod=755 infra/runtime/containers/services/entrypoint.sh /app/infra/runtime/containers/services/entrypoint.sh
 
 RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
   if ! getent passwd app >/dev/null 2>&1; then adduser -S app -G app; fi && \
@@ -64,25 +64,25 @@ RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
 
 USER app
 
-ENTRYPOINT ["/app/infra/runtime/containers/server/entrypoint.sh"]
-CMD ["/bin/sh", "-lc", "gunicorn --chdir apps/server config.wsgi:application --bind 0.0.0.0:${SERVER_PORT} --workers 2 --threads 4"]
+ENTRYPOINT ["/app/infra/runtime/containers/services/entrypoint.sh"]
+CMD ["/bin/sh", "-lc", "gunicorn --chdir apps/services config.wsgi:application --bind 0.0.0.0:${SERVICES_PORT} --workers 2 --threads 4"]
 
 FROM deps AS test
 
 COPY . .
 
 RUN python -m pip install --no-cache-dir pytest && \
-  python -m compileall apps/server && \
-  python apps/server/manage.py check
+  python -m compileall apps/services && \
+  python apps/services/manage.py check
 
 FROM deps AS runtime
 
 ARG UID=1000
 ARG GID=1000
-ARG SERVER_PORT=8000
+ARG SERVICES_PORT=8000
 
 COPY . .
-COPY --chmod=755 infra/runtime/containers/server/entrypoint.sh /app/infra/runtime/containers/server/entrypoint.sh
+COPY --chmod=755 infra/runtime/containers/services/entrypoint.sh /app/infra/runtime/containers/services/entrypoint.sh
 
 RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
   if ! getent passwd app >/dev/null 2>&1; then adduser -S app -G app; fi && \
@@ -90,5 +90,5 @@ RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
 
 USER app
 
-ENTRYPOINT ["/app/infra/runtime/containers/server/entrypoint.sh"]
-CMD ["/bin/sh", "-lc", "gunicorn --chdir apps/server config.wsgi:application --bind 0.0.0.0:${SERVER_PORT} --workers 2 --threads 4"]
+ENTRYPOINT ["/app/infra/runtime/containers/services/entrypoint.sh"]
+CMD ["/bin/sh", "-lc", "gunicorn --chdir apps/services config.wsgi:application --bind 0.0.0.0:${SERVICES_PORT} --workers 2 --threads 4"]

@@ -4,13 +4,13 @@ Full local Kubernetes stack for development and validation.
 
 ## What It Runs
 
-- `server` deployment
+- `services` deployment
 - `web` deployment
 - `db` StatefulSet
 
 ## Ports
 
-- `server` - `10001:8000`
+- `services` - `10001:8000`
 - `web` - `10002:3000`
 
 ## Contract

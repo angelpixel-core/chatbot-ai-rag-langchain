@@ -1,7 +1,7 @@
 resources:
   - namespace.yaml
-  - server/deployment.yaml
-  - server/service.yaml
+  - services/deployment.yaml
+  - services/service.yaml
   - web/deployment.yaml
   - web/service.yaml
   - db/deployment.yaml
