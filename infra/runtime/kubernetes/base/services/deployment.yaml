@@ -21,7 +21,7 @@ spec:
             - /app/infra/runtime/containers/services/entrypoint.sh
           args:
             - python
-            - apps/services/manage.py
+            - apps/services/chatbot/manage.py
             - runserver
             - 0.0.0.0:8000
           envFrom:

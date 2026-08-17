@@ -8,22 +8,20 @@ Example:
 
 ```text
 apps/web/
-├── customer-portal/
-├── admin-console/
 └── chatbot/
 ```
 
-- [ ] Organize first by product/application.
-- [ ] Put framework-specific implementation below the product boundary when useful.
+- [x] Organize first by product/application.
+- [x] Put framework-specific implementation below the product boundary when useful.
 - [ ] Do not require every web application to use the same framework.
 - [ ] Allow Next.js, Rails, Django, Elixir, Rust, etc. where appropriate.
-- [ ] Treat `web` as an execution/interaction target, not as a JavaScript synonym.
+- [x] Treat `web` as an execution/interaction target, not as a JavaScript synonym.
 
 Possible structure:
 
 ```text
 apps/web/
-└── customer-portal/
+└── chatbot/
     └── ...
 ```
 
@@ -34,6 +32,12 @@ apps/
 └── nextjs/
 ```
 
+
+## Verification Checklist
+
+- [x] The current web app is nested under a product/application boundary (`apps/web/chatbot/`).
+- [x] The framework-specific implementation lives below the product boundary.
+- [x] Confirmed against the current repository state.
 
 ## Criteria
 

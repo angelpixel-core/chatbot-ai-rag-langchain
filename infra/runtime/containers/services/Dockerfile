@@ -65,15 +65,15 @@ RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
 USER app
 
 ENTRYPOINT ["/app/infra/runtime/containers/services/entrypoint.sh"]
-CMD ["/bin/sh", "-lc", "gunicorn --chdir apps/services config.wsgi:application --bind 0.0.0.0:${SERVICES_PORT} --workers 2 --threads 4"]
+CMD ["/bin/sh", "-lc", "gunicorn --chdir apps/services/chatbot config.wsgi:application --bind 0.0.0.0:${SERVICES_PORT} --workers 2 --threads 4"]
 
 FROM deps AS test
 
 COPY . .
 
 RUN python -m pip install --no-cache-dir pytest && \
-  python -m compileall apps/services && \
-  python apps/services/manage.py check
+  python -m compileall apps/services/chatbot && \
+  python apps/services/chatbot/manage.py check
 
 FROM deps AS runtime
 
@@ -91,4 +91,4 @@ RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
 USER app
 
 ENTRYPOINT ["/app/infra/runtime/containers/services/entrypoint.sh"]
-CMD ["/bin/sh", "-lc", "gunicorn --chdir apps/services config.wsgi:application --bind 0.0.0.0:${SERVICES_PORT} --workers 2 --threads 4"]
+CMD ["/bin/sh", "-lc", "gunicorn --chdir apps/services/chatbot config.wsgi:application --bind 0.0.0.0:${SERVICES_PORT} --workers 2 --threads 4"]

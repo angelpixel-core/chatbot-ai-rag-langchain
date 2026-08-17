@@ -28,7 +28,7 @@ services:
     volumes:
       - ../..:/app
     entrypoint: ["/bin/sh", "/app/infra/runtime/containers/services/entrypoint.sh"]
-    command: ["python", "apps/services/manage.py", "runserver", "0.0.0.0:${SERVICES_INTERNAL_PORT:-8000}"]
+    command: ["python", "apps/services/chatbot/manage.py", "runserver", "0.0.0.0:${SERVICES_INTERNAL_PORT:-8000}"]
     ports:
       - "${SERVICES_PORT:-10001}:${SERVICES_INTERNAL_PORT:-8000}"
     healthcheck:

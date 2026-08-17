@@ -13,7 +13,7 @@ ENV WEB_PORT=${WEB_PORT}
 
 RUN apk add --no-cache ca-certificates tzdata
 
-COPY apps/web/package.json ./
+COPY apps/web/chatbot/package.json ./
 
 RUN npm install
 
@@ -33,7 +33,7 @@ RUN apk add --no-cache \
   git \
   less
 
-COPY apps/web ./
+COPY apps/web/chatbot ./
 
 RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
   if ! getent passwd app >/dev/null 2>&1; then adduser -S app -G app; fi && \
@@ -45,7 +45,7 @@ CMD ["sh", "-lc", "npm run dev -- --hostname 0.0.0.0 --port ${WEB_PORT}"]
 
 FROM deps AS test
 
-COPY apps/web ./
+COPY apps/web/chatbot ./
 
 RUN npm run build
 
