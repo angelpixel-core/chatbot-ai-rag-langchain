@@ -6,13 +6,16 @@ Track the staged repository architecture migration for the platform repo.
 
 ## What Stays in the Mother Document
 
-- `0. Core Principles`
-- `1. Target Repository Model`
 - `49. Migration-Specific Checks`
 - `50. Migration Order`
 - `51. Final Architecture Validation`
 - `52. Architecture Invariants`
 - `53. North Star`
+
+## Extracted First
+
+- `0. Core Principles` -> `sections/00-core-principles.md`
+- `1. Target Repository Model` -> `sections/01-target-repository-model.md`
 
 ## Suggested Attack Order
 
