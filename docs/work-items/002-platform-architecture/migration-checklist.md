@@ -58,15 +58,15 @@ Define a durable repository architecture for the platform repo and migrate towar
 - [ ] 19. `infra/delivery/` ([sections/19-infra-delivery.md](sections/19-infra-delivery.md))
 - [ ] 20. `infra/local/` ([sections/20-infra-local.md](sections/20-infra-local.md))
 - [ ] 21. Remove / Reconsider Current `infra/runtime/` ([sections/21-reconsider-infra-runtime.md](sections/21-reconsider-infra-runtime.md))
-- [ ] 22. Kubernetes Duplication
-- [ ] 23. Environment Taxonomy
-- [ ] 24. Local
-- [ ] 25. Development
-- [ ] 26. Test
-- [ ] 27. CI
-- [ ] 28. QA
-- [ ] 29. Staging
-- [ ] 30. Production
+- [ ] 22. Kubernetes Duplication ([sections/22-kubernetes-duplication.md](sections/22-kubernetes-duplication.md))
+- [ ] 23. Environment Taxonomy ([sections/23-environment-taxonomy.md](sections/23-environment-taxonomy.md))
+- [ ] 24. Local ([sections/24-local.md](sections/24-local.md))
+- [ ] 25. Development ([sections/25-development.md](sections/25-development.md))
+- [ ] 26. Test ([sections/26-test.md](sections/26-test.md))
+- [ ] 27. CI ([sections/27-ci.md](sections/27-ci.md))
+- [ ] 28. QA ([sections/28-qa.md](sections/28-qa.md))
+- [ ] 29. Staging ([sections/29-staging.md](sections/29-staging.md))
+- [ ] 30. Production ([sections/30-production.md](sections/30-production.md))
 - [ ] 31. Recommended Lifecycle Model
 - [ ] 32. `nonprod` vs Concrete Environments
 - [ ] 33. Kustomize Model
@@ -570,656 +570,163 @@ Example:
 
 # 22. Kubernetes Duplication
 
-Current migration must explicitly inspect:
-
-    infra/delivery/user-apps/...
-    infra/runtime/kubernetes/...
-
-- [ ] Determine whether manifests represent the same workloads.
-- [ ] Identify duplicated:
-  - [ ] namespaces
-  - [ ] deployments
-  - [ ] services
-  - [ ] ingress
-  - [ ] configuration
-  - [ ] labels
-  - [ ] resource definitions
-- [ ] Establish one canonical workload definition where practical.
-- [ ] Use overlays/patches rather than copying complete manifests.
-- [ ] Keep local differences as overlays.
-- [ ] Keep non-production differences as overlays.
-- [ ] Keep production differences as overlays.
-- [ ] Avoid divergent copies of the same workload definition.
-
-Conceptual goal:
-
-    canonical workload
-           │
-      ┌────┼────┐
-      ▼    ▼    ▼
-    local QA   prod
-       overlays/config
-
-rather than:
-
-    local-copy/
-    qa-copy/
-    staging-copy/
-    production-copy/
+- See [`sections/22-kubernetes-duplication.md`](sections/22-kubernetes-duplication.md).
 
 ---
 
 # 23. Environment Taxonomy
 
-Do not confuse:
-
-    execution environment
-    testing stage
-    deployment stage
-    Git branch
-
-These are different dimensions.
+- See [`sections/23-environment-taxonomy.md`](sections/23-environment-taxonomy.md).
 
 ---
 
 # 24. Local
 
-`local` describes **where execution occurs**, not a lifecycle stage.
-
-- [ ] Local execution happens on a developer/operator machine.
-- [ ] Local may use Compose.
-- [ ] Local may use Kubernetes.
-- [ ] Local may execute application test configuration.
-- [ ] Do not treat `local` as synonymous with `development`.
+- See [`sections/24-local.md`](sections/24-local.md).
 
 ---
 
 # 25. Development
 
-`development` describes an engineering environment/stage.
-
-Possible meaning:
-
-    feature branch
-        ↓
-       CI
-        ↓
-    shared development environment
-
-- [ ] A shared development environment may exist.
-- [ ] It may be deployed after merge to a development branch/trunk policy.
-- [ ] Multiple developers may inspect integrated changes there.
-- [ ] Do not require a shared dev environment if the project does not need one.
+- See [`sections/25-development.md`](sections/25-development.md).
 
 ---
 
 # 26. Test
 
-`test` primarily describes an **application/testing configuration**, not necessarily a permanently deployed infrastructure environment.
-
-Examples:
-
-    local tests
-    CI unit tests
-    CI integration tests
-    CI regression tests
-
-- [ ] Do not automatically create a permanent `test` Kubernetes environment.
-- [ ] Allow test configuration to run locally and inside CI.
-- [ ] Treat ephemeral CI environments separately from persistent environments.
+- See [`sections/26-test.md`](sections/26-test.md).
 
 ---
 
 # 27. CI
 
-CI is a validation pipeline, not necessarily an environment.
-
-Typical progression:
-
-    source
-      ↓
-    lint
-      ↓
-    unit tests
-      ↓
-    integration tests
-      ↓
-    build
-      ↓
-    artifact
-      ↓
-    additional validation
-
-- [ ] Keep CI concerns separate from persistent deployment environments.
-- [ ] Allow expensive test suites to run remotely.
-- [ ] Allow developers to run faster subsets locally.
+- See [`sections/27-ci.md`](sections/27-ci.md).
 
 ---
 
 # 28. QA
 
-QA may represent a real shared deployment environment.
-
-Potential lifecycle:
-
-    CI passed
-       ↓
-    deploy QA
-       ↓
-    automated validation
-       +
-    manual/semi-automated QA
-       ↓
-    promote
-
-- [ ] Give QA its own environment-specific configuration when a persistent QA environment exists.
-- [ ] Give QA its own secrets where required.
-- [ ] Do not share production credentials with QA.
+- See [`sections/28-qa.md`](sections/28-qa.md).
 
 ---
 
 # 29. Staging
 
-Staging is the final production-like validation environment.
-
-- [ ] Keep staging topology reasonably close to production where valuable.
-- [ ] Allow staging to use staging-specific datasets/configuration.
-- [ ] Use staging for final integration and operational verification.
-- [ ] Do not expect staging to reproduce production traffic scale.
-- [ ] Do not confuse staging with CI.
-- [ ] Do not require production rollout strategies merely to validate staging.
+- See [`sections/29-staging.md`](sections/29-staging.md).
 
 ---
 
 # 30. Production
 
-Production serves real workloads/users.
-
-- [ ] Production has independent secrets.
-- [ ] Production has independent access policies.
-- [ ] Production deployment must be explicitly controlled.
-- [ ] Production promotion should use previously validated immutable artifacts.
+- See [`sections/30-production.md`](sections/30-production.md).
 
 ---
 
 # 31. Recommended Lifecycle Model
 
-Use this conceptual distinction:
-
-    LOCAL
-      │
-      ├── implementation
-      ├── fast validation
-      ├── local test config
-      ├── Compose
-      └── optional local Kubernetes
-              │
-              ▼
-             CI
-              │
-      ┌───────┴────────┐
-      │ automated tests│
-      │ artifact build │
-      └───────┬────────┘
-              ▼
-         DEVELOPMENT
-         (optional shared)
-              │
-              ▼
-             QA
-              │
-              ▼
-           STAGING
-              │
-              ▼
-         PRODUCTION
-
-- [ ] Do not force every project to have every stage.
-- [ ] Introduce persistent environments because a workflow requires them.
+- See [`sections/31-recommended-lifecycle-model.md`](sections/31-recommended-lifecycle-model.md).
 
 ---
 
 # 32. `nonprod` vs Concrete Environments
 
-`nonprod` is useful as an **infrastructure grouping**, not necessarily as a user-facing environment.
-
-Example:
-
-    infrastructure accounts
-    ├── nonprod
-    │   ├── development
-    │   ├── QA
-    │   └── staging
-    │
-    └── prod
-
-- [ ] Allow cloud infrastructure to group development/QA/staging as `nonprod`.
-- [ ] Keep individual deployment configurations distinguishable.
-- [ ] Do not collapse all non-production behavior into one indistinguishable configuration.
+- See [`sections/32-nonprod-vs-concrete-environments.md`](sections/32-nonprod-vs-concrete-environments.md).
 
 ---
 
 # 33. Kustomize Model
 
-Prefer:
-
-    base
-    └── overlays
-        ├── local
-        ├── development
-        ├── qa
-        ├── staging
-        └── production
-
-when each overlay is actually required.
-
-Alternatively, infrastructure-level grouping may use:
-
-    base
-    └── overlays
-        ├── local
-        ├── nonprod
-        └── prod
-
-only when differences genuinely exist at that grouping level.
-
-- [ ] Do not create overlays merely to mirror environment names.
-- [ ] Create overlays because configuration/resource topology differs.
-- [ ] Prefer patches over copied manifests.
-- [ ] Keep canonical definitions DRY.
-- [ ] Avoid over-abstracting Kustomize solely to eliminate a few repeated lines.
-
-DRY is subordinate to clarity.
+- See [`sections/33-kustomize-model.md`](sections/33-kustomize-model.md).
 
 ---
 
 # 34. Deployment Strategies
 
-Strategies such as:
-
-- rolling deployment
-- canary
-- blue/green
-- progressive rollout
-
-primarily concern **production release behavior**.
-
-- [ ] Model deployment strategy as part of delivery.
-- [ ] Do not confuse environment promotion with deployment strategy.
-- [ ] Staging validates the candidate artifact.
-- [ ] Production rollout strategy controls exposure of that artifact to real traffic.
-
-Conceptually:
-
-    QA
-      ↓
-    staging
-      ↓
-    approved artifact
-      ↓
-    production
-      │
-      ├── rolling
-      ├── canary
-      └── blue/green
+- See [`sections/34-deployment-strategies.md`](sections/34-deployment-strategies.md).
 
 ---
 
 # 35. `environments/`
 
-This directory must not become a secret store.
-
-Its purpose, if retained, should be **environment composition and configuration contracts**.
-
-- [ ] Reassess current `infra/environments/`.
-- [ ] Move environment concepts out of infrastructure subdomains when they apply across the whole platform.
-- [ ] Keep only safe committed configuration.
-- [ ] Keep `.example` / templates where needed.
-- [ ] Keep documentation for acquiring/provisioning required secrets.
-- [ ] Keep actual secret values external.
-
-Potential conceptual form:
-
-    environments/
-    ├── development/
-    ├── qa/
-    ├── staging/
-    └── production/
-
-but only if repository-level environment composition requires it.
-
-- [ ] Avoid duplicating Kustomize overlays inside `environments/`.
-- [ ] Avoid duplicating Terraform variables inside `environments/`.
-- [ ] Prefer references/composition over copies.
+- See [`sections/35-environments.md`](sections/35-environments.md).
 
 ---
 
 # 36. `tooling/`
 
-Repository/platform engineering utilities belong here.
-
-Target:
-
-    tooling/
-    ├── scripts/
-    ├── generators/
-    └── hooks/
-
-- [ ] Move generic operational scripts here.
-- [ ] Keep repository setup scripts here.
-- [ ] Keep lint/bootstrap helpers here.
-- [ ] Keep generators here.
-- [ ] Keep Git hooks/setup here.
-- [ ] Avoid putting product applications here.
-- [ ] Avoid putting infrastructure definitions here.
+- See [`sections/36-tooling.md`](sections/36-tooling.md).
 
 ---
 
 # 37. Makefile
 
-Treat the root Makefile as a **developer/platform interface**.
-
-Examples conceptually:
-
-    make setup
-    make dev
-    make test
-    make lint
-    make build
-    make local-up
-    make local-down
-    make k8s-up
-    make k8s-down
-
-- [ ] Keep implementation complexity out of the Makefile.
-- [ ] Delegate complex operations to scripts/tools.
-- [ ] Use Make as a discoverable façade over common operations.
-- [ ] Keep commands consistent across applications where practical.
+- See [`sections/37-makefile.md`](sections/37-makefile.md).
 
 ---
 
 # 38. Monorepo Decision
 
-Current preference:
-
-- [ ] Keep closely evolving applications, infrastructure, packages, and tooling in one monorepo while cross-cutting changes benefit from atomic commits/PRs.
-- [ ] Allow one PR to represent a complete vertical feature.
-- [ ] Do not split repositories solely because components are independently deployable.
-- [ ] Do not introduce Git submodules simply to create conceptual boundaries.
-
-Monorepo advantages currently desired:
-
-- [ ] atomic cross-application changes
-- [ ] cross-layer PR visibility
-- [ ] easier local orchestration
-- [ ] shared tooling
-- [ ] simpler contract evolution
-- [ ] easier demos
-- [ ] centralized architectural visibility
+- See [`sections/38-monorepo-decision.md`](sections/38-monorepo-decision.md).
 
 ---
 
 # 39. When Repository Separation Becomes Appropriate
 
-Consider extracting a component when several of these become true:
-
-- [ ] independent release lifecycle
-- [ ] independent ownership/team
-- [ ] independent access/security requirements
-- [ ] independent public/private visibility requirements
-- [ ] substantially different CI/CD lifecycle
-- [ ] independent versioning becomes operationally valuable
-- [ ] repository size materially harms development workflows
-- [ ] consumers require released versions independent of platform development
-- [ ] component becomes reusable across multiple unrelated products/platforms
-
-Do not extract merely because:
-
-- [ ] it uses another language
-- [ ] it has its own Dockerfile
-- [ ] it deploys independently
-- [ ] it has its own database
-- [ ] it is called a "microservice"
+- See [`sections/39-when-repository-separation-becomes-appropriate.md`](sections/39-when-repository-separation-becomes-appropriate.md).
 
 ---
 
 # 40. Git Submodules
 
-Git submodules are NOT the default architecture.
-
-Use them only when source-level composition is intentionally required.
-
-Potential legitimate future model:
-
-    platform.git
-    └── apps/
-        ├── product-a -> commit/tag X
-        ├── product-b -> commit/tag Y
-        └── product-c -> commit/tag Z
-
-- [ ] Introduce submodules only when independent repositories already provide real value.
-- [ ] Do not use submodules to simulate repository boundaries prematurely.
-- [ ] Accept that cross-repository feature changes lose atomicity.
-- [ ] Accept additional CI/developer tooling complexity.
-- [ ] Document submodule update procedures if adopted.
+- See [`sections/40-git-submodules.md`](sections/40-git-submodules.md).
 
 ---
 
 # 41. Prefer Artifact Composition Over Source Composition
 
-For runtime/platform composition, prefer:
-
-    product-a:1.8.3
-    product-b:3.2.1
-    product-c:0.9.0-beta
-
-rather than requiring:
-
-    git submodule product-a
-    git submodule product-b
-    git submodule product-c
-
-where possible.
-
-- [ ] Version application artifacts.
-- [ ] Pin deployed versions.
-- [ ] Keep source development independent from deployed platform composition.
-- [ ] Allow a product to continue evolving while production remains pinned to a known-good version.
-
-Example:
-
-    product-a.git
-        │
-        ├── 1.8.3  ──────────────┐
-        ├── 1.9.0                │
-        └── 2.0-beta             │
-                                 ▼
-    platform.git
-        product-a.image = 1.8.3
-
-This gives independent evolution without requiring source composition.
+- See [`sections/41-prefer-artifact-composition-over-source-composition.md`](sections/41-prefer-artifact-composition-over-source-composition.md).
 
 ---
 
 # 42. Platform Definition
 
-Treat the repository as potentially evolving from:
-
-    one product
-    + several applications
-    + infrastructure
-
-toward:
-
-    multiple products
-    + shared capabilities
-    + infrastructure
-    + delivery
-    + operational tooling
-
-Therefore `platform/` is a legitimate conceptual root.
-
-- [ ] Platform may compose multiple applications/products.
-- [ ] Platform may provide shared runtime capabilities.
-- [ ] Platform may provide provisioning.
-- [ ] Platform may provide delivery mechanisms.
-- [ ] Platform may provide observability/security/networking.
-- [ ] Platform may provide developer tooling.
+- See [`sections/42-platform-definition.md`](sections/42-platform-definition.md).
 
 ---
 
 # 43. Product Platform vs Internal Developer Platform
 
-Keep the conceptual distinction.
-
-## Product Platform
-
-Represents:
-
-    products
-    + shared business capabilities
-    + runtime composition
-
-## Internal Developer Platform
-
-Represents capabilities that help engineers build/run software:
-
-    provisioning
-    delivery
-    observability
-    secrets integration
-    developer tooling
-    golden paths
-    environment management
-
-- [ ] They may coexist in the same repository today.
-- [ ] Do not assume they must become separate repositories.
-- [ ] Preserve the conceptual boundary even when physically colocated.
+- See [`sections/43-product-platform-vs-internal-developer-platform.md`](sections/43-product-platform-vs-internal-developer-platform.md).
 
 ---
 
 # 44. Application Ownership
 
-Every application should eventually make clear:
-
-- [ ] What capability does it provide?
-- [ ] Who/what consumes it?
-- [ ] How does it execute?
-- [ ] How is it packaged?
-- [ ] What configuration does it require?
-- [ ] What secrets does it require?
-- [ ] What data does it own?
-- [ ] What external systems does it integrate with?
-- [ ] What contracts does it expose?
-- [ ] What events does it consume?
-- [ ] What events does it produce?
-- [ ] How is it observed?
-- [ ] How is it deployed?
-
-These answers belong in documentation/metadata, not necessarily directory names.
+- See [`sections/44-application-ownership.md`](sections/44-application-ownership.md).
 
 ---
 
 # 45. External Integration Ownership
 
-Preserve the broader engineering principle:
-
-> Delegating execution to an external provider does not delegate
-> accountability for the interaction.
-
-For external integrations:
-
-- [ ] Own the outgoing request intent.
-- [ ] Persist relevant interaction state when business/audit requirements justify it.
-- [ ] Track provider identifiers.
-- [ ] Track relevant responses/status transitions.
-- [ ] Define retry behavior.
-- [ ] Define idempotency behavior.
-- [ ] Define failure behavior.
-- [ ] Define timeout behavior.
-- [ ] Define reconciliation behavior where applicable.
-- [ ] Avoid making an external provider the only source of operational truth for platform-owned workflows.
+- See [`sections/45-external-integration-ownership.md`](sections/45-external-integration-ownership.md).
 
 ---
 
 # 46. Technology Placement
 
-Technologies belong as implementation choices beneath architectural boundaries.
-
-Good:
-
-    apps/
-    ├── services/
-    │   ├── core/        # Rails
-    │   └── chatbot/     # Python
-    ├── web/
-    │   └── portal/      # Next.js
-    └── mobile/
-        └── client/      # React Native
-
-Avoid:
-
-    apps/
-    ├── ruby/
-    ├── python/
-    ├── typescript/
-    └── react/
-
-- [ ] Architecture names the responsibility.
-- [ ] Implementation selects the technology.
+- See [`sections/46-technology-placement.md`](sections/46-technology-placement.md).
 
 ---
 
 # 47. Technology Independence
 
-The target architecture must remain compatible with:
-
-- [ ] Ruby / Rails
-- [ ] Python
-- [ ] TypeScript / Node
-- [ ] Next.js
-- [ ] React Native
-- [ ] Go
-- [ ] Rust
-- [ ] future languages/frameworks
-
-without requiring a top-level repository redesign.
-
-Infrastructure should similarly allow evolution between:
-
-- [ ] Docker
-- [ ] Kubernetes
-- [ ] ECS
-- [ ] serverless
-- [ ] AWS
-- [ ] other cloud providers
-
-without redefining application ownership.
+- See [`sections/47-technology-independence.md`](sections/47-technology-independence.md).
 
 ---
 
 # 48. Documentation
 
-Target:
-
-    docs/
-    ├── architecture/
-    ├── adr/
-    └── ...
-
-- [ ] Keep architectural documentation.
-- [ ] Keep ADRs that explain consequential decisions.
-- [ ] Keep operational documentation needed to run the platform.
-- [ ] Keep setup/onboarding documentation.
-- [ ] Keep diagrams where they improve understanding.
-- [ ] Keep public documentation intentional.
-
-For public repositories:
-
-- [ ] Reconsider publishing internal `work-items/`.
-- [ ] Separate durable architectural knowledge from temporary implementation reasoning.
-- [ ] Keep implementation planning/private reasoning outside the public artifact when it adds no consumer value.
-- [ ] Extract useful conclusions into ADRs or architecture docs.
+- See [`sections/48-documentation.md`](sections/48-documentation.md).
 
 ---
 

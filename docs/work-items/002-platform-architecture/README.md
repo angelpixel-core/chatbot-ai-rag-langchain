@@ -19,12 +19,33 @@ Track the staged repository architecture migration for the platform repo.
 - `19. infra/delivery/` -> `sections/19-infra-delivery.md`
 - `20. infra/local/` -> `sections/20-infra-local.md`
 - `21. Remove / Reconsider Current infra/runtime/` -> `sections/21-reconsider-infra-runtime.md`
-- `16. infra/` -> `sections/16-infra.md`
-- `17. infra/provisioning/` -> `sections/17-infra-provisioning.md`
-- `18. infra/platform/` -> `sections/18-infra-platform.md`
-- `19. infra/delivery/` -> `sections/19-infra-delivery.md`
-- `20. infra/local/` -> `sections/20-infra-local.md`
-- `21. Remove / Reconsider Current infra/runtime/` -> `sections/21-reconsider-infra-runtime.md`
+- `22. Kubernetes Duplication` -> `sections/22-kubernetes-duplication.md`
+- `23. Environment Taxonomy` -> `sections/23-environment-taxonomy.md`
+- `24. Local` -> `sections/24-local.md`
+- `25. Development` -> `sections/25-development.md`
+- `26. Test` -> `sections/26-test.md`
+- `27. CI` -> `sections/27-ci.md`
+- `28. QA` -> `sections/28-qa.md`
+- `29. Staging` -> `sections/29-staging.md`
+- `30. Production` -> `sections/30-production.md`
+- `31. Recommended Lifecycle Model` -> `sections/31-recommended-lifecycle-model.md`
+- `32. nonprod vs Concrete Environments` -> `sections/32-nonprod-vs-concrete-environments.md`
+- `33. Kustomize Model` -> `sections/33-kustomize-model.md`
+- `34. Deployment Strategies` -> `sections/34-deployment-strategies.md`
+- `35. environments/` -> `sections/35-environments.md`
+- `36. tooling/` -> `sections/36-tooling.md`
+- `37. Makefile` -> `sections/37-makefile.md`
+- `38. Monorepo Decision` -> `sections/38-monorepo-decision.md`
+- `39. When Repository Separation Becomes Appropriate` -> `sections/39-when-repository-separation-becomes-appropriate.md`
+- `40. Git Submodules` -> `sections/40-git-submodules.md`
+- `41. Prefer Artifact Composition Over Source Composition` -> `sections/41-prefer-artifact-composition-over-source-composition.md`
+- `42. Platform Definition` -> `sections/42-platform-definition.md`
+- `43. Product Platform vs Internal Developer Platform` -> `sections/43-product-platform-vs-internal-developer-platform.md`
+- `44. Application Ownership` -> `sections/44-application-ownership.md`
+- `45. External Integration Ownership` -> `sections/45-external-integration-ownership.md`
+- `46. Technology Placement` -> `sections/46-technology-placement.md`
+- `47. Technology Independence` -> `sections/47-technology-independence.md`
+- `48. Documentation` -> `sections/48-documentation.md`
 
 ## Suggested Attack Order
 
