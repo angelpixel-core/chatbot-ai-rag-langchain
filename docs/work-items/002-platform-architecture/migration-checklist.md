@@ -52,12 +52,12 @@ Define a durable repository architecture for the platform repo and migrate towar
 - [ ] 13. Configuration
 - [ ] 14. Secrets
 - [ ] 15. Secret Ownership
-- [ ] 16. `infra/`
-- [ ] 17. `infra/provisioning/`
-- [ ] 18. `infra/platform/`
-- [ ] 19. `infra/delivery/`
-- [ ] 20. `infra/local/`
-- [ ] 21. Remove / Reconsider Current `infra/runtime/`
+- [ ] 16. `infra/` ([sections/16-infra.md](sections/16-infra.md))
+- [ ] 17. `infra/provisioning/` ([sections/17-infra-provisioning.md](sections/17-infra-provisioning.md))
+- [ ] 18. `infra/platform/` ([sections/18-infra-platform.md](sections/18-infra-platform.md))
+- [ ] 19. `infra/delivery/` ([sections/19-infra-delivery.md](sections/19-infra-delivery.md))
+- [ ] 20. `infra/local/` ([sections/20-infra-local.md](sections/20-infra-local.md))
+- [ ] 21. Remove / Reconsider Current `infra/runtime/` ([sections/21-reconsider-infra-runtime.md](sections/21-reconsider-infra-runtime.md))
 - [ ] 22. Kubernetes Duplication
 - [ ] 23. Environment Taxonomy
 - [ ] 24. Local
@@ -534,178 +534,37 @@ Example:
 
 # 16. `infra/`
 
-## Definition
-
-`infra/` describes where and how software runs.
-
-It does NOT contain the business application itself.
-
-Target:
-
-    infra/
-    ├── provisioning/
-    ├── platform/
-    ├── delivery/
-    └── local/
-
-- [ ] Keep infrastructure responsibilities explicitly separated.
-- [ ] Eliminate duplicated manifests where responsibilities overlap.
-- [ ] Do not use `runtime/` as a generic dumping ground.
+- See [`sections/16-infra.md`](sections/16-infra.md).
 
 ---
 
 # 17. `infra/provisioning/`
 
-## Responsibility
-
-Provision external infrastructure/resources.
-
-Examples:
-
-- AWS accounts
-- VPCs
-- subnets
-- EKS
-- ECS
-- RDS
-- ECR
-- IAM
-- KMS
-- DNS infrastructure
-- cloud-level policies
-
-Potential structure:
-
-    infra/provisioning/
-    └── aws/
-        ├── modules/
-        ├── shared/
-        ├── nonprod/
-        └── prod/
-
-- [ ] Terraform/Pulumi/etc. belong here when provisioning external resources.
-- [ ] Keep reusable provisioning modules separate from environment composition.
-- [ ] Avoid mixing Kubernetes workload manifests with cloud provisioning.
+- See [`sections/17-infra-provisioning.md`](sections/17-infra-provisioning.md).
 
 ---
 
 # 18. `infra/platform/`
 
-## Responsibility
-
-Contains shared platform capabilities installed on top of provisioned infrastructure.
-
-Potential examples:
-
-    infra/platform/
-    ├── networking/
-    ├── security/
-    ├── observability/
-    └── controllers/
-
-Possible capabilities:
-
-- ingress controller
-- cert-manager
-- external-dns
-- telemetry stack
-- secret integration
-- policy controllers
-- GitOps controller
-
-- [ ] Distinguish platform capabilities from user workloads.
-- [ ] Distinguish platform configuration from underlying cloud provisioning.
+- See [`sections/18-infra-platform.md`](sections/18-infra-platform.md).
 
 ---
 
 # 19. `infra/delivery/`
 
-## Responsibility
-
-Defines how application workloads are deployed/promoted.
-
-Potential structure:
-
-    infra/delivery/
-    ├── workloads/
-    └── environments/
-
-- [ ] Application Kubernetes manifests belong to the delivery responsibility.
-- [ ] GitOps definitions belong here.
-- [ ] Argo CD application definitions belong here when used for delivery.
-- [ ] Keep workload delivery separate from platform controllers.
-- [ ] Avoid maintaining an independent second copy of the same Kubernetes workload under another directory.
+- See [`sections/19-infra-delivery.md`](sections/19-infra-delivery.md).
 
 ---
 
 # 20. `infra/local/`
 
-## Responsibility
-
-Provide local infrastructure orchestration.
-
-Target:
-
-    infra/local/
-    ├── compose/
-    └── kubernetes/
-
-## Compose
-
-- [ ] Keep Compose as the fast/default local development path where appropriate.
-- [ ] Use it for normal developer iteration.
-- [ ] Keep local dependencies easy to start and destroy.
-
-## Local Kubernetes
-
-- [ ] Keep Kubernetes locally when infrastructure-sensitive behavior needs validation.
-- [ ] Use local Kubernetes for near-production topology testing.
-- [ ] Use it for Kubernetes-specific integration behavior.
-- [ ] Use it for infrastructure demonstrations when useful.
-- [ ] Do not require Kubernetes for every ordinary development cycle.
-
-Therefore:
-
-    Compose
-       =
-    developer convenience
-
-    Local Kubernetes
-       =
-    infrastructure/runtime fidelity
-
-Both are valid because they solve different problems.
+- See [`sections/20-infra-local.md`](sections/20-infra-local.md).
 
 ---
 
 # 21. Remove / Reconsider Current `infra/runtime/`
 
-Current responsibility:
-
-    infra/runtime/
-    ├── compose.yaml
-    ├── containers/
-    ├── kubernetes/
-    └── scripts/
-
-Migration intent:
-
-- [ ] Move application-specific Dockerfiles toward their owning applications.
-- [ ] Move Compose responsibility toward `infra/local/compose/`.
-- [ ] Move local Kubernetes responsibility toward `infra/local/kubernetes/`.
-- [ ] Move operational helper scripts toward `tooling/scripts/` or a narrowly scoped local-infra script location.
-- [ ] Remove `infra/runtime/` if no unique responsibility remains.
-
-The word `runtime` is not inherently wrong.
-
-The issue is that the current directory combines:
-
-    packaging
-    + local orchestration
-    + Kubernetes
-    + operational scripts
-
-which represent different responsibilities.
+- See [`sections/21-reconsider-infra-runtime.md`](sections/21-reconsider-infra-runtime.md).
 
 ---
 

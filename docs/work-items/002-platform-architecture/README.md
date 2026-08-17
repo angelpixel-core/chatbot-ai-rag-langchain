@@ -13,6 +13,18 @@ Track the staged repository architecture migration for the platform repo.
 - `51. Final Architecture Validation` -> `sections/51-final-architecture-validation.md`
 - `52. Architecture Invariants` -> `sections/52-architecture-invariants.md`
 - `53. North Star` -> `sections/53-north-star.md`
+- `16. infra/` -> `sections/16-infra.md`
+- `17. infra/provisioning/` -> `sections/17-infra-provisioning.md`
+- `18. infra/platform/` -> `sections/18-infra-platform.md`
+- `19. infra/delivery/` -> `sections/19-infra-delivery.md`
+- `20. infra/local/` -> `sections/20-infra-local.md`
+- `21. Remove / Reconsider Current infra/runtime/` -> `sections/21-reconsider-infra-runtime.md`
+- `16. infra/` -> `sections/16-infra.md`
+- `17. infra/provisioning/` -> `sections/17-infra-provisioning.md`
+- `18. infra/platform/` -> `sections/18-infra-platform.md`
+- `19. infra/delivery/` -> `sections/19-infra-delivery.md`
+- `20. infra/local/` -> `sections/20-infra-local.md`
+- `21. Remove / Reconsider Current infra/runtime/` -> `sections/21-reconsider-infra-runtime.md`
 
 ## Suggested Attack Order
 
