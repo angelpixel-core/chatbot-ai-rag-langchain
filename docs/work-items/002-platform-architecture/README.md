@@ -4,18 +4,15 @@
 
 Track the staged repository architecture migration for the platform repo.
 
-## What Stays in the Mother Document
-
-- `49. Migration-Specific Checks`
-- `50. Migration Order`
-- `51. Final Architecture Validation`
-- `52. Architecture Invariants`
-- `53. North Star`
-
 ## Extracted First
 
 - `0. Core Principles` -> `sections/00-core-principles.md`
 - `1. Target Repository Model` -> `sections/01-target-repository-model.md`
+- `49. Migration-Specific Checks` -> `sections/49-migration-specific-checks.md`
+- `50. Migration Order` -> `sections/50-migration-order.md`
+- `51. Final Architecture Validation` -> `sections/51-final-architecture-validation.md`
+- `52. Architecture Invariants` -> `sections/52-architecture-invariants.md`
+- `53. North Star` -> `sections/53-north-star.md`
 
 ## Suggested Attack Order
 
@@ -28,5 +25,5 @@ Track the staged repository architecture migration for the platform repo.
 ## Notes
 
 - The root checklist is the working index.
-- Individual sections will receive links later, after they are extracted into `sections/`.
+- Individual sections receive links only after they are extracted into `sections/`.
 - The appendix holds the target directory reference.

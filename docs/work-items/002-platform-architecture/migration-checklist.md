@@ -85,11 +85,11 @@ Define a durable repository architecture for the platform repo and migrate towar
 - [ ] 46. Technology Placement
 - [ ] 47. Technology Independence
 - [ ] 48. Documentation
-- [ ] 49. Migration-Specific Checks
-- [ ] 50. Migration Order
-- [ ] 51. Final Architecture Validation
-- [ ] 52. Architecture Invariants
-- [ ] 53. North Star
+- [ ] 49. Migration-Specific Checks ([sections/49-migration-specific-checks.md](sections/49-migration-specific-checks.md))
+- [ ] 50. Migration Order ([sections/50-migration-order.md](sections/50-migration-order.md))
+- [ ] 51. Final Architecture Validation ([sections/51-final-architecture-validation.md](sections/51-final-architecture-validation.md))
+- [ ] 52. Architecture Invariants ([sections/52-architecture-invariants.md](sections/52-architecture-invariants.md))
+- [ ] 53. North Star ([sections/53-north-star.md](sections/53-north-star.md))
 
 # 0. Core Principles
 
@@ -1366,273 +1366,28 @@ For public repositories:
 
 # 49. Migration-Specific Checks
 
-Before moving any file:
-
-- [ ] Identify its responsibility.
-- [ ] Identify its owner.
-- [ ] Determine whether it is source, packaging, configuration, provisioning, delivery, tooling, data, or documentation.
-- [ ] Search for another artifact with the same responsibility.
-- [ ] Determine whether duplication is intentional.
-- [ ] Determine the canonical source before deleting anything.
-
-During migration:
-
-- [ ] Move one responsibility at a time.
-- [ ] Preserve runnable states where practical.
-- [ ] Update references immediately.
-- [ ] Update Make targets.
-- [ ] Update CI paths.
-- [ ] Update Docker build contexts.
-- [ ] Update Kustomize references.
-- [ ] Update Terraform references.
-- [ ] Update GitOps paths.
-- [ ] Update documentation.
-
-After each migration unit:
-
-- [ ] Local development works.
-- [ ] Tests work.
-- [ ] Images build.
-- [ ] Compose works.
-- [ ] Local Kubernetes works where required.
-- [ ] CI works.
-- [ ] Kustomize builds successfully.
-- [ ] Terraform/Pulumi validation works.
-- [ ] No secret has entered Git history.
-- [ ] No stale path remains.
-- [ ] Documentation matches reality.
+- See [`sections/49-migration-specific-checks.md`](sections/49-migration-specific-checks.md).
 
 ---
 
 # 50. Migration Order
 
-Prefer migrating from conceptual boundaries toward implementation details.
-
-## Phase 1 — Applications
-
-- [ ] Establish `apps/`.
-- [ ] Establish `apps/services/`.
-- [ ] Establish `apps/web/`.
-- [ ] Establish `apps/mobile/` if currently justified.
-- [ ] Move server-side application(s).
-- [ ] Move web application(s).
-- [ ] Move mobile application(s).
-- [ ] Move application-specific Dockerfiles with their applications.
-
-## Phase 2 — Local Runtime
-
-- [ ] Establish `infra/local/`.
-- [ ] Move Compose orchestration.
-- [ ] Move local Kubernetes.
-- [ ] Remove obsolete `infra/runtime/containers/` ownership.
-- [ ] Reconcile local Kubernetes duplication.
-
-## Phase 3 — Delivery
-
-- [ ] Establish canonical workload manifests.
-- [ ] Establish bases.
-- [ ] Establish only required overlays.
-- [ ] Consolidate GitOps definitions.
-- [ ] Remove duplicate workload manifests.
-
-## Phase 4 — Platform
-
-- [ ] Separate controllers from workloads.
-- [ ] Separate networking capabilities.
-- [ ] Separate security capabilities.
-- [ ] Separate observability/telemetry.
-- [ ] Validate ownership of Argo CD, ingress, cert-manager, external-dns, etc.
-
-## Phase 5 — Provisioning
-
-- [ ] Review Terraform module boundaries.
-- [ ] Separate reusable modules from compositions.
-- [ ] Validate `nonprod` vs `prod` grouping.
-- [ ] Keep cloud provisioning independent from workload delivery.
-
-## Phase 6 — Configuration & Environments
-
-- [ ] Inventory every `.env`.
-- [ ] Inventory every secret.
-- [ ] Inventory every configuration value.
-- [ ] Classify each as:
-  - [ ] safe default
-  - [ ] committed environment config
-  - [ ] secret reference
-  - [ ] actual secret
-- [ ] Remove actual secrets from repository-managed structures.
-- [ ] Define external secret ownership.
-- [ ] Define environment composition.
-- [ ] Remove duplicated environment configuration.
-
-## Phase 7 — Tooling
-
-- [ ] Consolidate scripts.
-- [ ] Establish root developer interface.
-- [ ] Simplify Makefile.
-- [ ] Remove obsolete scripts.
-- [ ] Document operational commands.
-
-## Phase 8 — Documentation
-
-- [ ] Update architecture docs.
-- [ ] Create/update ADRs.
-- [ ] Update root README.
-- [ ] Document application boundaries.
-- [ ] Document deployment lifecycle.
-- [ ] Document environment model.
-- [ ] Document secret-management model.
+- See [`sections/50-migration-order.md`](sections/50-migration-order.md).
 
 ---
 
 # 51. Final Architecture Validation
 
-Before considering the migration complete, answer YES to these questions.
-
-## Applications
-
-- [ ] Can I identify every executable application from `apps/`?
-- [ ] Can I understand its target without knowing its programming language?
-- [ ] Are product capabilities separated from execution categories?
-- [ ] Are domain boundaries independent from deployment boundaries?
-
-## Packaging
-
-- [ ] Does each application own its packaging recipe?
-- [ ] Can the same built artifact be promoted across environments?
-- [ ] Are images free from environment-specific secrets?
-
-## Infrastructure
-
-- [ ] Is provisioning clearly separated from delivery?
-- [ ] Is platform infrastructure clearly separated from user workloads?
-- [ ] Is local orchestration clearly separated from production delivery?
-- [ ] Is Kubernetes configuration canonical rather than duplicated?
-
-## Environments
-
-- [ ] Can I explain the difference between local, development, test, CI, QA, staging, and production?
-- [ ] Are only actually required environments represented?
-- [ ] Are environment differences configuration-driven rather than source-code-driven?
-
-## Secrets
-
-- [ ] Are actual secrets external to Git?
-- [ ] Is ownership clear?
-- [ ] Is consumption controlled through least privilege?
-- [ ] Can credentials rotate without rebuilding application artifacts?
-
-## Repository Strategy
-
-- [ ] Does the monorepo currently improve atomicity and developer experience?
-- [ ] Have submodules been avoided unless source composition is explicitly required?
-- [ ] Can future independent products be extracted without redefining the entire taxonomy?
-- [ ] Can platform composition eventually pin released artifacts rather than source commits?
-
-## Operations
-
-- [ ] Can a new developer discover how to run the system?
-- [ ] Can a QA engineer discover how to configure the QA environment without receiving secrets through Git?
-- [ ] Can an operator identify what version of every application is deployed?
-- [ ] Can the platform reproduce a known-good composition?
+- See [`sections/51-final-architecture-validation.md`](sections/51-final-architecture-validation.md).
 
 ---
 
 # 52. Architecture Invariants
 
-These rules should remain true after the migration.
-
-- [ ] **Architecture before technology.**
-- [ ] **Responsibility before framework.**
-- [ ] **Domain boundary != deployment boundary.**
-- [ ] **Service != HTTP API.**
-- [ ] **Microservice != small service.**
-- [ ] **Local != development.**
-- [ ] **Test != permanent environment.**
-- [ ] **CI != deployment environment.**
-- [ ] **Environment promotion != deployment strategy.**
-- [ ] **Application packaging != infrastructure provisioning.**
-- [ ] **Platform capability != application workload.**
-- [ ] **Secret reference != secret value.**
-- [ ] **Repository boundary != deployment boundary.**
-- [ ] **Monorepo != monolith.**
-- [ ] **Multiple deployables do not require multiple repositories.**
-- [ ] **Git submodules are a source-composition mechanism, not the default modularity mechanism.**
-- [ ] **Runtime composition should prefer immutable versioned artifacts.**
-- [ ] **Build once, configure at runtime, promote the same artifact.**
-- [ ] **External execution does not eliminate internal accountability.**
-- [ ] **DRY should reduce divergence, not reduce clarity.**
-- [ ] **Directories should express intent, not implementation accidents.**
+- See [`sections/52-architecture-invariants.md`](sections/52-architecture-invariants.md).
 
 ---
 
 # 53. North Star
 
-The repository should be capable of evolving from:
-
-    one repository
-    one product
-    several applications
-    shared infrastructure
-
-into:
-
-    multiple products
-    independently versioned artifacts
-    shared platform capabilities
-    controlled environments
-    reproducible deployments
-
-without requiring the conceptual architecture to be rewritten.
-
-Target relationship:
-
-                         PLATFORM
-                            │
-          ┌─────────────────┼─────────────────┐
-          │                 │                 │
-        APPS             PACKAGES          DATA
-          │
-          ▼
-    VERSIONED ARTIFACTS
-          │
-          ▼
-        DELIVERY
-          │
-          ├────────────── CONFIGURATION
-          │
-          ├────────────── SECRETS
-          │
-          ▼
-       PLATFORM
-      CAPABILITIES
-          │
-          ▼
-      PROVISIONED
-    INFRASTRUCTURE
-
-while:
-
-    TOOLING
-       │
-       └── provides the developer/operator interface
-
-    DOCUMENTATION
-       │
-       └── explains architecture, decisions, and operation
-
-And the central rule remains:
-
-    APPLICATIONS define what the product does.
-
-    PACKAGING defines how application source becomes an artifact.
-
-    CONFIGURATION defines how that artifact behaves in an environment.
-
-    DELIVERY defines how that artifact reaches an environment.
-
-    PLATFORM defines the shared capabilities available to workloads.
-
-    PROVISIONING defines the infrastructure on which the platform exists.
-
-    TOOLING defines how humans and automation operate the system.
+- See [`sections/53-north-star.md`](sections/53-north-star.md).
