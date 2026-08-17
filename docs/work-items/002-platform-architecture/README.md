@@ -46,6 +46,20 @@ Track the staged repository architecture migration for the platform repo.
 - `46. Technology Placement` -> `sections/46-technology-placement.md`
 - `47. Technology Independence` -> `sections/47-technology-independence.md`
 - `48. Documentation` -> `sections/48-documentation.md`
+- `2. apps/ — Executable Product Units` -> `sections/02-apps-executable-product-units.md`
+- `3. apps/services/` -> `sections/03-apps-services.md`
+- `4. apps/web/` -> `sections/04-apps-web.md`
+- `5. apps/mobile/` -> `sections/05-apps-mobile.md`
+- `6. apps/desktop/` -> `sections/06-apps-desktop.md`
+- `7. apps/cli/` -> `sections/07-apps-cli.md`
+- `8. embedded/` -> `sections/08-embedded.md`
+- `9. Product Capabilities vs Execution Targets` -> `sections/09-product-capabilities-vs-execution-targets.md`
+- `10. packages/` -> `sections/10-packages.md`
+- `11. datasets/` -> `sections/11-datasets.md`
+- `12. Dockerfile Ownership` -> `sections/12-dockerfile-ownership.md`
+- `13. Configuration` -> `sections/13-configuration.md`
+- `14. Secrets` -> `sections/14-secrets.md`
+- `15. Secret Ownership` -> `sections/15-secret-ownership.md`
 
 ## Suggested Attack Order
 
