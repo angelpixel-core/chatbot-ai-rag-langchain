@@ -23,8 +23,6 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [x] Define baseline security controls ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
   - [x] Define audit and encryption foundations ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
   - [x] Define bootstrap inputs ([001-aws-bootstrap-inputs](./subtasks/001-aws-bootstrap-inputs.md)).
-  - [ ] Create the AWS accounts in Organizations ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
-  - [ ] Validate the bootstrap model ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md)).
 
 - [ ] Foundation
   - [x] Define the AWS account strategy ([002-account-strategy](./subtasks/002-account-strategy.md)).
@@ -58,15 +56,13 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [x] Prepare IRSA/OIDC for workloads ([007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
     - [x] Define minimum permissions by namespace or service ([007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md)).
   - [x] Provision the EKS base ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
-    - [x] Create the initial cluster in `nonprod` ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
-    - [x] Define the initial node groups ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
-    - [x] Enable base logging and monitoring ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
-    - [ ] Validate access from the local environment ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
+  - [x] Create the initial cluster in `nonprod` ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
+  - [x] Define the initial node groups ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
+  - [x] Enable base logging and monitoring ([008-provision-eks-base](./subtasks/008-provision-eks-base.md)).
   - [ ] Provision ECR.
     - [x] Create repos for `django`.
     - [x] Create repos for `nextjs`.
     - [x] Define lifecycle and permission policies.
-    - [ ] Validate push and pull from CI/CD.
   - [x] Define the environment layout.
     - [x] Keep dev local/compose.
     - [x] Keep test in CI.
@@ -74,22 +70,17 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
     - [x] Map staging to `nonprod`.
     - [x] Keep production in a separate account.
     - [x] Align variables, domains, and credentials per environment.
-  - [ ] Validate the foundation.
-    - [ ] Confirm human access to the cluster.
-    - [ ] Confirm CI/CD can publish images.
-    - [ ] Confirm network connectivity is functional.
-    - [ ] Confirm roles are isolated by account.
+  - Remaining credential-dependent checks are tracked in `Credentialed Validation`.
 - [x] Local Workflow
   - [x] Standardize local Kubernetes on `k3d`.
   - [x] Add local manifests or overlays that mirror the app split used in EKS.
 - [ ] Application Packaging
   - [x] Containerize Django and Next.js as separate workloads.
     - [x] Add `base`, `test`, and `runtime` stages for each app image.
-  - [ ] Confirm image build and push flow into ECR.
+  - Remaining credential-dependent checks are tracked in `Credentialed Validation`.
 - [ ] Data and Secrets
   - [x] Document the RDS/PostgreSQL boundary ([011-rds-postgresql](./subtasks/011-rds-postgresql.md)).
-  - [ ] Move PostgreSQL to RDS.
-  - [ ] Inject secrets from Secrets Manager and config from SSM Parameter Store.
+  - Remaining credential-dependent checks are tracked in `Credentialed Validation`.
 - [ ] Background Jobs and Media
   - [x] Document the async worker and media pipeline boundary ([012-background-jobs](./subtasks/012-background-jobs.md)).
   - [x] Define the worker runtime and queueing strategy.
@@ -103,7 +94,25 @@ Deliver the AWS/EKS platform incrementally without blocking local development.
   - [x] Add GitOps deployment via ArgoCD.
   - [x] Add an Ingress Controller for HTTP/HTTPS traffic ([010-deployment-service-ingress](./subtasks/010-deployment-service-ingress.md)).
 - [ ] Rollout
-  - [ ] Validate in QA, then staging, then production.
+  - Remaining credential-dependent checks are tracked in `Credentialed Validation`.
+
+## Credentialed Validation
+
+These items stay pending until real AWS/cluster credentials are available.
+
+- [ ] Obtain real AWS/cluster credentials ([014-credentialed-access-validation](./subtasks/014-credentialed-access-validation.md))
+- [ ] Create the AWS accounts in Organizations ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md))
+- [ ] Validate the bootstrap model ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md))
+- [ ] Confirm human access to the cluster ([008-provision-eks-base](./subtasks/008-provision-eks-base.md))
+- [ ] Validate access from the local environment ([008-provision-eks-base](./subtasks/008-provision-eks-base.md))
+- [ ] Confirm network connectivity is functional ([008-provision-eks-base](./subtasks/008-provision-eks-base.md))
+- [ ] Confirm roles are isolated by account ([005-identity-layer](./subtasks/005-identity-layer.md), [006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md), [007-prepare-iam-cluster-access](./subtasks/007-prepare-iam-cluster-access.md))
+- [ ] Confirm image build and push flow into ECR ([015-ecr-provisioning-and-validation](./subtasks/015-ecr-provisioning-and-validation.md))
+- [ ] Confirm CI/CD can publish images ([015-ecr-provisioning-and-validation](./subtasks/015-ecr-provisioning-and-validation.md))
+- [ ] Validate push and pull from CI/CD ([015-ecr-provisioning-and-validation](./subtasks/015-ecr-provisioning-and-validation.md))
+- [ ] Move PostgreSQL to RDS ([016-rds-secrets-cutover](./subtasks/016-rds-secrets-cutover.md), [011-rds-postgresql](./subtasks/011-rds-postgresql.md))
+- [ ] Inject secrets from Secrets Manager and config from SSM Parameter Store ([016-rds-secrets-cutover](./subtasks/016-rds-secrets-cutover.md))
+- [ ] Validate in QA, then staging, then production ([017-rollout-validation](./subtasks/017-rollout-validation.md))
 
 ## Deliverables
 
