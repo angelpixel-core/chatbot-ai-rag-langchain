@@ -1,3 +1,12 @@
+---
+id: 02-apps-executable-product-units
+title: Apps Executable Product Units
+aliases: []
+tags: []
+work_item: 002-platform-architecture
+status: draft
+---
+
 # 2. `apps/` — Executable Product Units
 
 ## Definition

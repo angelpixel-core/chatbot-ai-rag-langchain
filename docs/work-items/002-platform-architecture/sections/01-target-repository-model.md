@@ -1,3 +1,12 @@
+---
+id: 01-target-repository-model
+title: Target Repository Model
+aliases: []
+tags: []
+work_item: 002-platform-architecture
+status: draft
+---
+
 # 1. Target Repository Model
 
 Use this conceptual structure as the migration target:

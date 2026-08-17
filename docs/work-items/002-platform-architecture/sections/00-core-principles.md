@@ -1,3 +1,12 @@
+---
+id: 00-core-principles
+title: Core Principles
+aliases: []
+tags: []
+work_item: 002-platform-architecture
+status: draft
+---
+
 # 0. Core Principles
 
 ## Repository Design

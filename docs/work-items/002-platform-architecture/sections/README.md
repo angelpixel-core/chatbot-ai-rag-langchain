@@ -10,6 +10,15 @@ One file per architecture section.
 ## Section Template
 
 ```md
+---
+id: 00-example
+title: Example Title
+aliases: []
+tags: []
+work_item: 002-platform-architecture
+status: draft
+---
+
 # N. Section Title
 
 ## Definition

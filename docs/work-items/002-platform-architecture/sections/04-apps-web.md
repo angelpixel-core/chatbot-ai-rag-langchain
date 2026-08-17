@@ -1,3 +1,12 @@
+---
+id: 04-apps-web
+title: Apps Web
+aliases: []
+tags: []
+work_item: 002-platform-architecture
+status: draft
+---
+
 # 4. `apps/web/`
 
 ## Definition

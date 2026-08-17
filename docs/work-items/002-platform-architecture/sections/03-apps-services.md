@@ -1,3 +1,12 @@
+---
+id: 03-apps-services
+title: Apps Services
+aliases: []
+tags: []
+work_item: 002-platform-architecture
+status: draft
+---
+
 # 3. `apps/services/`
 
 ## Definition
