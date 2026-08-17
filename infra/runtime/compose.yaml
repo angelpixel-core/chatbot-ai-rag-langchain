@@ -9,6 +9,7 @@ services:
         UID: "${UID:-1000}"
         GID: "${GID:-1000}"
         SERVICES_PORT: "${SERVICES_INTERNAL_PORT:-8000}"
+        SERVICES_APP_DIR: "${SERVICES_APP_DIR}"
     container_name: coffee-chatbot-services
     depends_on:
       db:
@@ -28,7 +29,7 @@ services:
     volumes:
       - ../..:/app
     entrypoint: ["/bin/sh", "/app/infra/runtime/containers/services/entrypoint.sh"]
-    command: ["python", "apps/services/chatbot/manage.py", "runserver", "0.0.0.0:${SERVICES_INTERNAL_PORT:-8000}"]
+    command: ["python", "${SERVICES_APP_DIR}/manage.py", "runserver", "0.0.0.0:${SERVICES_INTERNAL_PORT:-8000}"]
     ports:
       - "${SERVICES_PORT:-10001}:${SERVICES_INTERNAL_PORT:-8000}"
     healthcheck:
@@ -49,6 +50,7 @@ services:
         WEB_PORT: "${WEB_INTERNAL_PORT:-3000}"
         UID: "${UID:-1000}"
         GID: "${GID:-1000}"
+        WEB_APP_DIR: "${WEB_APP_DIR}"
     container_name: coffee-chatbot-web
     depends_on:
       services:

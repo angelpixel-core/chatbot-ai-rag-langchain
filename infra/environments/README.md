@@ -18,6 +18,8 @@ Each environment is split by consumer:
 - `orchestration/` - Compose/build variables for the local runtime or environment-specific stack.
 - `secrets.local.env` - Versioned placeholder secrets file in each consumer directory when needed.
 
+Shared path metadata for scripts and build tooling lives in `.local/project.env`.
+
 ## Notes
 
 - Keep consumer-specific variables in the matching subdirectory.

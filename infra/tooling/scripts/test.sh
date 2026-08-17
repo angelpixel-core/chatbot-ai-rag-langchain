@@ -4,6 +4,7 @@ set -eu
 TEST_ENV="${TEST_ENV:-test}"
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 ROOT_DIR=$(CDPATH= cd -- "${SCRIPT_DIR}/../.." && pwd)
+PROJECT_ENV_FILE="${ROOT_DIR}/infra/environments/.local/project.env"
 TEST_STACK_ENV_FILE="${ROOT_DIR}/infra/environments/${TEST_ENV}/orchestration/compose.env"
 TEST_APP_CORE_ENV_FILE="${ROOT_DIR}/infra/environments/${TEST_ENV}/app/core.env"
 TEST_APP_DB_ENV_FILE="${ROOT_DIR}/infra/environments/${TEST_ENV}/app/db.env"
@@ -42,12 +43,15 @@ load_env_file() {
 
 build_image() {
   require_file "$TEST_STACK_ENV_FILE"
+  require_file "$PROJECT_ENV_FILE"
+  . "$PROJECT_ENV_FILE"
   docker build \
     --file "${ROOT_DIR}/infra/runtime/containers/services/Dockerfile" \
     --target "${TEST_IMAGE_STAGE:-test}" \
     --build-arg "PYTHON_VERSION=${PYTHON_VERSION:-3.15.0rc1}" \
     --build-arg "UID=${UID:-1000}" \
     --build-arg "GID=${GID:-1000}" \
+    --build-arg "SERVICES_APP_DIR=${SERVICES_APP_DIR}" \
     --tag "$IMAGE_NAME" \
     "$ROOT_DIR"
 }

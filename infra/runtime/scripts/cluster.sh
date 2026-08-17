@@ -6,6 +6,7 @@ NAMESPACE="${K3D_NAMESPACE:-coffee-chatbot-runtime}"
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/../../.." && pwd)
 KUSTOMIZE_DIR="${ROOT_DIR}/infra/runtime/kubernetes/overlays/local"
 GENERATED_DIR="${KUSTOMIZE_DIR}/.generated"
+PROJECT_ENV_FILE="${ROOT_DIR}/infra/environments/.local/project.env"
 DEV_ENV_DIR="${ROOT_DIR}/infra/environments/dev"
 DEV_COMPOSE_ENV_FILE="${DEV_ENV_DIR}/orchestration/compose.env"
 DEV_APP_CORE_ENV_FILE="${DEV_ENV_DIR}/app/core.env"
@@ -96,6 +97,7 @@ EOF
 }
 
 load_runtime_sources() {
+  load_env_file "$PROJECT_ENV_FILE"
   load_env_file "$DEV_COMPOSE_ENV_FILE"
   load_env_file "$DEV_APP_CORE_ENV_FILE"
   load_env_file "$DEV_APP_DB_ENV_FILE"
@@ -138,6 +140,7 @@ build_images() {
     --build-arg "UID=${UID:-1000}" \
     --build-arg "GID=${GID:-1000}" \
     --build-arg "SERVICES_PORT=${SERVICES_INTERNAL_PORT:-8000}" \
+    --build-arg "SERVICES_APP_DIR=${SERVICES_APP_DIR}" \
     --target "${SERVICES_IMAGE_STAGE:-base}" \
     -t "$SERVICES_IMAGE" \
     -f "$ROOT_DIR/infra/runtime/containers/services/Dockerfile" \
@@ -147,6 +150,7 @@ build_images() {
     --build-arg "UID=${UID:-1000}" \
     --build-arg "GID=${GID:-1000}" \
     --build-arg "WEB_PORT=${WEB_INTERNAL_PORT:-3000}" \
+    --build-arg "WEB_APP_DIR=${WEB_APP_DIR}" \
     --target "${WEB_IMAGE_STAGE:-base}" \
     -t "$WEB_IMAGE" \
     -f "$ROOT_DIR/infra/runtime/containers/web/Dockerfile" \
