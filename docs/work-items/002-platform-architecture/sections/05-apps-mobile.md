@@ -5,6 +5,7 @@ aliases: []
 tags: []
 work_item: 002-platform-architecture
 status: draft
+placeholder: true
 ---
 
 # 5. `apps/mobile/`

@@ -6,6 +6,7 @@ One file per architecture section.
 - Add links from the checklist only after a section has been extracted.
 - Every section file should include a criteria reference to `00-core-principles.md` and `01-target-repository-model.md`.
 - Every section file should also include a `## Verification Checklist` that is used to confirm the section is still aligned with the repo state.
+- Set `placeholder: true` on sections reserved for future product surfaces that do not have a real subtree yet.
 
 ## Section Template
 
@@ -17,6 +18,7 @@ aliases: []
 tags: []
 work_item: 002-platform-architecture
 status: draft
+placeholder: false
 ---
 
 # N. Section Title
