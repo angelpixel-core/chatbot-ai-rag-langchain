@@ -1,3 +1,12 @@
+---
+id: 05-apps-mobile
+title: Apps Mobile
+aliases: []
+tags: []
+work_item: 002-platform-architecture
+status: draft
+---
+
 # 5. `apps/mobile/`
 
 ## Definition
@@ -19,6 +28,14 @@ apps/mobile/
 - [ ] Keep React Native/Kotlin/Swift/etc. as implementation choices rather than top-level architectural categories.
 - [ ] Do not create `ios/` or `android/` prematurely if one cross-platform application is currently sufficient.
 
+
+## Verification Checklist
+
+- [x] No mobile application subtree exists yet.
+- [x] Do not create `ios/` or `android/` prematurely if one cross-platform application is currently sufficient.
+- [ ] Organize by target platform when that distinction becomes meaningful.
+- [ ] Allow multiple products under the same platform.
+- [ ] Keep React Native/Kotlin/Swift/etc. as implementation choices rather than top-level architectural categories.
 
 ## Criteria
 
