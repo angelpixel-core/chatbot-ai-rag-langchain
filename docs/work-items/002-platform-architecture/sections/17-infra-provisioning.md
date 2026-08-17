@@ -32,3 +32,8 @@ infra/provisioning/
 - [ ] Terraform/Pulumi/etc. belong here when provisioning external resources.
 - [ ] Keep reusable provisioning modules separate from environment composition.
 - [ ] Avoid mixing Kubernetes workload manifests with cloud provisioning.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

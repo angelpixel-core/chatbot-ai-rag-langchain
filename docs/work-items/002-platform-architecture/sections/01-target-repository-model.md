@@ -46,3 +46,7 @@ platform/
 - [ ] Treat this tree as an architectural taxonomy rather than a mandatory list of directories.
 - [ ] Create only directories currently justified by actual artifacts.
 - [ ] Keep empty future categories out of the repository unless they improve navigation or communicate an imminent boundary.
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) as the governing design rule set.

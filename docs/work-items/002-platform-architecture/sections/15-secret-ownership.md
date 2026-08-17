@@ -34,3 +34,8 @@ payments service
 - [ ] Avoid allowing applications to modify secrets unless explicitly required.
 - [ ] Audit sensitive secret access where possible.
 - [ ] Keep break-glass access exceptional and auditable.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

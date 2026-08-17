@@ -48,3 +48,8 @@ Before considering the migration complete, answer YES to these questions.
 - [ ] Can a QA engineer discover how to configure the QA environment without receiving secrets through Git?
 - [ ] Can an operator identify what version of every application is deployed?
 - [ ] Can the platform reproduce a known-good composition?
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

@@ -35,3 +35,8 @@ After each migration unit:
 - [ ] No secret has entered Git history.
 - [ ] No stale path remains.
 - [ ] Documentation matches reality.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

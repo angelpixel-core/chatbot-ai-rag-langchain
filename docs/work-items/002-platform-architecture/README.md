@@ -74,3 +74,4 @@ Track the staged repository architecture migration for the platform repo.
 - The root checklist is the working index.
 - Individual sections receive links only after they are extracted into `sections/`.
 - The appendix holds the target directory reference.
+- Every extracted section should end with a criteria reference back to `0` and `1`.

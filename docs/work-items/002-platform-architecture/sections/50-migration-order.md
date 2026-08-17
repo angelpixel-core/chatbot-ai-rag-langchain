@@ -76,3 +76,8 @@ Prefer migrating from conceptual boundaries toward implementation details.
 - [ ] Document deployment lifecycle.
 - [ ] Document environment model.
 - [ ] Document secret-management model.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

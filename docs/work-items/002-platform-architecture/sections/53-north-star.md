@@ -70,3 +70,8 @@ DOCUMENTATION
 - PLATFORM defines the shared capabilities available to workloads.
 - PROVISIONING defines the infrastructure on which the platform exists.
 - TOOLING defines how humans and automation operate the system.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

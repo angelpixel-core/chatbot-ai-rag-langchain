@@ -8,3 +8,8 @@ Staging is the final production-like validation environment.
 - [ ] Do not expect staging to reproduce production traffic scale.
 - [ ] Do not confuse staging with CI.
 - [ ] Do not require production rollout strategies merely to validate staging.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

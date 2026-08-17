@@ -17,3 +17,8 @@ Every application should eventually make clear:
 - [ ] How is it deployed?
 
 These answers belong in documentation/metadata, not necessarily directory names.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

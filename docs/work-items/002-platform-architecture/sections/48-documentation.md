@@ -22,3 +22,8 @@ For public repositories:
 - [ ] Separate durable architectural knowledge from temporary implementation reasoning.
 - [ ] Keep implementation planning/private reasoning outside the public artifact when it adds no consumer value.
 - [ ] Extract useful conclusions into ADRs or architecture docs.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

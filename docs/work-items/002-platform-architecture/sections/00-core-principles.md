@@ -28,3 +28,7 @@
 - [ ] Do not assume a bounded context must become a microservice.
 - [ ] Do not assume every independently executable process requires its own repository.
 - [ ] Do not assume every application inside `apps/` must use the same technology.
+
+## Criteria
+
+- Apply with [1. Target Repository Model](./01-target-repository-model.md) as the migration target.

@@ -75,3 +75,8 @@ services/
 may become appropriate if Payments requires an independent lifecycle.
 
 - [ ] Extract services because of operational/business boundaries, not because a directory exists.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

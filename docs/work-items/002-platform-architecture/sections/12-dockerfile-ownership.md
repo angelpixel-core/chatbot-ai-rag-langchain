@@ -56,3 +56,8 @@ image:1.4.2
 ```
 
 - [ ] Follow "build once, configure at runtime, promote the same artifact."
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

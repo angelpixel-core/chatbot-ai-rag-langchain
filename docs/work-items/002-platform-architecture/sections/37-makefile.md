@@ -20,3 +20,8 @@ make k8s-down
 - [ ] Delegate complex operations to scripts/tools.
 - [ ] Use Make as a discoverable façade over common operations.
 - [ ] Keep commands consistent across applications where practical.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

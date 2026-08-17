@@ -23,3 +23,8 @@ These rules should remain true after the migration.
 - [ ] **External execution does not eliminate internal accountability.**
 - [ ] **DRY should reduce divergence, not reduce clarity.**
 - [ ] **Directories should express intent, not implementation accidents.**
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

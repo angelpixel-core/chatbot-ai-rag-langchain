@@ -17,3 +17,8 @@ infra/delivery/
 - [ ] Argo CD application definitions belong here when used for delivery.
 - [ ] Keep workload delivery separate from platform controllers.
 - [ ] Avoid maintaining an independent second copy of the same Kubernetes workload under another directory.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

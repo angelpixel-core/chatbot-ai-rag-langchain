@@ -33,3 +33,8 @@ only when differences genuinely exist at that grouping level.
 - [ ] Avoid over-abstracting Kustomize solely to eliminate a few repeated lines.
 
 DRY is subordinate to clarity.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

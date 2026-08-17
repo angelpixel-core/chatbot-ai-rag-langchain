@@ -29,3 +29,8 @@ environment management
 - [ ] They may coexist in the same repository today.
 - [ ] Do not assume they must become separate repositories.
 - [ ] Preserve the conceptual boundary even when physically colocated.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

@@ -26,3 +26,8 @@ but only if repository-level environment composition requires it.
 - [ ] Avoid duplicating Kustomize overlays inside `environments/`.
 - [ ] Avoid duplicating Terraform variables inside `environments/`.
 - [ ] Prefer references/composition over copies.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

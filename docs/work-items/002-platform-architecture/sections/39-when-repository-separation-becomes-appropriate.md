@@ -19,3 +19,8 @@ Do not extract merely because:
 - [ ] it deploys independently
 - [ ] it has its own database
 - [ ] it is called a "microservice"
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

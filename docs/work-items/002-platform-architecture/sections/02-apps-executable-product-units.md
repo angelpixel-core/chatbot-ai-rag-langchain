@@ -17,3 +17,8 @@ Reason:
 `API`, `assistant`, `intelligence`, and `core` describe interfaces,
 capabilities, domains, or product concepts rather than where/how the
 software executes.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

@@ -26,3 +26,8 @@ Therefore `platform/` is a legitimate conceptual root.
 - [ ] Platform may provide delivery mechanisms.
 - [ ] Platform may provide observability/security/networking.
 - [ ] Platform may provide developer tooling.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

@@ -17,3 +17,8 @@ For external integrations:
 - [ ] Define timeout behavior.
 - [ ] Define reconciliation behavior where applicable.
 - [ ] Avoid making an external provider the only source of operational truth for platform-owned workflows.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).

@@ -26,3 +26,8 @@ Possible capabilities:
 
 - [ ] Distinguish platform capabilities from user workloads.
 - [ ] Distinguish platform configuration from underlying cloud provisioning.
+
+
+## Criteria
+
+- Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).
