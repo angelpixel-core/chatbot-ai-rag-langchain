@@ -61,7 +61,7 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
 - [ ] Remove legacy provider-specific database artifacts from the active migration path.
   - [ ] Retire the legacy Postgres resource as an active resource.
   - [ ] Retire import blocks and database state adoption.
-  - [ ] Remove the legacy database component tree.
+  - [x] Remove the legacy database component tree.
 
 ## Notes
 
