@@ -1,3 +1,12 @@
+---
+id: 09-product-capabilities-vs-execution-targets
+title: Product Capabilities vs Execution Targets
+aliases: []
+tags: []
+work_item: 002-platform-architecture
+status: draft
+---
+
 # 9. Product Capabilities vs Execution Targets
 
 Avoid this:
@@ -39,7 +48,14 @@ web
 
 describe execution/interaction categories.
 
-- [ ] Keep this distinction explicit during migration.
+- [x] Keep this distinction explicit during migration.
+
+
+## Verification Checklist
+
+- [x] The current repo structure uses `chatbot` as the product/capability name.
+- [x] The current repo structure uses `services` and `web` as execution/interaction categories.
+- [x] Confirmed against the current repository state.
 
 
 ## Criteria
