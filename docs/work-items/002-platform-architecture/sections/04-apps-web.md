@@ -13,8 +13,8 @@ apps/web/
 
 - [x] Organize first by product/application.
 - [x] Put framework-specific implementation below the product boundary when useful.
-- [ ] Do not require every web application to use the same framework.
-- [ ] Allow Next.js, Rails, Django, Elixir, Rust, etc. where appropriate.
+- [x] Do not require every web application to use the same framework.
+- [x] Allow Next.js, Rails, Django, Elixir, Rust, etc. where appropriate.
 - [x] Treat `web` as an execution/interaction target, not as a JavaScript synonym.
 
 Possible structure:
