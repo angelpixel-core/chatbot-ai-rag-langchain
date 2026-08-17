@@ -77,6 +77,12 @@ may become appropriate if Payments requires an independent lifecycle.
 - [ ] Extract services because of operational/business boundaries, not because a directory exists.
 
 
+## Verification Checklist
+
+- [ ] Aligned with [0. Core Principles](./00-core-principles.md).
+- [ ] Aligned with [1. Target Repository Model](./01-target-repository-model.md).
+- [ ] Confirmed against the current repository state.
+
 ## Criteria
 
 - Apply with [0. Core Principles](./00-core-principles.md) and [1. Target Repository Model](./01-target-repository-model.md).
