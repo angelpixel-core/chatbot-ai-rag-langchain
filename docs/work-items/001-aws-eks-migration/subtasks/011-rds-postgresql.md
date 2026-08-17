@@ -59,7 +59,7 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
   - [x] Map app env vars to AWS-managed secrets.
   - [x] Keep the DB URL out of plaintext manifests.
 - [ ] Remove legacy provider-specific database artifacts from the active migration path.
-  - [ ] Retire the legacy Postgres resource as an active resource.
+  - [x] Retire the legacy Postgres resource as an active resource.
   - [x] Retire import blocks and database state adoption.
   - [x] Remove the legacy database component tree.
 
@@ -68,3 +68,4 @@ Define the AWS-managed PostgreSQL boundary for the migration and retire the old 
 - This document is the AWS/EKS replacement for the old legacy database component.
 - The same pattern should be mirrored by environment-specific AWS provisioning modules.
 - No Terraform `import` or `moved` blocks were present in `infra/provisioning/aws/` when this item was closed.
+- No active Postgres resource was present in the visible AWS provisioning tree when this item was closed.
