@@ -17,6 +17,7 @@ This is the only active batch that still depends on real cloud credentials.
 
 - [ ] Obtain real AWS/cluster credentials ([014-credentialed-access-validation](./subtasks/014-credentialed-access-validation.md))
 - [ ] Create the AWS accounts in Organizations ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md), [014-credentialed-access-validation](./subtasks/014-credentialed-access-validation.md))
+- [ ] Validate the account strategy against live AWS credentials ([002-account-strategy](./subtasks/002-account-strategy.md), [014-credentialed-access-validation](./subtasks/014-credentialed-access-validation.md))
 - [ ] Validate the bootstrap model ([006-aws-organizations-iam](./subtasks/006-aws-organizations-iam.md), [014-credentialed-access-validation](./subtasks/014-credentialed-access-validation.md))
 - [ ] Confirm human access to the cluster ([008-provision-eks-base](./subtasks/008-provision-eks-base.md), [014-credentialed-access-validation](./subtasks/014-credentialed-access-validation.md))
 - [ ] Validate access from the local environment ([008-provision-eks-base](./subtasks/008-provision-eks-base.md), [014-credentialed-access-validation](./subtasks/014-credentialed-access-validation.md))
