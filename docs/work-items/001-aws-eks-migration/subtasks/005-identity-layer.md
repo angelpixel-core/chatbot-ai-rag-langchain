@@ -67,7 +67,7 @@ Identity Source -> Identity Groups -> Access Profiles -> Account Assignments -> 
 ## Execution Checklist
 
 - [x] Define the identity source abstraction.
-- [ ] Define the human identity provider.
+- [x] Define the human identity provider.
 - [x] Define the group model.
 - [x] Define the access profile model.
 - [x] Define the account assignment model.
@@ -94,3 +94,4 @@ Identity Source -> Identity Groups -> Access Profiles -> Account Assignments -> 
 - Keep this model abstract in documentation, then implement it in AWS as IAM Identity Center permission sets and account assignments.
 - Human access is the missing piece in the Organizations/IAM bootstrap, so this subtask is the bridge between the abstract model and the AWS implementation.
 - The recommended access split is `platform-admins`, `platform-deploys`, `platform-readers`, `dev-leads`, `devs`, and `platform-break-glass` with prod kept stricter than nonprod.
+- The human identity provider is AWS IAM Identity Center.
