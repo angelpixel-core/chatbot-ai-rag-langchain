@@ -11,14 +11,14 @@ Prefer migrating from conceptual boundaries toward implementation details.
 - [ ] Move server-side application(s).
 - [ ] Move web application(s).
 - [ ] Move mobile application(s).
-- [ ] Move application-specific Dockerfiles with their applications.
+- [x] Move application-specific Dockerfiles with their applications.
 
 ## Phase 2 — Local Runtime
 
-- [ ] Establish `infra/local/`.
-- [ ] Move Compose orchestration.
-- [ ] Move local Kubernetes.
-- [ ] Remove obsolete `infra/runtime/containers/` ownership.
+- [x] Establish `infra/local/`.
+- [x] Move Compose orchestration.
+- [x] Move local Kubernetes.
+- [x] Remove obsolete runtime container ownership.
 - [ ] Reconcile local Kubernetes duplication.
 
 ## Phase 3 — Delivery

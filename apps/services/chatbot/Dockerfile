@@ -62,7 +62,7 @@ RUN apk add --no-cache \
   less
 
 COPY ${SERVICES_APP_DIR} ${SERVICES_APP_DIR}
-COPY --chmod=755 infra/runtime/containers/services/entrypoint.sh /app/infra/runtime/containers/services/entrypoint.sh
+COPY --chmod=755 apps/services/chatbot/entrypoint.sh /app/apps/services/chatbot/entrypoint.sh
 
 RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
   if ! getent passwd app >/dev/null 2>&1; then adduser -S app -G app; fi && \
@@ -70,7 +70,7 @@ RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
 
 USER app
 
-ENTRYPOINT ["/app/infra/runtime/containers/services/entrypoint.sh"]
+ENTRYPOINT ["/app/apps/services/chatbot/entrypoint.sh"]
 CMD ["/bin/sh", "-lc", "gunicorn --chdir ${SERVICES_APP_DIR} config.wsgi:application --bind 0.0.0.0:${SERVICES_PORT} --workers 2 --threads 4"]
 
 FROM deps AS test
@@ -91,7 +91,7 @@ ARG SERVICES_PORT=8000
 ARG SERVICES_APP_DIR=apps/services/chatbot
 
 COPY ${SERVICES_APP_DIR} ${SERVICES_APP_DIR}
-COPY --chmod=755 infra/runtime/containers/services/entrypoint.sh /app/infra/runtime/containers/services/entrypoint.sh
+COPY --chmod=755 apps/services/chatbot/entrypoint.sh /app/apps/services/chatbot/entrypoint.sh
 
 RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
   if ! getent passwd app >/dev/null 2>&1; then adduser -S app -G app; fi && \
@@ -99,5 +99,5 @@ RUN if ! getent group app >/dev/null 2>&1; then addgroup -S app; fi && \
 
 USER app
 
-ENTRYPOINT ["/app/infra/runtime/containers/services/entrypoint.sh"]
+ENTRYPOINT ["/app/apps/services/chatbot/entrypoint.sh"]
 CMD ["/bin/sh", "-lc", "gunicorn --chdir ${SERVICES_APP_DIR} config.wsgi:application --bind 0.0.0.0:${SERVICES_PORT} --workers 2 --threads 4"]

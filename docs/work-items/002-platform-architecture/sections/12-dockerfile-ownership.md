@@ -3,22 +3,23 @@
 ## Decision
 
 A Dockerfile belongs naturally close to the application it packages.
+It is part of the application packaging boundary, not shared infrastructure.
 
 Example:
 
 ```text
 apps/services/chatbot/
-├── src/
-├── tests/
-├── pyproject.toml
+├── config/
+├── manage.py
+├── entrypoint.sh
 └── Dockerfile
 ```
 
-- [ ] Treat Dockerfile as an application packaging boundary.
-- [ ] Do not consider Dockerfile part of the business/domain model.
-- [ ] Do not consider Dockerfile infrastructure provisioning.
-- [ ] Do not centralize every application Dockerfile under `infra/containers/`.
-- [ ] Keep application-specific build knowledge with the application.
+- [x] Treat Dockerfile as an application packaging boundary.
+- [x] Do not consider Dockerfile part of the business/domain model.
+- [x] Do not consider Dockerfile infrastructure provisioning.
+- [x] Do not centralize every application Dockerfile under shared infra runtime folders.
+- [x] Keep application-specific build knowledge with the application.
 
 Conceptually:
 
@@ -56,6 +57,15 @@ image:1.4.2
 ```
 
 - [ ] Follow "build once, configure at runtime, promote the same artifact."
+
+## Verification Checklist
+
+- [x] Application Dockerfiles live next to their owning apps.
+- [x] The service Dockerfile is under `apps/services/chatbot/`.
+- [x] The web Dockerfile is under `apps/web/chatbot/`.
+- [x] Runtime build scripts point to the app-local Dockerfiles.
+- [ ] Build environment-independent images.
+- [ ] Promote the same immutable artifact across environments.
 
 
 ## Criteria
