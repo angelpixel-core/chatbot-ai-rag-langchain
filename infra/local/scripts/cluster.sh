@@ -4,7 +4,7 @@ set -eu
 CLUSTER_NAME="${K3D_CLUSTER_NAME:-coffee-chatbot-local}"
 NAMESPACE="${K3D_NAMESPACE:-coffee-chatbot-runtime}"
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/../../.." && pwd)
-KUSTOMIZE_DIR="${ROOT_DIR}/infra/runtime/kubernetes/overlays/local"
+KUSTOMIZE_DIR="${ROOT_DIR}/infra/local/kubernetes/overlays/local"
 GENERATED_DIR="${KUSTOMIZE_DIR}/.generated"
 PROJECT_ENV_FILE="${ROOT_DIR}/infra/environments/.local/project.env"
 DEV_ENV_DIR="${ROOT_DIR}/infra/environments/dev"
@@ -12,7 +12,7 @@ DEV_COMPOSE_ENV_FILE="${DEV_ENV_DIR}/orchestration/compose.env"
 DEV_APP_CORE_ENV_FILE="${DEV_ENV_DIR}/app/core.env"
 DEV_APP_DB_ENV_FILE="${DEV_ENV_DIR}/app/db.env"
 DEV_DB_BOOTSTRAP_ENV_FILE="${DEV_ENV_DIR}/db/bootstrap.env"
-DB_INITDB_SRC_DIR="${ROOT_DIR}/infra/runtime/containers/db/entrypoint/initdb.d"
+DB_INITDB_SRC_DIR="${ROOT_DIR}/infra/runtime/bootstrap/db/entrypoint/initdb.d"
 SERVICES_IMAGE="${SERVICES_IMAGE:-coffee-chatbot-services:local}"
 WEB_IMAGE="${WEB_IMAGE:-coffee-chatbot-web:local}"
 SERVICES_PORT="${SERVICES_PORT:-10001}"
@@ -143,7 +143,7 @@ build_images() {
     --build-arg "SERVICES_APP_DIR=${SERVICES_APP_DIR}" \
     --target "${SERVICES_IMAGE_STAGE:-base}" \
     -t "$SERVICES_IMAGE" \
-    -f "$ROOT_DIR/infra/runtime/containers/services/Dockerfile" \
+    -f "$ROOT_DIR/apps/services/chatbot/Dockerfile" \
     "$ROOT_DIR"
   docker build \
     --build-arg "NODE_VERSION=${NODE_VERSION:-22.0.0}" \
@@ -153,7 +153,7 @@ build_images() {
     --build-arg "WEB_APP_DIR=${WEB_APP_DIR}" \
     --target "${WEB_IMAGE_STAGE:-base}" \
     -t "$WEB_IMAGE" \
-    -f "$ROOT_DIR/infra/runtime/containers/web/Dockerfile" \
+    -f "$ROOT_DIR/apps/web/chatbot/Dockerfile" \
     "$ROOT_DIR"
 }
 

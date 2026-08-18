@@ -7,9 +7,11 @@ Monorepo inicial para un chatbot de cafetería con backend Django y cliente web 
 - `apps/services/chatbot/` - backend Django y futura API
 - `apps/web/chatbot/` - cliente web Next.js
 - `datasets/coffee-shop/` - fuente inicial de conocimiento
-- `infra/runtime/compose.yaml` - orquestación local con Compose
-- `infra/runtime/kubernetes/` - manifests locales para k3d
-- `infra/runtime/containers/` - contenedores y entrypoints de ejecución
+- `infra/local/compose/compose.yaml` - orquestación local con Compose
+- `infra/local/kubernetes/` - manifests locales para k3d
+- `infra/local/scripts/` - helpers de orquestación local
+- `infra/runtime/bootstrap/db/` - bootstrap de PostgreSQL para Compose y k3d
+- `infra/runtime/bootstrap/` - bootstrap de plataforma y valores compartidos
 - `infra/environments/` - variables por ambiente
 - `infra/provisioning/aws/` - infraestructura declarativa de AWS/EKS
 - `infra/tooling/` - scripts y lint

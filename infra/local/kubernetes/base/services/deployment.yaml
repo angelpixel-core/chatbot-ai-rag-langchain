@@ -18,7 +18,7 @@ spec:
           imagePullPolicy: IfNotPresent
           command:
             - /bin/sh
-            - /app/infra/runtime/containers/services/entrypoint.sh
+            - /app/apps/services/chatbot/entrypoint.sh
           args:
             - python
             - apps/services/chatbot/manage.py

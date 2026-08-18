@@ -4,32 +4,33 @@
 
 ```text
 infra/runtime/
-├── compose.yaml
-├── containers/
-├── kubernetes/
-└── scripts/
+├── bootstrap/
 ```
 
 ## Migration Intent
 
-- [ ] Move application-specific Dockerfiles toward their owning applications.
-- [ ] Move Compose responsibility toward `infra/local/compose/`.
-- [ ] Move local Kubernetes responsibility toward `infra/local/kubernetes/`.
-- [ ] Move operational helper scripts toward `tooling/scripts/` or a narrowly scoped local-infra script location.
+- [x] Move application-specific Dockerfiles toward their owning applications.
+- [x] Move Compose responsibility toward `infra/local/compose/`.
+- [x] Move local Kubernetes responsibility toward `infra/local/kubernetes/`.
+- [x] Move operational helper scripts toward `tooling/scripts/` or a narrowly scoped local-infra script location.
 - [ ] Remove `infra/runtime/` if no unique responsibility remains.
 
 The word `runtime` is not inherently wrong.
 
-The issue is that the current directory combines:
+The issue is that the current directory now mostly contains:
 
 ```text
-packaging
-+ local orchestration
-+ Kubernetes
-+ operational scripts
+bootstrap assets
 ```
 
-which represent different responsibilities.
+which is a narrower responsibility, but still distinct from local orchestration.
+
+## Bootstrap Layout
+
+- [x] Keep `infra/runtime/bootstrap/db/` documented as its own bootstrap domain.
+- [x] Keep `infra/runtime/bootstrap/README.md` at the bootstrap root.
+- [ ] Add a root `README.md` for any new bootstrap subfolder.
+- [ ] Add a checklist item in the corresponding architecture section for any new bootstrap subfolder.
 
 
 ## Criteria

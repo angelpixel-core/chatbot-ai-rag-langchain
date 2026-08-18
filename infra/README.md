@@ -4,7 +4,8 @@ Tool-agnostic infrastructure root.
 
 ## Layout
 
-- `runtime/` - execution assets such as Compose, containers, and local Kubernetes definitions.
+- `runtime/` - bootstrap assets shared by local execution and cluster bootstrap.
+- `local/` - local orchestration assets such as Compose, local Kubernetes definitions, and local scripts.
 - `environments/` - environment-specific configuration values.
 - `provisioning/` - provider infrastructure definitions.
 - `tooling/` - scripts and lint helpers.
@@ -13,7 +14,8 @@ Tool-agnostic infrastructure root.
 
 - `Makefile` is the root facade for humans.
 - `infra/tooling/scripts/*` is the imperative glue layer.
-- `infra/runtime/*` holds local execution assets and cluster helpers.
+- `infra/runtime/*` holds bootstrap assets.
+- `infra/local/*` holds local orchestration assets and local scripts.
 - `infra/provisioning/aws/*` holds Terraform and cloud state.
 - `infra/delivery/*` holds declarative cluster delivery manifests.
 

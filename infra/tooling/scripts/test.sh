@@ -46,7 +46,7 @@ build_image() {
   require_file "$PROJECT_ENV_FILE"
   . "$PROJECT_ENV_FILE"
   docker build \
-    --file "${ROOT_DIR}/infra/runtime/containers/services/Dockerfile" \
+    --file "${ROOT_DIR}/apps/services/chatbot/Dockerfile" \
     --target "${TEST_IMAGE_STAGE:-test}" \
     --build-arg "PYTHON_VERSION=${PYTHON_VERSION:-3.15.0rc1}" \
     --build-arg "UID=${UID:-1000}" \

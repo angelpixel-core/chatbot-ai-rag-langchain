@@ -1,8 +1,8 @@
 services:
   services:
     build:
-      context: ../..
-      dockerfile: infra/runtime/containers/services/Dockerfile
+      context: ../../..
+      dockerfile: apps/services/chatbot/Dockerfile
       target: "${SERVICES_IMAGE_STAGE:-base}"
       args:
         PYTHON_VERSION: "${PYTHON_VERSION:-3.15.0rc1}"
@@ -15,20 +15,20 @@ services:
       db:
         condition: service_healthy
     env_file:
-      - ../../infra/environments/${STACK_ENV}/app/core.env
-      - ../../infra/environments/${STACK_ENV}/app/db.env
-      - ../../infra/environments/${STACK_ENV}/app/secrets.local.env
-      - ../../infra/environments/${STACK_ENV}/db/secrets.local.env
-      - ../../infra/environments/${STACK_ENV}/orchestration/secrets.local.env
-      - ../../infra/environments/.local/${STACK_ENV}.env
+      - ../../../infra/environments/${STACK_ENV}/app/core.env
+      - ../../../infra/environments/${STACK_ENV}/app/db.env
+      - ../../../infra/environments/${STACK_ENV}/app/secrets.local.env
+      - ../../../infra/environments/${STACK_ENV}/db/secrets.local.env
+      - ../../../infra/environments/${STACK_ENV}/orchestration/secrets.local.env
+      - ../../../infra/environments/.local/${STACK_ENV}.env
     environment:
       DB_HOST: db
       DB_PORT: "${DB_INTERNAL_PORT:-5432}"
       SERVICES_PORT: "${SERVICES_INTERNAL_PORT:-8000}"
       RUN_DB_PREPARE: "1"
     volumes:
-      - ../..:/app
-    entrypoint: ["/bin/sh", "/app/infra/runtime/containers/services/entrypoint.sh"]
+      - ../../..:/app
+    entrypoint: ["/bin/sh", "/app/apps/services/chatbot/entrypoint.sh"]
     command: ["python", "${SERVICES_APP_DIR}/manage.py", "runserver", "0.0.0.0:${SERVICES_INTERNAL_PORT:-8000}"]
     ports:
       - "${SERVICES_PORT:-10001}:${SERVICES_INTERNAL_PORT:-8000}"
@@ -43,8 +43,8 @@ services:
 
   web:
     build:
-      context: ../..
-      dockerfile: infra/runtime/containers/web/Dockerfile
+      context: ../../..
+      dockerfile: apps/web/chatbot/Dockerfile
       args:
         NODE_VERSION: "${NODE_VERSION:-22.0.0}"
         WEB_PORT: "${WEB_INTERNAL_PORT:-3000}"
@@ -56,15 +56,15 @@ services:
       services:
         condition: service_started
     env_file:
-      - ../../infra/environments/${STACK_ENV}/app/core.env
-      - ../../infra/environments/${STACK_ENV}/app/secrets.local.env
-      - ../../infra/environments/${STACK_ENV}/orchestration/secrets.local.env
-      - ../../infra/environments/.local/${STACK_ENV}.env
+      - ../../../infra/environments/${STACK_ENV}/app/core.env
+      - ../../../infra/environments/${STACK_ENV}/app/secrets.local.env
+      - ../../../infra/environments/${STACK_ENV}/orchestration/secrets.local.env
+      - ../../../infra/environments/.local/${STACK_ENV}.env
     environment:
       NEXT_PUBLIC_API_BASE_URL: "${NEXT_PUBLIC_API_BASE_URL:-http://services:${SERVICES_INTERNAL_PORT:-8000}}"
       WEB_PORT: "${WEB_INTERNAL_PORT:-3000}"
     volumes:
-      - ../..:/app
+      - ../../..:/app
     ports:
       - "${WEB_PORT:-10002}:${WEB_INTERNAL_PORT:-3000}"
     networks:
@@ -74,7 +74,7 @@ services:
     image: postgres:${POSTGRES_VERSION:-16.4}-alpine
     container_name: coffee-chatbot-db
     env_file:
-      - ../../infra/environments/${STACK_ENV}/db/bootstrap.env
+      - ../../../infra/environments/${STACK_ENV}/db/bootstrap.env
     environment:
       POSTGRES_DB: "${POSTGRES_DB:-coffee_chatbot_development}"
       POSTGRES_USER: "${POSTGRES_USER:-app}"

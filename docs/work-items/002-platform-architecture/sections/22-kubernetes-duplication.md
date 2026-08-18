@@ -4,7 +4,7 @@ Current migration must explicitly inspect:
 
 ```text
 infra/delivery/user-apps/...
-infra/runtime/kubernetes/...
+infra/local/kubernetes/...
 ```
 
 - [ ] Determine whether manifests represent the same workloads.
@@ -27,7 +27,7 @@ infra/runtime/kubernetes/...
 
 ```text
 canonical workload
-       │
+        │
   ┌────┼────┐
   ▼    ▼    ▼
 local QA   prod
